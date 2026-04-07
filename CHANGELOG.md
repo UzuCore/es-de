@@ -108,6 +108,7 @@ Under the hood the remaining ancient Raspberry Pi specific code and configuratio
 * Removed the obsolete and unsupported CEC functionality
 * Removed all specific configuration and code for the Raspberry Pi
 * Updated LunaSVG to commit b350c01cb09b48f1e894463dcb54d1b46d407162
+* (macOS) Added zstd as a dependency
 * (macOS) Updated Ogg to 1.3.6
 * (macOS) Removed obsolete entries for the Vorbis and Opus encoders from the build scripts
 * Updated the MAME index files to include ROMs up to MAME version 0.286

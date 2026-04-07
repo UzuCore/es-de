@@ -159,6 +159,9 @@ https://github.com/nemtrif/utfcpp
 Vorbis \
 https://gitlab.xiph.org/xiph/vorbis
 
+zstd \
+https://github.com/facebook/zstd
+
 # Code
 
 Some code (like the virtual keyboard) was borrowed from Batocera EmulationStation \
