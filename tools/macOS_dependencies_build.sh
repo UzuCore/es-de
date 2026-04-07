@@ -110,9 +110,9 @@ fi
 cd libpng
 rm -f CMakeCache.txt
 if [ $(uname -m) == "arm64" ]; then
-  cmake -DCMAKE_BUILD_TYPE=Release -DPNG_SHARED=off -DPNG_FRAMEWORK=off -DPNG_ARM_NEON=off -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
+  cmake -DCMAKE_BUILD_TYPE=Release -DPNG_SHARED=off -DPNG_FRAMEWORK=off -DPNG_ARM_NEON=off -DCMAKE_PREFIX_PATH=$(pwd)/../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
 else
-  cmake -DCMAKE_BUILD_TYPE=Release -DPNG_SHARED=off -DPNG_FRAMEWORK=off -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
+  cmake -DCMAKE_BUILD_TYPE=Release -DPNG_SHARED=off -DPNG_FRAMEWORK=off -DCMAKE_PREFIX_PATH=$(pwd)/../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
 fi
 make clean
 make -j${JOBS}
@@ -145,7 +145,7 @@ fi
 
 cd freetype/build
 rm -f CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_DISABLE_FIND_PACKAGE_HarfBuzz=on -DBUILD_SHARED_LIBS=on -DCMAKE_MACOSX_RPATH=on -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -S .. -B .
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_DISABLE_FIND_PACKAGE_HarfBuzz=on -DBUILD_SHARED_LIBS=on -DCMAKE_MACOSX_RPATH=on -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -S .. -B .
 make clean
 make -j${JOBS}
 cp libfreetype.6.20.2.dylib ../../../libfreetype.6.dylib
@@ -184,12 +184,29 @@ fi
 
 cd libjpeg-turbo/build
 rm -f CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -B . -S ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -B . -S ..
 make clean
 make -j${JOBS}
 make install
 cp libjpeg.62.4.0.dylib ../../../libjpeg.62.dylib
 cd ../..
+
+echo
+echo "Building zstd"
+
+if [ ! -d zstd ]; then
+  echo "zstd directory is missing, aborting."
+  exit
+fi
+
+cd zstd/build/cmake
+rm -f CMakeCache.txt
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../../../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../../../local_install -B . -S .
+make clean
+make -j${JOBS}
+make install
+cp lib/libzstd.1.5.7.dylib ../../../../libzstd.1.dylib
+cd ../../..
 
 echo
 echo "Building LibTIFF"
@@ -201,7 +218,7 @@ fi
 
 cd libtiff/build
 rm -f CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -Dtiff-tools=off -Dtiff-tests=off -Dtiff-contrib=off -Dtiff-docs=off -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -B . -S ..
+cmake -DCMAKE_BUILD_TYPE=Release -Dtiff-tools=off -Dtiff-tests=off -Dtiff-contrib=off -Dtiff-docs=off -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -B . -S ..
 make clean
 make -j${JOBS}
 make install
@@ -218,7 +235,7 @@ fi
 
 cd openjpeg/build
 rm -f CMakeCache.txt
-PKG_CONFIG_PATH=$(pwd)/../local_install/lib/pkgconfig cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -S .. -B .
+PKG_CONFIG_PATH=$(pwd)/../local_install/lib/pkgconfig cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../../local_install -S .. -B .
 make clean
 make -j${JOBS}
 make install
@@ -235,7 +252,7 @@ fi
 
 cd poppler/build
 rm -f CMakeCache.txt
-PKG_CONFIG_PATH=$(pwd)/../local_install/lib/pkgconfig cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install \
+PKG_CONFIG_PATH=$(pwd)/../local_install/lib/pkgconfig cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install -DCMAKE_PREFIX_PATH=$(pwd)/../../local_install \
 -DENABLE_UTILS=off -DBUILD_CPP_TESTS=off -DENABLE_LIBCURL=off -DRUN_GPERF_IF_PRESENT=off -DENABLE_QT5=off -DENABLE_QT6=off -DENABLE_BOOST=off \
 -DENABLE_GLIB=off -DENABLE_NSS3=off -DENABLE_GPGME=off -DENABLE_LCMS=off -S .. -B .
 make clean
@@ -321,7 +338,7 @@ fi
 
 cd ogg
 rm -f CMakeCache.txt
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH=$(pwd)/../local_install -DCMAKE_INSTALL_PREFIX=$(pwd)/../local_install .
 make clean
 make -j${JOBS}
 make install

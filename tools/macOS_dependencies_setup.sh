@@ -119,6 +119,20 @@ git checkout 2.16.1
 cd ..
 
 echo
+echo "Setting up zstd"
+rm -rf zstd
+git clone https://github.com/facebook/zstd.git
+
+if [ ! -d zstd]; then
+  echo "zstd directory is missing, aborting."
+  exit
+fi
+
+cd zstd
+git checkout v1.5.7
+cd ..
+
+echo
 echo "Setting up libjpeg-turbo"
 rm -rf libjpeg-turbo
 git clone https://github.com/libjpeg-turbo/libjpeg-turbo.git
