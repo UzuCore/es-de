@@ -84,8 +84,6 @@ Yes but this is not recommended. It's tedious to setup and not how ES-DE is inte
 
 RetroArch on Android is very unforgiving, if you haven't installed the necessary core or BIOS files it's a high chance that you just see a black screen and it will hang there, possibly until you kill it. And due to the security model in Android it's not possible for ES-DE to check if a core is actually installed prior to attempting to launch RetroArch (on Linux, macOS and Windows a popup is shown if the core file is missing and the game is never actually launched in this case). Also make sure that the core you have installed in RetroArch is the one you actually use in ES-DE. You can select between different cores and emulators for most systems using the _Alternative emulators_ interface in the _Other settings_ menu, or per game via the metadata editor.
 
-Another reason for the black screen is if you have multiple users configured on your device and attempt to run RetroArch from a non-primary user while having your ROMs on internal storage. In ES-DE 3.4.0 there is experimental multi-user support for RetroArch for a limited number of emulator entries, and the plan is to roll this out for all entries in the future, which should fully resolve this issue.
-
 As a side note, the RetroArch release on the Google Play store has not been updated in a very long time, so it's instead strongly recommended to download a current release from the [RetroArch](https://retroarch.com) website.
 
 ## When I launch a game using a standalone emulator, why does it say the game file could not be opened?
