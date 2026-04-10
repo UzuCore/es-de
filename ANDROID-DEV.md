@@ -352,9 +352,9 @@ This emulator can be downloaded from their GitLab site.
 
 https://git.eden-emu.dev/eden-emu/eden/releases
 
-There are also nightly builds on their GitHub CI site.
+There are also nightly builds available.
 
-https://github.com/Eden-CI/Nightly/releases
+https://git.eden-emu.dev/eden-ci/nightly/releases
 
 ### ePSXe
 

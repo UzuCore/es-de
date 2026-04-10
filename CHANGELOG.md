@@ -1,28 +1,29 @@
 # ES-DE Frontend - Changelog
 
-## Version 3.4.1 / 3.4.1-58 (in development)
+## Version 3.4.1 / 3.4.1-58
 
-**Release date:** TBD
+**Release date:** 2026-04-10
 
 ### Release overview
 
 This release adds official (although experimental) support for Linux on AArch64, which is aiming for operating systems such as the upcoming SteamOS release for ARM. It also adds support for a lot of new emulators across all the main supported operating systems.
 
-For Android specifically there are multiple new systems enabled, those being Namco-Sega-Nintendo Triforce (triforce), Microsoft Xbox (xbox) and Microsoft Xbox 360 (xbox360). And although the Sega Model 3 (model3) system was technically supported in the previous release, it wasn't really very usable in practice due to only MAME being available for these games, but now this system is also fully usable due to the new SUPER3 emulator. Support for multi-user setups has also been fully rolled out for all RetroArch cores as of this release, meaning ES-DE should now work correctly in Android multi-user environments.
+For Android specifically there are three new systems enabled, those being Namco-Sega-Nintendo Triforce (triforce), Microsoft Xbox (xbox) and Microsoft Xbox 360 (xbox360). And although the Sega Model 3 (model3) system was technically supported in the previous release, it wasn't really usable in practice due to only MAME being available for these games, but now these games are fully playable due to the new SUPER3 emulator. Likewise PICO-8 is now much more usable on Android as the official Raspberry Pi build can be used via an unofficial PICO-8 wrapper. Support for multi-user setups has also been fully rolled out for all RetroArch cores as of this release, meaning ES-DE should now work correctly in Android multi-user environments.
 
 On macOS three new systems have been enabled as well, those being OpenBOR Game Engine (openbor), Namco-Sega-Nintendo Triforce (triforce) and Microsoft Xbox 360 (xbox360).
 
-As for general cross-platform topics, a new language has been added, which is Vietnamese. There are also a couple of general bug fixes and translation updates as well as some dependency library updates. There are also quite a number of new RetroArch cores supported for many systems, see below for all details.
+As for general cross-platform topics, a new language has been added, which is Vietnamese. There are also a couple of general bug fixes and translation updates as well as some dependency library updates. There are also quite a number of new standalone emulators and RetroArch cores added for many systems, see below for all details.
 
 Under the hood the remaining ancient Raspberry Pi specific code and configuration has now been fully removed, meaning there is no longer any device-specific code or configuration whatsoever in ES-DE and everything is instead completely generalized.
 
 ### Detailed list of changes
 
-* (Linux) Added initial support for the ARM64/AArch64 architecture (including its own set of find rules, import rules and system configuration)
+* (Linux) Added initial support for the AArch64/ARM64 architecture (including its own set of find rules, import rules and system configuration)
 * (Android) Changed all RetroArch emulator entries to use %INTERNALDATA% and %EXTERNALDATA% to support multi-user setups
 * (Android) Added support for using the "Launch games on the other screen" option on devices where both screens have the same display name
 * Added translations for Vietnamese (vi_VN)
 * Added North America as an additional ScreenScraper region
+* Added a j2me platform to the j2me system so that these games can be scraped using TheGamesDB
 * Added scraper-start and scraper-end custom events for the multi-scraper
 * (Android) Added support for the Namco-Sega-Nintendo Triforce (triforce) system using the Dolphin RetroArch core
 * (Android) Added support for the Microsoft Xbox (xbox) system using the X1 BOX emulator
@@ -61,25 +62,32 @@ Under the hood the remaining ancient Raspberry Pi specific code and configuratio
 * (Linux) Added systempath find rules for xenia and xenia_canary
 * (Linux) Added staticpath find rules for the new pkgforge-dev AppImage filename for xenia canary
 * (Linux) Added staticpath find rules for the new official xenia canary AppImage
-* Added the ClownMDEmu RetroArch core as an alternative emulator for the genesis, megacd, megacdjp, megadrive, megadrivejp and segacd systems
-* Added the SkyEmu RetroArch core as an alternative emulator for the gb, gba, gbc and nds systems
+* (macOS) Added support for the OpenBOR Game Engine (openbor) system
+* (macOS) Added support for the Namco-Sega-Nintendo Triforce (triforce) system using the Dolphin RetroArch core
+* (macOS) Added support for the Microsoft Xbox 360 (xbox360) system using the XeniOS emulator
+* (macOS) Added the YabaSanshiro RetroArch core as an alternative emulator for the saturn and saturnjp systems
+* (macOS) Added the vitaQuake 3 RetroArch core as an alternative emulator for the quake system
+* (macOS) Added Mariani standalone as the default emulator for the apple2 system
+* (macOS) Added Supermodel standalone as the default emulator for the model3 system
+* (macOS) Added Supermodel standalone as an alternative emulator for the arcade and mame systems
+* Added a popular standalone emulator as the default emulator for the switch system
+* Added the Azahar RetroArch core as the default emulator for the n3ds system
 * Added the AmiArcadia RetroArch core as the default emulator for the arcadia system
-* Added the JollyCV RetroArch core as an alternative emulator for the colecovision system
-* Added the Dolphin RetroArch core as an alternative emulator for the consolearcade system
 * Added the JollyCV RetroArch core as the default emulator for the crvision system
 * Added the Dolphin RetroArch core as the default emulator for the triforce system on Linux and Windows
+* Added the ClownMDEmu RetroArch core as an alternative emulator for the genesis, megacd, megacdjp, megadrive, megadrivejp and segacd systems
+* Added the SkyEmu RetroArch core as an alternative emulator for the gb, gba, gbc and nds systems
+* Added the JollyCV RetroArch core as an alternative emulator for the colecovision system
+* Added the Dolphin RetroArch core as an alternative emulator for the consolearcade system
+* Added Dolphin standalone as an alternative emulator for the consolearcade system
 * Added Dolphin standalone as an alternative emulator for the triforce system
 * Added the Mini vMac RetroArch core as an alternative emulator for the macintosh system
-* Added the Azahar RetroArch core as the default emulator for the n3ds system
 * Added the Craft (Minecraft) RetroArch core as an alternative emulator for the ports system
-* Added a popular standalone emulator as the default emulator for the switch system
 * Added Geargrafx standalone as an alternative emulator for the pcengine, pcenginecd, supergrafx, tg16 and tg-cd systems on Linux, macOS and Windows
 * Added the Geargrafx RetroArch core as an alternative emulator for the pcenginecd and tg-cd systems
 * Added the Gearlynx RetroArch core as an alternative emulator for the atarilynx system
 * Added RPCS3 ISO standalone as an alternative emulator for the consolearcade and ps3 systems on Linux, macOS and Windows
-* Added Dolphin standalone as an alternative emulator for the consolearcade system
 * Added Mesen standalone as an alternative emulator for the gba system on Linux and Windows
-* Added a j2me platform to the j2me system so that these games can be scraped using TheGamesDB
 * Added KEGS standalone as an alternative emulator for the apple2gs system on Linux, macOS and Windows
 * Changed the launch parameter for EasyRPG Player standalone on Linux, macOS and Windows to support zipped games
 * Added the .bigpimg file extension to the atarijaguar and atarijaguarcd systems on Linux and Windows
@@ -90,20 +98,12 @@ Under the hood the remaining ancient Raspberry Pi specific code and configuratio
 * Added the .myv file extension to the colecovision system
 * Added the .img file extension to the macintosh system
 * Added the .xiso file extension to the xbox system
-* (macOS) Added support for the OpenBOR Game Engine (openbor) system
-* (macOS) Added support for the Namco-Sega-Nintendo Triforce (triforce) system using the Dolphin RetroArch core
-* (macOS) Added support for the Microsoft Xbox 360 (xbox360) system using the XeniOS emulator
-* (macOS) Added the YabaSanshiro RetroArch core as an alternative emulator for the saturn and saturnjp systems
-* (macOS) Added the vitaQuake 3 RetroArch core as an alternative emulator for the quake system
-* (macOS) Added Mariani standalone as the default emulator for the apple2 system
-* (macOS) Added Supermodel standalone as the default emulator for the model3 system
-* (macOS) Added Supermodel standalone as an alternative emulator for the arcade and mame systems
 * (Linux) Changed to building the AppImages using appimagetool-uruntime provided by the PkgForge project
 * (Linux) Changed the AppImage build scripts to use the bundled TLS/SSL certificates
 * (Linux) Added an AppImage build script for the AArch64 architecture
 * (Linux) Added RetroArch core find rule entries for NixOS and Nixpkgs
-* (linear-es-de) Updated the system metadata from the upstream system-metadata repository
 * (linear-es-de) Added an OLED color scheme (thanks c-fan for the patch)
+* (linear-es-de) Updated the system metadata from the upstream system-metadata repository
 * The theme downloader will now use the bundled certificates on all platforms if built with the BUNDLED_CERTS option
 * Removed the obsolete and unsupported CEC functionality
 * Removed all specific configuration and code for the Raspberry Pi
@@ -111,9 +111,9 @@ Under the hood the remaining ancient Raspberry Pi specific code and configuratio
 * (macOS) Added zstd as a dependency
 * (macOS) Updated Ogg to 1.3.6
 * (macOS) Removed obsolete entries for the Vorbis and Opus encoders from the build scripts
+* (Windows) Updated OpenSSL to 3.6.1
 * Updated the MAME index files to include ROMs up to MAME version 0.286
 * Bundled the February 2026 release of the Mozilla TLS/SSL certificates
-* (Windows) Updated OpenSSL to 3.6.1
 * Translation updates for all languages
 
 ### Bug fixes

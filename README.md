@@ -2,7 +2,7 @@
 
 ES-DE (EmulationStation Desktop Edition) is a frontend for browsing and launching games from your multi-platform collection.
 
-It's officially supported on Android, Linux, macOS and Windows, and semiofficially supported on Haiku. There is also a ES-DE package in the FreeBSD ports collection.
+It's officially supported on Android, Linux, macOS, Windows and Haiku. There is also an unofficial ES-DE package in the FreeBSD ports collection.
 
 Website:\
 https://es-de.org
@@ -16,28 +16,34 @@ https://www.youtube.com/@ES-DE_Frontend
 Discord:\
 https://discord.gg/42jqqNcHf9
 
-The goal of this project is to make a high quality frontend that is easy to use, requires minimal setup and configuration, looks nice, and is available across a wide range of operating systems.
+The goal of this project is to create a high quality frontend that is easy to use, requires minimal setup and configuration, looks nice, and is available across a wide range of operating systems.
 
-It comes preconfigured for use with a large selection of emulators, game engines, game managers and gaming services. It can also run locally installed games and applications. It's fully customizable, so you can easily expand it with support for additional systems and applications.
+It comes preconfigured for use with a large selection of emulators, game engines, game managers and gaming services and it can also run locally installed games and applications. It's fully customizable, so you can easily expand it with support for additional systems and applications.
 
-You can find the complete list of supported game systems in the [User guide](USERGUIDE.md#supported-game-systems).
+You can find the complete list of supported game systems in the [User guide](USERGUIDE.md#supported-game-systems) and in the [Android](ANDROID.md#supported-game-systems), [Linux on AArch64](LINUX-AARCH64.md#supported-game-systems) and [Haiku](HAIKU.md#supported-game-systems) documentation.
 
 There are many high-quality themes that can be installed using the built-in theme downloader. You can also find the web version of the themes list here: \
 https://gitlab.com/es-de/themes/themes-list
 
 ## Download
 
-Visit https://es-de.org to download the latest ES-DE release or go to the [package registry](https://gitlab.com/es-de/emulationstation-de/-/packages) where you can also find a number of previous releases.
+Visit https://es-de.org to download the latest ES-DE release.
 
 The Android port of ES-DE is a paid app, which you can get on [Patreon](https://www.patreon.com/es_de), the [Samsung Galaxy Store](https://galaxystore.samsung.com/detail/org.es_de.frontend.galaxy) and [Huawei AppGallery](https://appgallery.huawei.com/#/app/C111315115).
-
-If your run FreeBSD then ES-DE is available as an [official port](https://www.freshports.org/emulators/es-de).
 
 ## Additional information
 
 [FAQ.md](FAQ.md) -  Frequently Asked Questions
 
+[FAQ-ANDROID.md](FAQ-ANDROID.md) -  Frequently Asked Questions specifically for Android
+
 [USERGUIDE.md](USERGUIDE.md) / [USERGUIDE-DEV.md](USERGUIDE-DEV.md) - Comprehensive guide and reference for all application settings
+
+[ANDROID.md](ANDROID.md) / [ANDROID-DEV.md](ANDROID-DEV.md) - Documentation specifically for Android
+
+[LINUX-AARCH64.md](LINUX-AARCH64.md) / [LINUX-AARCH64-DEV.md](LINUX-AARCH64-DEV.md) - Documentation specifically for Linux on AArch64/ARM64
+
+[HAIKU.md](HAIKU.md) - Documentation specifically for Haiku
 
 [INSTALL.md](INSTALL.md) / [INSTALL-DEV.md](INSTALL-DEV.md) - Building from source code and advanced configuration topics
 
