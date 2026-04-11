@@ -6,9 +6,9 @@
         "version": "3.4.1",
         "release": "51",
         "date": "2026-04-10",
-        "androidVersionName": "3.4.0-56",
-        "androidVersionCode": "56",
-        "androidDate": "2025-11-07",
+        "androidVersionName": "3.4.1-58",
+        "androidVersionCode": "58",
+        "androidDate": "2026-04-10",
         "packages": [
             {
                 "name": "WindowsPortable",
