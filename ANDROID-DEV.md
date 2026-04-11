@@ -213,10 +213,6 @@ This device incorrectly reports two screens as being present even when just one 
 
 With its default configuration the theme downloader in ES-DE is unusable, to resolve this enable the setting _Handheld Settings->Advanced->Is it force start selinux_.
 
-### AYN Thor
-
-The Android task switcher can't be used when setting ES-DE (or other frontends) as the home app.
-
 ### Logitech G Cloud
 
 This device will by default kill any process that is not currently focused, so if starting a game the OS will kill ES-DE so that it has to start up every time you return from a game. To fix this disable _Settings->Labs->Process protection_.
