@@ -1,5 +1,17 @@
 # ES-DE Frontend - Changelog
 
+## Version 3.5.0 / 3.5.0-xx (in development)
+
+**Release date:** TBD
+
+### Release overview
+
+### Detailed list of changes
+
+* Added translations for Czech (cs_CZ)
+
+### Bug fixes
+
 ## Version 3.4.1 / 3.4.1-58
 
 **Release date:** 2026-04-10

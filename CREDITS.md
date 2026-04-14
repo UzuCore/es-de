@@ -23,6 +23,8 @@ Weestuarty \
 SecularSteve \
 **Catalan** \
 Johnnydement \
+**Czech** \
+Petr Rataj \
 **German** \
 Thorsten \
 Pest \
