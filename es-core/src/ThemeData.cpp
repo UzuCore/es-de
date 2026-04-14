@@ -120,6 +120,7 @@ std::vector<std::pair<std::string, std::string>> ThemeData::sSupportedLanguages 
     {"en_GB", "ENGLISH (UNITED KINGDOM)"},
     {"bs_BA", "BOSANSKI"},
     {"ca_ES", "CATALÀ"},
+    {"cs_CZ", "ČEŠTINA"},
     {"de_DE", "DEUTSCH"},
     {"es_ES", "ESPAÑOL (ESPAÑA)"},
     {"fr_FR", "FRANÇAIS"},

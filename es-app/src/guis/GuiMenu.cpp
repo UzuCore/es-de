@@ -578,6 +578,7 @@ void GuiMenu::openUIOptions()
                              selectedApplicationLanguage == "en_GB");
     applicationLanguage->add("BOSANSKI", "bs_BA", selectedApplicationLanguage == "bs_BA");
     applicationLanguage->add("CATALÀ", "ca_ES", selectedApplicationLanguage == "ca_ES");
+    applicationLanguage->add("ČEŠTINA", "cs_CZ", selectedApplicationLanguage == "cs_CZ");
     applicationLanguage->add("DEUTSCH", "de_DE", selectedApplicationLanguage == "de_DE");
     applicationLanguage->add("ESPAÑOL (ESPAÑA)", "es_ES", selectedApplicationLanguage == "es_ES");
     applicationLanguage->add("FRANÇAIS", "fr_FR", selectedApplicationLanguage == "fr_FR");
