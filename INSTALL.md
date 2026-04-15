@@ -76,6 +76,51 @@ MESA_GL_VERSION_OVERRIDE=3.3 MESA_LOADER_DRIVER_OVERRIDE=zink ./es-de
 
 Note that you'll probably need a 64-bit operating system to build and run ES-DE as there has been no testing done on 32-bit operating systems.
 
+**Waveshare VisionFive2 RISC-V SBC**
+
+This is a very specific device but it was tested with ES-DE as the first RISC-V processor build. For desktop computers RISC-V is still not viable due to the processors being so weak, but over time this will hopefully improve, and long term it's very possible that this ISA will be a fine platform for emulation and retrogaming.
+
+This board has been tested with Debian and it's the exact same build procedure as for Debian and Ubuntu on x86 or ARM, including the exact same dependencies.
+
+The build process should be working correctly, although you need to build with the GLES 3.0 renderer, like so:
+```
+cmake -DGLES=on .
+make -j4
+```
+
+At the time of writing there is a shader compiler bug in the GPU driver for the IMG BXE-4-32 MC1 that breaks the shader compilation, and this prevents ES-DE from starting. This is a simple fix, just modify the following code in `resources/shaders/glsl/core.glsl`:
+```
+    // Discard any pixels outside the clipping region.
+    if (0x0u != (shaderFlags & 0x8u)) {
+        if (position.x < clipRegion.x)
+            discard;
+        else if (position.y < clipRegion.y)
+            discard;
+        else if (position.x > clipRegion.z)
+            discard;
+        else if (position.y > clipRegion.w)
+            discard;
+    }
+```
+To the following:
+
+```    // Discard any pixels outside the clipping region.
+    if (0x0u != (shaderFlags & 0x8u)) {
+        if (position.x < clipRegion.x)
+            discard;
+        if (position.y < clipRegion.y)
+            discard;
+        if (position.x > clipRegion.z)
+            discard;
+        if (position.y > clipRegion.w)
+            discard;
+    }
+```
+
+Performance in ES-DE is poor but tolerable, at 1920x1080 you may get between 20 and 45 FPS, but it's likely that actually running games will result in abysmal performance, likely due to the slow processor.
+
+If you're using RetroArch you also need to add a core find rule entry for the RISC-V library path to `resources/systems/linux/es_find_rules.xml`
+
 **FreeBSD**
 
 Use pkg to install the dependencies:
