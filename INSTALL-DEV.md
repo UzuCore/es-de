@@ -20,7 +20,7 @@ Any code editor can be used, but [VSCode](https://code.visualstudio.com) is reco
 
 There are some dependencies that need to be fulfilled in order to build ES-DE. These are detailed per operating system below.
 
-**Debian/Ubuntu**
+### Debian/Ubuntu
 
 All of the required packages can be installed with apt:
 
@@ -28,7 +28,7 @@ All of the required packages can be installed with apt:
 sudo apt install build-essential clang-format git cmake gettext libharfbuzz-dev libicu-dev libsdl2-dev libavcodec-dev libavfilter-dev libavformat-dev libavutil-dev libfreeimage-dev libfreetype6-dev libgit2-dev libcurl4-openssl-dev libpugixml-dev libasound2-dev libbluetooth-dev libgl1-mesa-dev libpoppler-cpp-dev
 ```
 
-**Fedora**
+### Fedora
 
 On Fedora you first need to install the RPM Fusion repository:
 
@@ -43,7 +43,7 @@ Then you can use dnf to install all the required packages:
 sudo dnf install gcc-c++ clang-tools-extra cmake gettext harfbuzz-devel libicu-devel libasan rpm-build SDL2-devel ffmpeg-devel libavcodec-devel libavfilter-devel freeimage-devel freetype-devel libgit2-devel curl-devel pugixml-devel alsa-lib-devel bluez-libs-devel mesa-libGL-devel poppler-cpp-devel
 ```
 
-**Arch/Manjaro**
+### Arch/Manjaro
 
 Use pacman to install all the required packages:
 
@@ -51,7 +51,7 @@ Use pacman to install all the required packages:
 sudo pacman -S gcc clang make cmake gettext harfbuzz icu pkgconf sdl2 ffmpeg freeimage freetype2 libgit2 pugixml poppler
 ```
 
-**Raspberry Pi OS**
+### Raspberry Pi OS
 
 All of the required packages can be installed with apt:
 ```
@@ -78,7 +78,7 @@ MESA_GL_VERSION_OVERRIDE=3.3 MESA_LOADER_DRIVER_OVERRIDE=zink ./es-de
 
 Note that you'll probably need a 64-bit operating system to build and run ES-DE as there has been no testing done on 32-bit operating systems.
 
-**Waveshare VisionFive2 RISC-V SBC**
+### Waveshare VisionFive2 RISC-V SBC
 
 This is a very specific device but it was tested with ES-DE as the first RISC-V processor build. For desktop computers RISC-V is still not viable due to the processors being so weak, but over time this will hopefully improve, and long term it's very possible that this ISA will be a fine platform for emulation and retrogaming.
 
@@ -123,7 +123,7 @@ Performance in ES-DE is poor but tolerable, at 1920x1080 you may get between 20 
 
 If you're using RetroArch you also need to add a core find rule entry for the RISC-V library path to `resources/systems/linux/es_find_rules.xml`
 
-**FreeBSD**
+### FreeBSD
 
 Use pkg to install the dependencies:
 ```
@@ -132,7 +132,7 @@ pkg install llvm-devel git pkgconf cmake gettext harfbuzz icu sdl2 ffmpeg freeim
 
 Clang/LLVM and curl should already be included in the base OS installation.
 
-**Cloning and compiling ES-DE**
+### Cloning and compiling ES-DE
 
 To clone the source repository, run the following:
 ```
@@ -300,7 +300,7 @@ It's important to understand that this is not only the directory used by the ins
 
 On Linux, if you're not building a package and instead intend to install using `make install` it's recommended to set the installation prefix to /usr/local instead of /usr.
 
-**Compilers**
+### Compilers
 
 Both Clang/LLVM and GCC work fine for building ES-DE, and on Ubuntu it's easy to switch between the two using `update-alternatives`:
 
@@ -321,7 +321,7 @@ update-alternatives: using /usr/bin/clang++ to provide /usr/bin/c++ (c++) in man
 
 Following this, just re-run cmake and make and the binary should be built by Clang instead.
 
-**Installing**
+### Installing
 
 Installing the software requires root permissions, the following command will install all the required application files:
 
@@ -367,7 +367,7 @@ A theme is not mandatory to start the application, but ES-DE will be basically u
 
 As indicated above, the home directory will always take precedence and any resources or themes located there will override the ones in the installation path, or in the path of the ES-DE executable.
 
-**Creating .deb and .rpm packages**
+### Creating .deb and .rpm packages
 
 Creation of Debian .deb packages is enabled by default, simply run `cpack` to generate the package:
 
@@ -433,7 +433,7 @@ And of course, you can also install the package:
 sudo dnf install ./es-de_3.0.0-x64.rpm
 ```
 
-**Creating an AppImage**
+### Creating an AppImage
 
 The process to create a Linux AppImage is completely automated. You simply run the AppImage creation script, which has to be executed from the root of the repository:
 
@@ -463,7 +463,7 @@ It's recommended to run R1/beta5 as the nightly Haiku builds can be quite unstab
 
 If running Haiku in KVM/Qemu, make sure to use SATA storage intead of VirtIO storage as you may otherwise experience stability issues and filesystem corruption.
 
-**Local build**
+### Local build
 
 Use pkgman to install the required dependencies:
 ```
@@ -483,7 +483,7 @@ make -j8
 
 Change the -j flag to whatever amount of parallel threads you want to use for the compilation.
 
-**HaikuPorts package build**
+### HaikuPorts package build
 
 Run the following to build the .hpkg package:
 
@@ -507,7 +507,7 @@ cp ~/haikuports/packages/es_de-3.1.1-1-x86_64.hpkg /boot/system/packages
 
 ES-DE for macOS is built using Clang/LLVM which is the default compiler for this operating system. It's pretty straightforward to build software on this OS. The main problem is that there is no native package manager, but as there are several third party package managers available, this can be partly compensated for. The use of one of them, [Homebrew](https://brew.sh), is detailed below.
 
-**Setting up the build tools**
+### Setting up the build tools
 
 Install the Command Line Tools which include Clang/LLVM, Git, make etc. Simply open a terminal and enter the command `clang`. This will open a dialog that will let you download and install the tools.
 
@@ -521,7 +521,7 @@ If running on an M1 Mac, you also need to add the following to your `~/.zshrc` s
 export PATH=/opt/homebrew/bin:$PATH
 ```
 
-**Package installation with Homebrew**
+### Package installation with Homebrew
 
 Install the required tools:
 
@@ -529,14 +529,14 @@ Install the required tools:
 brew install clang-format cmake pkg-config meson nasm yasm
 ```
 
-**Developer mode**
+### Developer mode
 
 Enable developer mode to avoid annoying password requests when attaching the debugger to a process:
 ```
 sudo /usr/sbin/DevToolsSecurity --enable
 ```
 
-**Cloning and compiling**
+### Cloning and compiling
 
 To clone the source repository, run the following:
 
@@ -625,7 +625,7 @@ export ASAN_OPTIONS=detect_container_overflow=0
 
 Running ES-DE from the build directory may be a bit flaky as there is no Info.plist file available which is required for setting the proper window mode and such. It's therefore recommended to run the application from the installation directory for any more in-depth testing. But normal debugging can of course be done from the build directory.
 
-**Cross-compiling for x86_64**
+### Cross-compiling for x86_64
 
 To cross-compile for x86_64 using an ARM processor you only need to change two things.
 
@@ -638,7 +638,7 @@ cmake -DCMAKE_OSX_ARCHITECTURES=x86_64 .
 
 Following this you can just build and package the application in the same way as a native ARM build.
 
-**Code signing**
+### Code signing
 
 A detailed explanation of macOS code signing is beyond the scope of this document, but the CMake option MACOS_CODESIGN_IDENTITY is used to specify the code signing certificate identity, for example:
 ```
@@ -652,7 +652,7 @@ security unlock-keychain
 
 This is not required if cpack is run from a terminal window started via the desktop interface as the keychain is unlocked as part of the desktop login.
 
-**Installing**
+### Installing
 
 As macOS does not have any package manager which would have handled the library dependencies, we need to bundle the required shared libraries with the application. This is almost completely automated by the build scripts.
 
@@ -711,7 +711,7 @@ A theme is not mandatory to start the application, but ES-DE will be basically u
 
 As indicated above, the home directory will always take precedence and any resources or themes located there will override the ones in the path of the ES-DE executable.
 
-**Creating a .dmg installer**
+### Creating a .dmg installer
 
 Simply run `cpack` to build a .dmg disk image/installer:
 
@@ -762,7 +762,7 @@ The way the MSVC environment works is that a specific developer shell is provide
 
 It's important to choose the x64-specific shell and not the x86 variant, as ES-DE will only compile as a 64-bit application.
 
-**Other preparations**
+### Other preparations
 
 In order to get clang-format onto the system you need to download and install Clang/LLVM: \
 https://releases.llvm.org
@@ -779,7 +779,7 @@ It's strongly recommended to set line breaks to Unix-style (line feed only) dire
 
 The instructions below assume all build steps for MSVC are done in the MSVC developer console (x64 Native Tools Command Prompt for VS).
 
-**Cloning and setting up dependencies**
+### Cloning and setting up dependencies
 
 To clone the source repository, run the following:
 
@@ -808,7 +808,7 @@ The setup scripts will download and launch an installer for OpenSSL for Windows 
 
 Following these preparations, ES-DE should be ready to be compiled.
 
-**Building ES-DE**
+### Building ES-DE
 
 It's assumed that [Jom](https://wiki.qt.io/Jom) is used, but if instead using nmake then just remove _JOM_ from the -G flag argument and remove the -j flag as nmake does not support building in parallel.
 
@@ -839,11 +839,11 @@ ThreadSanitizer and UndefinedBehaviorSanitizer aren't available for the MSVC com
 
 There are a number of compiler warnings for the bundled rlottie library. Unfortunately these need to be resolved upstream, but everything should still work fine so the warnings can be ignored for now.
 
-**TLS/SSL certificates**
+### TLS/SSL certificates
 
 On Windows the certificates supplied with the operating system will not be utilized, instead TLS/SSL certificates bundled with ES-DE will be used.
 
-**Running with OpenGL software rendering**
+### Running with OpenGL software rendering
 
 If you are running Windows in a virtualized environment such as QEMU-KVM that does not support HW accelerated OpenGL, you can install the Mesa3D for Windows library, which can be downloaded at https://fdossena.com/?p=mesa/index.frag
 
@@ -851,7 +851,7 @@ You simply extract the opengl32.dll file into the ES-DE directory and this will 
 
 Obviously this library is only intended for development and will not be shipped with ES-DE.
 
-**Creating an NSIS installer**
+### Creating an NSIS installer
 
 To create an NSIS installer (Nullsoft Scriptable Install System) you need to first install the NSIS creation tool:
 
@@ -995,7 +995,9 @@ Of course you would like to get the code formatted according to the clang-format
 
 ## CA certificates and MAME ROM information
 
-**CA certificates**
+These files are stored in the resources directory.
+
+### CA certificates
 
 There are some files shipped with ES-DE that need to be pulled from external resources, the first one being the CA certificate bundle to get TLS/SSL support working on Windows.
 
@@ -1009,7 +1011,7 @@ After downloading the file, rename it from `cacert.pem` to `curl-ca-bundle.crt` 
 emulationstation-de/resources/certificates/curl-ca-bundle.crt
 ```
 
-**MAME ROM info**
+### MAME ROM info
 
 ES-DE automatically identifies and excludes MAME BIOS and device files, as well as translating the short MAME ROM names to their full game names. This is done using information from the MAME driver file shipped with the official MAME distribution. The file needs to be converted to an internal format used by ES-DE as the original file is huge and most of the information is not required.
 
