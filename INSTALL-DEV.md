@@ -762,7 +762,7 @@ The way the MSVC environment works is that a specific developer shell is provide
 
 It's important to choose the x64-specific shell and not the x86 variant, as ES-DE will only compile as a 64-bit application.
 
-### Other preparations
+### Additional preparations
 
 In order to get clang-format onto the system you need to download and install Clang/LLVM: \
 https://releases.llvm.org
@@ -995,7 +995,7 @@ Of course you would like to get the code formatted according to the clang-format
 
 ## CA certificates and MAME ROM information
 
-These files are stored in the resources directory.
+These files are regularly updated as releases for ES-DE are made.
 
 ### CA certificates
 
