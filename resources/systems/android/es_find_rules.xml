@@ -154,6 +154,12 @@
             <entry>com.github.eka2l1/.emu.EmulatorActivity</entry>
         </rule>
     </emulator>
+    <emulator name="EMUCOREX">
+        <!-- Sony PlayStation 2 emulator EmuCoreX -->
+        <rule type="androidpackage">
+            <entry>com.sbro.emucorex/.MainActivity</entry>
+        </rule>
+    </emulator>
     <emulator name="EPSXE">
         <!-- Sony PlayStation 1 emulator ePSXe -->
         <rule type="androidpackage">
