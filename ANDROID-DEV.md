@@ -335,13 +335,6 @@ The Play store version of this emulator is getting frequent updates and is there
 
 https://play.google.com/store/apps/details?id=com.github.stenzek.duckstation
 
-### EKA2L1
-
-This emulator can be installed from the Play store or it can be downloaded from their GitHub site.
-
-https://play.google.com/store/apps/details?id=com.github.eka2l1 \
-https://github.com/EKA2L1/EKA2L1/releases
-
 ### Eden
 
 This emulator can be downloaded from their GitLab site.
@@ -351,6 +344,19 @@ https://git.eden-emu.dev/eden-emu/eden/releases
 There are also nightly builds available.
 
 https://git.eden-emu.dev/eden-ci/nightly/releases
+
+### EKA2L1
+
+This emulator can be installed from the Play store or it can be downloaded from their GitHub site.
+
+https://play.google.com/store/apps/details?id=com.github.eka2l1 \
+https://github.com/EKA2L1/EKA2L1/releases
+
+### EmuCoreX
+
+This emulator can be downloaded from their GitHub site.
+
+https://github.com/sashkinbro/EmuCoreX/releases
 
 ### ePSXe
 
@@ -988,7 +994,7 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | plus4                 | Commodore Plus/4                               | VICE xplus4                       |                                   | No           | Single archive or image file for tape, cartridge or single-diskette games, .m3u playlist for multi-diskette games |
 | pokemini              | Nintendo Pokémon Mini                          | PokeMini                          |                                   | No           |                                      |
 | ports                 | Ports                                          | ECWolf (Wolfenstein 3D)           | CannonBall (OutRun),<br>Craft (Minecraft),<br>Mr.Boom (Bomberman),<br>NXEngine (Cave Story),<br>drs (Cave Story),<br>OpenLara (Tomb Raider),<br>Super Bros War,,<br>idTech4A++ **(Standalone)** | Yes for ECWolf |                                      |
-| ps2                   | Sony PlayStation 2                             | AetherSX2 **(Standalone)**        | ARMSX2 **(Standalone)**,<br>Play! **(Standalone)**            | Yes for AetherSX2 and ARMSX2 |                                      |
+| ps2                   | Sony PlayStation 2                             | AetherSX2 **(Standalone)**        | ARMSX2 **(Standalone)**,<br>EmuCoreX **(Standalone)**,<br>Play! **(Standalone)**            | Yes except for Play! |                                      |
 | ps3                   | Sony PlayStation 3                             | aPS3e Game Serial **(Standalone)** | aPS3e Directory **(Standalone)**,<br>aPS3e ISO **(Standalone)** | Yes          | See the specific _Sony PlayStation 3_ section in the user guide |
 | ps4                   | Sony PlayStation 4                             | _Placeholder_                     |                                   |              |                                      |
 | psp                   | Sony PlayStation Portable                      | PPSSPP                            | PPSSPP **(Standalone)**           | No           | Single disc image file               |

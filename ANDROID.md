@@ -335,13 +335,6 @@ The Play store version of this emulator is getting frequent updates and is there
 
 https://play.google.com/store/apps/details?id=com.github.stenzek.duckstation
 
-### EKA2L1
-
-This emulator can be installed from the Play store or it can be downloaded from their GitHub site.
-
-https://play.google.com/store/apps/details?id=com.github.eka2l1 \
-https://github.com/EKA2L1/EKA2L1/releases
-
 ### Eden
 
 This emulator can be downloaded from their GitLab site.
@@ -351,6 +344,13 @@ https://git.eden-emu.dev/eden-emu/eden/releases
 There are also nightly builds available.
 
 https://git.eden-emu.dev/eden-ci/nightly/releases
+
+### EKA2L1
+
+This emulator can be installed from the Play store or it can be downloaded from their GitHub site.
+
+https://play.google.com/store/apps/details?id=com.github.eka2l1 \
+https://github.com/EKA2L1/EKA2L1/releases
 
 ### ePSXe
 

@@ -8,6 +8,7 @@
 
 ### Detailed list of changes
 
+* (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * Added translations for Czech (cs_CZ)
 
 ### Bug fixes
