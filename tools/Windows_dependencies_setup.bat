@@ -273,7 +273,7 @@ copy /Y poppler\Library\bin\iconv.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\jpeg8.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\lcms2.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\Lerc.dll ..\es-pdf-converter
-copy /Y poppler\Library\bin\libcrypto-3-x64.dll ..\es-pdf-converter
+copy /Y poppler\Library\bin\libcrypto-4-x64.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\libcurl.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\liblzma.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\libpng16.dll ..\es-pdf-converter
@@ -383,22 +383,22 @@ copy /Y ffmpeg\lib\swscale.lib ..
 echo:
 echo Setting up OpenSSL
 
-if exist Win64OpenSSL_Light-3_4_0.exe (
-  del Win64OpenSSL_Light-3_4_0.exe
+if exist Win64OpenSSL_Light-4_0_0.exe (
+  del Win64OpenSSL_Light-4_0_0.exe
 )
 
-if not exist "C:\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll" (
-  curl -O https://slproweb.com/download/Win64OpenSSL_Light-3_6_1.exe
+if not exist "C:\Program Files\OpenSSL-Win64\libcrypto-4-x64.dll" (
+  curl -O https://slproweb.com/download/Win64OpenSSL_Light-4_0_0.exe
   :: Run the installer.
-  .\Win64OpenSSL_Light-3_6_1.exe
+  .\Win64OpenSSL_Light-4_0_0.exe
 )
 
 :: Return to the root of the repository.
 cd ..
 
-if exist "C:\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll" (
-  copy /Y "C:\Program Files\OpenSSL-Win64\libcrypto-3-x64.dll"
-  copy /Y "C:\Program Files\OpenSSL-Win64\libssl-3-x64.dll"
+if exist "C:\Program Files\OpenSSL-Win64\libcrypto-4-x64.dll" (
+  copy /Y "C:\Program Files\OpenSSL-Win64\libcrypto-4-x64.dll"
+  copy /Y "C:\Program Files\OpenSSL-Win64\libssl-4-x64.dll"
 )
 
 echo:
