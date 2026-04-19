@@ -92,28 +92,28 @@ cd ..
 echo:
 echo Setting up curl
 
-if exist curl-8.13.0_1-win64-mingw\ (
-  rmdir /S /Q curl-8.13.0_1-win64-mingw
+if exist curl-8.19.0_7-win64-mingw\ (
+  rmdir /S /Q curl-8.19.0_7-win64-mingw
 )
 
 if exist curl\ (
   rmdir /S /Q curl
 )
 
-if exist curl-8.13.0_1-win64-mingw.zip (
-  del curl-8.13.0_1-win64-mingw.zip
+if exist curl-8.19.0_7-win64-mingw.zip (
+  del curl-8.19.0_7-win64-mingw.zip
 )
 
-curl -O https://curl.se/windows/dl-8.13.0_1/curl-8.13.0_1-win64-mingw.zip
-7z x curl-8.13.0_1-win64-mingw.zip
+curl -O https://curl.se/windows/dl-8.19.0_7/curl-8.19.0_7-win64-mingw.zip
+7z x curl-8.19.0_7-win64-mingw.zip
 
-if not exist curl-8.13.0_1-win64-mingw\bin\ (
+if not exist curl-8.19.0_7-win64-mingw\bin\ (
   echo curl directory is missing, aborting.
   cd ..
   goto end
 )
 
-rename curl-8.13.0_1-win64-mingw curl
+rename curl-8.19.0_7-win64-mingw curl
 
 cd curl\bin
 
