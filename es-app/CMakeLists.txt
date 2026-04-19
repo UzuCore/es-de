@@ -174,7 +174,7 @@ if(WIN32)
                   ../icudt77.dll
                   ../icuin77.dll
                   ../icuuc77.dll
-                  ../libcrypto-3-x64.dll
+                  ../libcrypto-4-x64.dll
                   ../libcurl-x64.dll
                   ../libiconv-2.dll
                   ../libintl-8.dll
@@ -193,7 +193,7 @@ if(WIN32)
                   ../es-pdf-converter/jpeg8.dll
                   ../es-pdf-converter/lcms2.dll
                   ../es-pdf-converter/Lerc.dll
-                  ../es-pdf-converter/libcrypto-4-x64.dll
+                  ../es-pdf-converter/libcrypto-3-x64.dll
                   ../es-pdf-converter/libcurl.dll
                   ../es-pdf-converter/liblzma.dll
                   ../es-pdf-converter/libpng16.dll
