@@ -273,7 +273,7 @@ copy /Y poppler\Library\bin\iconv.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\jpeg8.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\lcms2.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\Lerc.dll ..\es-pdf-converter
-copy /Y poppler\Library\bin\libcrypto-4-x64.dll ..\es-pdf-converter
+copy /Y poppler\Library\bin\libcrypto-3-x64.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\libcurl.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\liblzma.dll ..\es-pdf-converter
 copy /Y poppler\Library\bin\libpng16.dll ..\es-pdf-converter

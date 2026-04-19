@@ -174,7 +174,7 @@ if(WIN32)
                   ../icudt77.dll
                   ../icuin77.dll
                   ../icuuc77.dll
-                  ../libcrypto-4-x64.dll
+                  ../libcrypto-3-x64.dll
                   ../libcurl-x64.dll
                   ../libiconv-2.dll
                   ../libintl-8.dll
