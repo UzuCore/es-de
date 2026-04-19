@@ -44,7 +44,7 @@ No, you will not lose any settings or data when you upgrade, everything will sta
 
 There are two possible reasons for this, the first and most common issue is that your device does not fulfill the basic requirements for ES-DE, which is that it has to run a 64-bit version of Android 10 or later.
 
-The second reason is that the APK is corrupt or not complete. When we make releases we include an MD5 hash value with the download link, and it's recommended to check the hash of the downloaded file before you attempt to install it. This will also ensure that you actually have the real release and not some third party scam or fake app or similar. A recommended app for generating the MD5 checksums is [Simple Hash Checker](https://play.google.com/store/apps/details?id=com.appcraft.hashchecker) from the Google Play store.
+The second reason is that the APK is corrupt or not complete. When we make releases we include an MD5 hash value with the download link, and it's recommended to check the hash of the downloaded file before you attempt to install it. This will also ensure that you actually have the real release and not some third party scam or fake app or similar. A recommended app for generating the MD5 checksum is [HashCalc](https://play.google.com/store/apps/details?id=com.goyalsoftech.hashcalc) from the Google Play store.
 
 ## Can I set ES-DE as my home app/launcher?
 

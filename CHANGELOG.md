@@ -10,6 +10,7 @@
 
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * Added translations for Czech (cs_CZ)
+* (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
 
 ### Bug fixes
 

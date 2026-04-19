@@ -821,7 +821,7 @@ jom -j8
 
 Or for a debug build:
 ```
-cmake –G "NMake Makefiles JOM” .
+cmake -G "NMake Makefiles JOM" .
 jom -j8
 ```
 
