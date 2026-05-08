@@ -8,6 +8,7 @@
 
 ### Detailed list of changes
 
+* Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * Added translations for Czech (cs_CZ)
 * (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
