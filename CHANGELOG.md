@@ -8,9 +8,11 @@
 
 ### Detailed list of changes
 
+* Added translations for Czech (cs_CZ)
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
-* Added translations for Czech (cs_CZ)
+* (Linux) Added ~/AppImages/ as an additional search path for all AppImages
+* Added the .a0, .b0 and .rom file extensions to the vic20 system
 * (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
 
 ### Bug fixes

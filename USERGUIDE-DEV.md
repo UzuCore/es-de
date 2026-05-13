@@ -277,6 +277,8 @@ It also seems like Microsoft broke the Intel GPU drivers with the KB5048685 upda
 
 Some computers using Intel Iris Xe GPUs refuse to start ES-DE or display excessive graphics corruption. These problems are seemingly caused by driver bugs and do not occur when using Linux with the same hardware. There is no known solution or workaround to this issue other than switching to Linux or waiting for Intel to resolve the problem with a driver update.
 
+There seems to be driver bugs with some Nvidia GPUs that are triggered if using third party performance statistics overlay applications such as ASUS GPU Tweak III. If you get a mostly black ES-DE window with some random corrupted graphics then try disabling the overlay to see whether it resolves the problem.
+
 Some older games (and possibly emulators too) may not work correctly or even start at all if ES-DE is set to run in the background while a game is launched. So if you experience strange issues with some games, make sure that the setting _Run in background (while game is launched)_ is disabled. If launching any of these problematic games from the _desktop_ system, also make sure to use the default emulator entry _Suspend ES-DE_ and not the alternative emulator _Keep ES-DE running_.
 
 In a similar fashion, some older games may require the compatibility mode to be set to an older Windows release. This is done by right clicking on the .exe file or .lnk shortcut for the game or emulator, selecting _Properties_ and then the _Compatibility_ tab, then checking the box named _Run this program in compatibility mode for:_ and finally selecting an appropriate Windows release. Some experimentation with different Windows versions may be required. Don't attempt to change the compatibility mode for ES-DE itself though as that may cause any types of unforeseen issues.
@@ -779,6 +781,7 @@ Therefore all bundled emulator configuration entries that support AppImages will
 
 ```
 ~/Applications/
+~/AppImages/
 ~/.local/share/applications/
 ~/.local/bin/
 ~/bin/
@@ -888,10 +891,12 @@ Emulator AppImages are almost always searched before Flatpaks by the bundled con
     <!-- Nintendo GameCube and Wii emulator Dolphin -->
     <rule type="systempath">
         <entry>dolphin-emu</entry>
+        <entry>dolphin-emulator.dolphin-emu</entry>
         <entry>org.DolphinEmu.dolphin-emu</entry>
     </rule>
     <rule type="staticpath">
         <entry>~/Applications/Dolphin_Emulator*.AppImage</entry>
+        <entry>~/AppImages/Dolphin_Emulator*.AppImage</entry>
         <entry>~/.local/share/applications/Dolphin_Emulator*.AppImage</entry>
         <entry>~/.local/bin/Dolphin_Emulator*.AppImage</entry>
         <entry>~/bin/Dolphin_Emulator*.AppImage</entry>
