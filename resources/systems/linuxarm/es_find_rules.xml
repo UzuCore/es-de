@@ -72,6 +72,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/ares*.AppImage</entry>
+            <entry>~/AppImages/ares*.AppImage</entry>
             <entry>~/.local/share/applications/ares*.AppImage</entry>
             <entry>~/.local/bin/ares*.AppImage</entry>
             <entry>~/bin/ares*.AppImage</entry>
@@ -89,6 +90,7 @@
         <!-- Nintendo 3DS emulator Azahar -->
         <rule type="staticpath">
             <entry>~/Applications/Azahar-Enhanced*.AppImage</entry>
+            <entry>~/AppImages/Azahar-Enhanced*.AppImage</entry>
             <entry>~/.local/share/applications/Azahar-Enhanced*.AppImage</entry>
             <entry>~/.local/bin/Azahar-Enhanced*.AppImage</entry>
             <entry>~/bin/Azahar-Enhanced*.AppImage</entry>
@@ -139,6 +141,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/desmume*.AppImage</entry>
+            <entry>~/AppImages/desmume*.AppImage</entry>
             <entry>~/.local/share/applications/desmume*.AppImage</entry>
             <entry>~/.local/bin/desmume*.AppImage</entry>
             <entry>~/bin/desmume*.AppImage</entry>
@@ -211,6 +214,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/DuckStation*.AppImage</entry>
+            <entry>~/AppImages/DuckStation*.AppImage</entry>
             <entry>~/.local/share/applications/DuckStation*.AppImage</entry>
             <entry>~/.local/bin/DuckStation*.AppImage</entry>
             <entry>~/bin/DuckStation*.AppImage</entry>
@@ -234,6 +238,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Eden*.AppImage</entry>
+            <entry>~/AppImages/Eden*.AppImage</entry>
             <entry>~/.local/share/applications/Eden*.AppImage</entry>
             <entry>~/.local/bin/Eden*.AppImage</entry>
             <entry>~/bin/Eden*.AppImage</entry>
@@ -333,6 +338,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/MAME*.AppImage</entry>
+            <entry>~/AppImages/MAME*.AppImage</entry>
             <entry>~/.local/share/applications/MAME*.AppImage</entry>
             <entry>~/.local/bin/MAME*.AppImage</entry>
             <entry>~/bin/MAME*.AppImage</entry>
@@ -359,6 +365,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/melonDS*.AppImage</entry>
+            <entry>~/AppImages/melonDS*.AppImage</entry>
             <entry>~/.local/share/applications/melonDS*.AppImage</entry>
             <entry>~/.local/bin/melonDS*.AppImage</entry>
             <entry>~/bin/melonDS*.AppImage</entry>
@@ -387,6 +394,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/mGBA*.AppImage</entry>
+            <entry>~/AppImages/mGBA*.AppImage</entry>
             <entry>~/.local/share/applications/mGBA*.AppImage</entry>
             <entry>~/.local/bin/mGBA*.AppImage</entry>
             <entry>~/bin/mGBA*.AppImage</entry>
@@ -450,6 +458,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/PPSSPP*.AppImage</entry>
+            <entry>~/AppImages/PPSSPP*.AppImage</entry>
             <entry>~/.local/share/applications/PPSSPP*.AppImage</entry>
             <entry>~/.local/bin/PPSSPP*.AppImage</entry>
             <entry>~/bin/PPSSPP*.AppImage</entry>
@@ -494,6 +503,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/rpcs3*.AppImage</entry>
+            <entry>~/AppImages/rpcs3*.AppImage</entry>
             <entry>~/.local/share/applications/rpcs3*.AppImage</entry>
             <entry>~/.local/bin/rpcs3*.AppImage</entry>
             <entry>~/bin/rpcs3*.AppImage</entry>
@@ -647,6 +657,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/xemu*.AppImage</entry>
+            <entry>~/AppImages/xemu*.AppImage</entry>
             <entry>~/.local/share/applications/xemu*.AppImage</entry>
             <entry>~/.local/bin/xemu*.AppImage</entry>
             <entry>~/bin/xemu*.AppImage</entry>

@@ -15,6 +15,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/RetroArch-Linux*.AppImage</entry>
+            <entry>~/AppImages/RetroArch-Linux*.AppImage</entry>
             <entry>~/.local/share/applications/RetroArch-Linux*.AppImage</entry>
             <entry>~/.local/bin/RetroArch-Linux*.AppImage</entry>
             <entry>~/bin/RetroArch-Linux*.AppImage</entry>
@@ -120,6 +121,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/ares*.AppImage</entry>
+            <entry>~/AppImages/ares*.AppImage</entry>
             <entry>~/.local/share/applications/ares*.AppImage</entry>
             <entry>~/.local/bin/ares*.AppImage</entry>
             <entry>~/bin/ares*.AppImage</entry>
@@ -141,10 +143,12 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/azahar*.AppImage</entry>
+            <entry>~/AppImages/azahar*.AppImage</entry>
             <entry>~/.local/share/applications/azahar*.AppImage</entry>
             <entry>~/.local/bin/azahar*.AppImage</entry>
             <entry>~/bin/azahar*.AppImage</entry>
             <entry>~/Applications/Azahar-Enhanced*.AppImage</entry>
+            <entry>~/AppImages/Azahar-Enhanced*.AppImage</entry>
             <entry>~/.local/share/applications/Azahar-Enhanced*.AppImage</entry>
             <entry>~/.local/bin/Azahar-Enhanced*.AppImage</entry>
             <entry>~/bin/Azahar-Enhanced*.AppImage</entry>
@@ -156,6 +160,7 @@
         <!-- Nintendo 3DS emulator AzaharPlus -->
         <rule type="staticpath">
             <entry>~/Applications/azaharplus*.AppImage</entry>
+            <entry>~/AppImages/azaharplus*.AppImage</entry>
             <entry>~/.local/share/applications/azaharplus*.AppImage</entry>
             <entry>~/.local/bin/azaharplus*.AppImage</entry>
             <entry>~/bin/azaharplus*.AppImage</entry>
@@ -169,6 +174,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/BasiliskII*.AppImage</entry>
+            <entry>~/AppImages/BasiliskII*.AppImage</entry>
             <entry>~/.local/share/applications/BasiliskII*.AppImage</entry>
             <entry>~/.local/bin/BasiliskII*.AppImage</entry>
             <entry>~/bin/BasiliskII*.AppImage</entry>
@@ -231,6 +237,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Cemu*.AppImage</entry>
+            <entry>~/AppImages/Cemu*.AppImage</entry>
             <entry>~/.local/share/applications/Cemu*.AppImage</entry>
             <entry>~/.local/bin/Cemu*.AppImage</entry>
             <entry>~/bin/Cemu*.AppImage</entry>
@@ -251,6 +258,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/citra-qt*.AppImage</entry>
+            <entry>~/AppImages/citra-qt*.AppImage</entry>
             <entry>~/.local/share/applications/citra-qt*.AppImage</entry>
             <entry>~/.local/bin/citra-qt*.AppImage</entry>
             <entry>~/bin/citra-qt*.AppImage</entry>
@@ -310,6 +318,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/desmume*.AppImage</entry>
+            <entry>~/AppImages/desmume*.AppImage</entry>
             <entry>~/.local/share/applications/desmume*.AppImage</entry>
             <entry>~/.local/bin/desmume*.AppImage</entry>
             <entry>~/bin/desmume*.AppImage</entry>
@@ -326,6 +335,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Dolphin_Emulator*.AppImage</entry>
+            <entry>~/AppImages/Dolphin_Emulator*.AppImage</entry>
             <entry>~/.local/share/applications/Dolphin_Emulator*.AppImage</entry>
             <entry>~/.local/bin/Dolphin_Emulator*.AppImage</entry>
             <entry>~/bin/Dolphin_Emulator*.AppImage</entry>
@@ -389,14 +399,17 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/DuckStation*.AppImage</entry>
+            <entry>~/AppImages/DuckStation*.AppImage</entry>
             <entry>~/.local/share/applications/DuckStation*.AppImage</entry>
             <entry>~/.local/bin/DuckStation*.AppImage</entry>
             <entry>~/bin/DuckStation*.AppImage</entry>
             <entry>~/Applications/duckstation-nogui*.AppImage</entry>
+            <entry>~/AppImages/duckstation-nogui*.AppImage</entry>
             <entry>~/.local/share/applications/duckstation-nogui*.AppImage</entry>
             <entry>~/.local/bin/duckstation-nogui*.AppImage</entry>
             <entry>~/bin/duckstation-nogui*.AppImage</entry>
             <entry>~/Applications/duckstation-qt*.AppImage</entry>
+            <entry>~/AppImages/duckstation-qt*.AppImage</entry>
             <entry>~/.local/share/applications/duckstation-qt*.AppImage</entry>
             <entry>~/.local/bin/duckstation-qt*.AppImage</entry>
             <entry>~/bin/duckstation-qt*.AppImage</entry>
@@ -426,6 +439,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Eden*.AppImage</entry>
+            <entry>~/AppImages/Eden*.AppImage</entry>
             <entry>~/.local/share/applications/Eden*.AppImage</entry>
             <entry>~/.local/bin/Eden*.AppImage</entry>
             <entry>~/bin/Eden*.AppImage</entry>
@@ -438,6 +452,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/EKA2L1*.AppImage</entry>
+            <entry>~/AppImages/EKA2L1*.AppImage</entry>
             <entry>~/.local/share/applications/EKA2L1*.AppImage</entry>
             <entry>~/.local/bin/EKA2L1*.AppImage</entry>
             <entry>~/bin/EKA2L1*.AppImage</entry>
@@ -485,6 +500,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/flycast-x86*.AppImage</entry>
+            <entry>~/AppImages/flycast-x86*.AppImage</entry>
             <entry>~/.local/share/applications/flycast-x86*.AppImage</entry>
             <entry>~/.local/bin/flycast-x86*.AppImage</entry>
             <entry>~/bin/flycast-x86*.AppImage</entry>
@@ -499,6 +515,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/flycast-dojo*.AppImage</entry>
+            <entry>~/AppImages/flycast-dojo*.AppImage</entry>
             <entry>~/.local/share/applications/flycast-dojo*.AppImage</entry>
             <entry>~/.local/bin/flycast-dojo*.AppImage</entry>
             <entry>~/bin/flycast-dojo*.AppImage</entry>
@@ -538,6 +555,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Gargoyle*.AppImage</entry>
+            <entry>~/AppImages/Gargoyle*.AppImage</entry>
             <entry>~/.local/share/applications/Gargoyle*.AppImage</entry>
             <entry>~/.local/bin/Gargoyle*.AppImage</entry>
             <entry>~/bin/Gargoyle*.AppImage</entry>
@@ -629,6 +647,7 @@
         <!-- Multi-system emulator jgenesis -->
         <rule type="staticpath">
             <entry>~/Applications/jgenesis-cli*.AppImage</entry>
+            <entry>~/AppImages/jgenesis-cli*.AppImage</entry>
             <entry>~/.local/share/applications/jgenesis-cli*.AppImage</entry>
             <entry>~/.local/bin/jgenesis-cli*.AppImage</entry>
             <entry>~/bin/jgenesis-cli*.AppImage</entry>
@@ -679,18 +698,22 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/lime3ds.AppImage</entry>
+            <entry>~/AppImages/lime3ds.AppImage</entry>
             <entry>~/.local/share/applications/lime3ds.AppImage</entry>
             <entry>~/.local/bin/lime3ds.AppImage</entry>
             <entry>~/bin/lime3ds.AppImage</entry>
             <entry>~/Applications/lime3ds-gui*.AppImage</entry>
+            <entry>~/AppImages/lime3ds-gui*.AppImage</entry>
             <entry>~/.local/share/applications/lime3ds-gui*.AppImage</entry>
             <entry>~/.local/bin/lime3ds-gui*.AppImage</entry>
             <entry>~/bin/lime3ds-gui*.AppImage</entry>
             <entry>~/Applications/lime-qt*.AppImage</entry>
+            <entry>~/AppImages/lime-qt*.AppImage</entry>
             <entry>~/.local/share/applications/lime-qt*.AppImage</entry>
             <entry>~/.local/bin/lime-qt*.AppImage</entry>
             <entry>~/bin/lime-qt*.AppImage</entry>
             <entry>~/Applications/lime3ds*.AppImage</entry>
+            <entry>~/AppImages/lime3ds*.AppImage</entry>
             <entry>~/.local/share/applications/lime3ds*.AppImage</entry>
             <entry>~/.local/bin/lime3ds*.AppImage</entry>
             <entry>~/bin/lime3ds*.AppImage</entry>
@@ -718,6 +741,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/lindbergh-loader*.AppImage</entry>
+            <entry>~/AppImages/lindbergh-loader*.AppImage</entry>
             <entry>~/.local/share/applications/lindbergh-loader*.AppImage</entry>
             <entry>~/.local/bin/lindbergh-loader*.AppImage</entry>
             <entry>~/bin/lindbergh-loader*.AppImage</entry>
@@ -746,6 +770,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/MAME*.AppImage</entry>
+            <entry>~/AppImages/MAME*.AppImage</entry>
             <entry>~/.local/share/applications/MAME*.AppImage</entry>
             <entry>~/.local/bin/MAME*.AppImage</entry>
             <entry>~/bin/MAME*.AppImage</entry>
@@ -760,6 +785,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/mandarine-qt*.AppImage</entry>
+            <entry>~/AppImages/mandarine-qt*.AppImage</entry>
             <entry>~/.local/share/applications/mandarine-qt*.AppImage</entry>
             <entry>~/.local/bin/mandarine-qt*.AppImage</entry>
             <entry>~/bin/mandarine-qt*.AppImage</entry>
@@ -784,6 +810,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/melonDS*.AppImage</entry>
+            <entry>~/AppImages/melonDS*.AppImage</entry>
             <entry>~/.local/share/applications/melonDS*.AppImage</entry>
             <entry>~/.local/bin/melonDS*.AppImage</entry>
             <entry>~/bin/melonDS*.AppImage</entry>
@@ -798,6 +825,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Mesen*.AppImage</entry>
+            <entry>~/AppImages/Mesen*.AppImage</entry>
             <entry>~/.local/share/applications/Mesen*.AppImage</entry>
             <entry>~/.local/bin/Mesen*.AppImage</entry>
             <entry>~/bin/Mesen*.AppImage</entry>
@@ -825,6 +853,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/mGBA*.AppImage</entry>
+            <entry>~/AppImages/mGBA*.AppImage</entry>
             <entry>~/.local/share/applications/mGBA*.AppImage</entry>
             <entry>~/.local/bin/mGBA*.AppImage</entry>
             <entry>~/bin/mGBA*.AppImage</entry>
@@ -915,6 +944,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/pcsx2*.AppImage</entry>
+            <entry>~/AppImages/pcsx2*.AppImage</entry>
             <entry>~/.local/share/applications/pcsx2*.AppImage</entry>
             <entry>~/.local/bin/pcsx2*.AppImage</entry>
             <entry>~/bin/pcsx2*.AppImage</entry>
@@ -959,6 +989,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Play!*.AppImage</entry>
+            <entry>~/AppImages/Play!*.AppImage</entry>
             <entry>~/.local/share/applications/Play!*.AppImage</entry>
             <entry>~/.local/bin/Play!*.AppImage</entry>
             <entry>~/bin/Play!*.AppImage</entry>
@@ -977,6 +1008,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/PPSSPP*.AppImage</entry>
+            <entry>~/AppImages/PPSSPP*.AppImage</entry>
             <entry>~/.local/share/applications/PPSSPP*.AppImage</entry>
             <entry>~/.local/bin/PPSSPP*.AppImage</entry>
             <entry>~/bin/PPSSPP*.AppImage</entry>
@@ -1005,6 +1037,7 @@
         <!-- Microsoft Windows compatibility layer Proton -->
         <rule type="staticpath">
             <entry>~/Applications/Proton/wine*.AppImage</entry>
+            <entry>~/AppImages/Proton/wine*.AppImage</entry>
             <entry>~/.local/share/applications/Proton/wine*.AppImage</entry>
             <entry>~/.local/bin/Proton/wine*.AppImage</entry>
             <entry>~/bin/Proton/wine*.AppImage</entry>
@@ -1056,6 +1089,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/RMG*.AppImage</entry>
+            <entry>~/AppImages/RMG*.AppImage</entry>
             <entry>~/.local/share/applications/RMG*.AppImage</entry>
             <entry>~/.local/bin/RMG*.AppImage</entry>
             <entry>~/bin/RMG*.AppImage</entry>
@@ -1072,6 +1106,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/rpcs3*.AppImage</entry>
+            <entry>~/AppImages/rpcs3*.AppImage</entry>
             <entry>~/.local/share/applications/rpcs3*.AppImage</entry>
             <entry>~/.local/bin/rpcs3*.AppImage</entry>
             <entry>~/bin/rpcs3*.AppImage</entry>
@@ -1104,6 +1139,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/*yujinx*.AppImage</entry>
+            <entry>~/AppImages/*yujinx*.AppImage</entry>
             <entry>~/.local/share/applications/*yujinx*.AppImage</entry>
             <entry>~/.local/bin/*yujinx*.AppImage</entry>
             <entry>~/bin/*yujinx*.AppImage</entry>
@@ -1162,10 +1198,12 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Shadps4-qt*.AppImage</entry>
+            <entry>~/AppImages/Shadps4-qt*.AppImage</entry>
             <entry>~/.local/share/applications/Shadps4-qt*.AppImage</entry>
             <entry>~/.local/bin/Shadps4-qt*.AppImage</entry>
             <entry>~/bin/Shadps4-qt*.AppImage</entry>
             <entry>~/Applications/Shadps4-sdl*.AppImage</entry>
+            <entry>~/AppImages/Shadps4-sdl*.AppImage</entry>
             <entry>~/.local/share/applications/Shadps4-sdl*.AppImage</entry>
             <entry>~/.local/bin/Shadps4-sdl*.AppImage</entry>
             <entry>~/bin/Shadps4-sdl*.AppImage</entry>
@@ -1179,6 +1217,7 @@
         <!-- Sony PlayStation 4 emulator shadPS4 (GUI) -->
         <rule type="staticpath">
             <entry>~/Applications/shadPS4QtLauncher*.AppImage</entry>
+            <entry>~/AppImages/shadPS4QtLauncher*.AppImage</entry>
             <entry>~/.local/share/applications/shadPS4QtLauncher*.AppImage</entry>
             <entry>~/.local/bin/shadPS4QtLauncher*.AppImage</entry>
             <entry>~/bin/shadPS4QtLauncher*.AppImage</entry>
@@ -1191,6 +1230,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/SheepShaver*.AppImage</entry>
+            <entry>~/AppImages/SheepShaver*.AppImage</entry>
             <entry>~/.local/share/applications/SheepShaver*.AppImage</entry>
             <entry>~/.local/bin/SheepShaver*.AppImage</entry>
             <entry>~/bin/SheepShaver*.AppImage</entry>
@@ -1240,6 +1280,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Snes9x*.AppImage</entry>
+            <entry>~/AppImages/Snes9x*.AppImage</entry>
             <entry>~/.local/share/applications/Snes9x*.AppImage</entry>
             <entry>~/.local/bin/Snes9x*.AppImage</entry>
             <entry>~/bin/Snes9x*.AppImage</entry>
@@ -1307,6 +1348,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/dolphin-emu-triforce*.AppImage</entry>
+            <entry>~/AppImages/dolphin-emu-triforce*.AppImage</entry>
             <entry>~/.local/share/applications/dolphin-emu-triforce*.AppImage</entry>
             <entry>~/.local/bin/dolphin-emu-triforce*.AppImage</entry>
             <entry>~/bin/dolphin-emu-triforce*.AppImage</entry>
@@ -1397,6 +1439,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/Vita3K*.AppImage</entry>
+            <entry>~/AppImages/Vita3K*.AppImage</entry>
             <entry>~/.local/share/applications/Vita3K*.AppImage</entry>
             <entry>~/.local/bin/Vita3K*.AppImage</entry>
             <entry>~/bin/Vita3K*.AppImage</entry>
@@ -1410,6 +1453,7 @@
         <!-- Microsoft Windows compatibility layer Wine -->
         <rule type="staticpath">
             <entry>~/Applications/Wine/wine*.AppImage</entry>
+            <entry>~/AppImages/Wine/wine*.AppImage</entry>
             <entry>~/.local/share/applications/Wine/wine*.AppImage</entry>
             <entry>~/.local/bin/Wine/wine*.AppImage</entry>
             <entry>~/bin/Wine/wine*.AppImage</entry>
@@ -1423,6 +1467,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/xemu*.AppImage</entry>
+            <entry>~/AppImages/xemu*.AppImage</entry>
             <entry>~/.local/share/applications/xemu*.AppImage</entry>
             <entry>~/.local/bin/xemu*.AppImage</entry>
             <entry>~/bin/xemu*.AppImage</entry>
@@ -1446,14 +1491,17 @@
             <entry>~/.local/bin/xenia/xenia_canary</entry>
             <entry>~/bin/xenia/xenia_canary</entry>
             <entry>~/Applications/xenia_canary*.AppImage</entry>
+            <entry>~/AppImages/xenia_canary*.AppImage</entry>
             <entry>~/.local/share/applications/xenia_canary*.AppImage</entry>
             <entry>~/.local/bin/xenia_canary*.AppImage</entry>
             <entry>~/bin/xenia_canary*.AppImage</entry>
             <entry>~/Applications/Xenia_Canary*.AppImage</entry>
+            <entry>~/AppImages/Xenia_Canary*.AppImage</entry>
             <entry>~/.local/share/applications/Xenia_Canary*.AppImage</entry>
             <entry>~/.local/bin/Xenia_Canary*.AppImage</entry>
             <entry>~/bin/Xenia_Canary*.AppImage</entry>
             <entry>~/Applications/xenia-canary*.AppImage</entry>
+            <entry>~/AppImages/xenia-canary*.AppImage</entry>
             <entry>~/.local/share/applications/xenia-canary*.AppImage</entry>
             <entry>~/.local/bin/xenia-canary*.AppImage</entry>
             <entry>~/bin/xenia-canary*.AppImage</entry>
@@ -1466,6 +1514,7 @@
         </rule>
         <rule type="staticpath">
             <entry>~/Applications/xenia_edge*.AppImage</entry>
+            <entry>~/AppImages/xenia_edge*.AppImage</entry>
             <entry>~/.local/share/applications/xenia_edge*.AppImage</entry>
             <entry>~/.local/bin/xenia_edge*.AppImage</entry>
             <entry>~/bin/xenia_edge*.AppImage</entry>
