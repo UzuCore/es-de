@@ -217,6 +217,10 @@ With its default configuration the theme downloader in ES-DE is unusable, to res
 
 This device will by default kill any process that is not currently focused, so if starting a game the OS will kill ES-DE so that it has to start up every time you return from a game. To fix this disable _Settings->Labs->Process protection_.
 
+### Mangmi Air X
+
+There is reportedly an issue with this device where starting ES-DE once will permanently slow down the entire device so that all emulators and such run a lot slower than normal. The only way to resolve this is apparently to reboot the device. It's possible that this bug was introduced with a recent firmware update, although that has not been confirmed. There is no known solution other than waiting for the hardware manufacturer to release a firmware update which fixes the problem, except perhaps to install GammaOS instead.
+
 ### Retroid Pocket G2
 
 With its default configuration the theme downloader in ES-DE is unusable, to resolve this enable the setting _Handheld Settings->Advanced->Is it force start selinux_.

@@ -17,6 +17,8 @@
 
 ### Bug fixes
 
+Some specific theme configuration for the system status indicators could lead to a crash on battery charge status changes
+
 ## Version 3.4.1 / 3.4.1-58
 
 **Release date:** 2026-04-10
