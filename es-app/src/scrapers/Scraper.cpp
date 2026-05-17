@@ -303,6 +303,30 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
 
         std::string filePath {getSaveAsPath(search, it->subDirectory, ext)};
 
+        // Capture data needed for metadata update after download.
+        const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
+        const std::string mdKey {mapMediaSubdirToMDKey(it->subDirectory)};
+        FileData* const game {search.game};
+        const std::string startPath {search.system->getSystemEnvData()->mStartPath};
+
+        // Helper to update metadata with relative path after a successful save.
+        auto updateMetadataWithPath = [legacyMode, mdKey, game, startPath, filePath]() {
+            if (!legacyMode || mdKey.empty() || game == nullptr)
+                return;
+            // Store relative path (relative to system ROM directory) so it works portably.
+            std::string relPath {filePath};
+            if (!startPath.empty()) {
+                std::string normalized {Utils::String::replace(filePath, "\\", "/")};
+                std::string normalizedStart {Utils::String::replace(startPath, "\\", "/")};
+                if (normalizedStart.back() != '/')
+                    normalizedStart.append("/");
+                if (normalized.find(normalizedStart) == 0) {
+                    relPath = "./" + normalized.substr(normalizedStart.length());
+                }
+            }
+            game->metadata.set(mdKey, relPath);
+        };
+
         // If there is an existing media file on disk and the setting to overwrite data
         // has been set to no, then don't proceed with downloading or saving a new file.
         if (it->existingMediaFile != "" &&
@@ -377,13 +401,16 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
             }
 
             mResult.savedNewMedia = true;
+            updateMetadataWithPath();
         }
         // If it's not cached, then initiate the download.
         else {
             mFuncs.push_back(ResolvePair(downloadMediaAsync(it->fileURL, filePath,
                                                             it->existingMediaFile, it->subDirectory,
                                                             it->resizeFile, mResult.savedNewMedia),
-                                         [filePath] {}));
+                                         [filePath, updateMetadataWithPath] {
+                                             updateMetadataWithPath();
+                                         }));
         }
     }
 }
@@ -742,6 +769,33 @@ bool resizeImage(const std::string& path, const std::string& mediaType)
     return saved;
 }
 
+// Map ES-DE media subdirectory names to ES (original EmulationStation) style names.
+// Used in Legacy mode for the folder structure: <ROM>/<system>/media/<type>/<game>.<ext>
+std::string mapMediaSubdirToESStyle(const std::string& esdeSubdir)
+{
+    if (esdeSubdir == "screenshots")  return "images";
+    if (esdeSubdir == "covers")       return "thumbnails";
+    if (esdeSubdir == "marquees")     return "marquees";
+    if (esdeSubdir == "videos")       return "videos";
+    if (esdeSubdir == "fanart")       return "fanart";
+    if (esdeSubdir == "manuals")      return "manuals";
+    // For media types not mapped, use the original name (titlescreens, 3dboxes, backcovers, physicalmedia)
+    return esdeSubdir;
+}
+
+// Map ES-DE media subdirectory names to gamelist.xml metadata keys (for Legacy mode).
+// Returns empty string for media types not stored in metadata.
+std::string mapMediaSubdirToMDKey(const std::string& esdeSubdir)
+{
+    if (esdeSubdir == "screenshots")  return "image";
+    if (esdeSubdir == "covers")       return "thumbnail";
+    if (esdeSubdir == "marquees")     return "marquee";
+    if (esdeSubdir == "videos")       return "video";
+    if (esdeSubdir == "fanart")       return "fanart";
+    if (esdeSubdir == "manuals")      return "manual";
+    return "";
+}
+
 std::string getSaveAsPath(const ScraperSearchParams& params,
                           const std::string& filetypeSubdirectory,
                           const std::string& extension)
@@ -754,6 +808,25 @@ std::string getSaveAsPath(const ScraperSearchParams& params,
     if (params.system->getSystemEnvData()->mStartPath != "")
         subFolders = Utils::String::replace(Utils::FileSystem::getParent(params.game->getPath()),
                                             params.system->getSystemEnvData()->mStartPath, "");
+
+    // Legacy mode: store media inside ROM directory as <ROM>/<system>/media/<type>/
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        std::string path {params.system->getSystemEnvData()->mStartPath};
+        if (path.back() != '/' && path.back() != '\\')
+            path.append("/");
+
+        path.append("media")
+            .append("/")
+            .append(mapMediaSubdirToESStyle(filetypeSubdirectory))
+            .append(subFolders)
+            .append("/");
+
+        if (!Utils::FileSystem::exists(path))
+            Utils::FileSystem::createDirectory(path);
+
+        path.append(name).append(extension);
+        return path;
+    }
 
     std::string path {FileData::getMediaDirectory()};
 

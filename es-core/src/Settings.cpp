@@ -54,7 +54,10 @@ namespace
         "TransitionsGamelistToGamelist",
         "TransitionsGamelistToSystem",
         "TransitionsStartupToSystem",
-        "TransitionsStartupToGamelist"
+        "TransitionsStartupToGamelist",
+
+        // Forced settings (not user-configurable):
+        "LegacyGamelistFileLocation"
         // clang-format on
     };
 
@@ -367,7 +370,7 @@ void Settings::setDefaults()
     mBoolMap["DebugSkipInputLogging"] = {false, false};
     mBoolMap["DebugSkipMissingThemeFiles"] = {false, false};
     mBoolMap["DebugSkipMissingThemeFilesCustomCollections"] = {true, true};
-    mBoolMap["LegacyGamelistFileLocation"] = {false, false};
+    mBoolMap["LegacyGamelistFileLocation"] = {true, true};
     mBoolMap["CreatePlaceholderSystemDirectories"] = {false, false};
     mBoolMap["SystemStatusDisplayAll"] = {false, false};
     mStringMap["OpenGLVersion"] = {"", ""};
@@ -459,8 +462,13 @@ void Settings::loadFile()
         return;
     }
 
-    for (pugi::xml_node node = doc.child("bool"); node; node = node.next_sibling("bool"))
-        setBool(node.attribute("name").as_string(), node.attribute("value").as_bool());
+    for (pugi::xml_node node = doc.child("bool"); node; node = node.next_sibling("bool")) {
+        const std::string name {node.attribute("name").as_string()};
+        // Always force this setting to true, ignore any value from es_settings.xml
+        if (name == "LegacyGamelistFileLocation")
+            continue;
+        setBool(name, node.attribute("value").as_bool());
+    }
     for (pugi::xml_node node = doc.child("int"); node; node = node.next_sibling("int"))
         setInt(node.attribute("name").as_string(), node.attribute("value").as_int());
     for (pugi::xml_node node = doc.child("float"); node; node = node.next_sibling("float"))

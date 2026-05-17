@@ -1713,22 +1713,27 @@ std::string SystemData::getGamelistPath(bool forWrite) const
     const std::string gamelistPath {Utils::FileSystem::getAppDataDirectory() + "/gamelists/" +
                                     mName};
 
-    if (Utils::FileSystem::exists(filePath)) {
-        if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+    // Legacy mode: always use ROM directory for both read and write
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        if (forWrite)
+            Utils::FileSystem::createDirectory(Utils::FileSystem::getParent(filePath));
+        if (forWrite || Utils::FileSystem::exists(filePath))
             return filePath;
-        }
-        else {
+        return "";
+    }
+
+    // Default ES-DE behavior
+    if (Utils::FileSystem::exists(filePath)) {
 #if defined(_WIN64)
-            LOG(LogWarning) << "Found a gamelist.xml file in \""
-                            << Utils::String::replace(mRootFolder->getPath(), "/", "\\")
-                            << "\\\" which will not get loaded, move it to \"" << gamelistPath
-                            << "\\\" or otherwise delete it";
+        LOG(LogWarning) << "Found a gamelist.xml file in \""
+                        << Utils::String::replace(mRootFolder->getPath(), "/", "\\")
+                        << "\\\" which will not get loaded, move it to \"" << gamelistPath
+                        << "\\\" or otherwise delete it";
 #else
-            LOG(LogWarning) << "Found a gamelist.xml file in \"" << mRootFolder->getPath()
-                            << "/\" which will not get loaded, move it to \"" << gamelistPath
-                            << "/\" or otherwise delete it";
+        LOG(LogWarning) << "Found a gamelist.xml file in \"" << mRootFolder->getPath()
+                        << "/\" which will not get loaded, move it to \"" << gamelistPath
+                        << "/\" or otherwise delete it";
 #endif
-        }
     }
 
     filePath = gamelistPath + "/gamelist.xml";
