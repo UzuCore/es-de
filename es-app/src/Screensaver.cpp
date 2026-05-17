@@ -422,14 +422,30 @@ void Screensaver::generateImageList()
 #else
         const std::string mediaBaseDir {FileData::getMediaDirectory()};
 #endif
-        const std::string mediaDirMiximages {
-            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/miximages"};
-        const std::string mediaDirScreenshots {
-            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/screenshots"};
-        const std::string mediaDirTitlescreens {
-            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/titlescreens"};
-        const std::string mediaDirCovers {mediaBaseDir + (*it)->getRootFolder()->getSystemName() +
-                                          "/covers"};
+        const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
+        std::string mediaDirMiximages;
+        std::string mediaDirScreenshots;
+        std::string mediaDirTitlescreens;
+        std::string mediaDirCovers;
+
+        if (legacyMode) {
+            // Legacy mode: media is stored under <ROM system folder>/media/<type>/
+            const std::string romPath {
+                Utils::String::replace((*it)->getRootFolder()->getPath(), "\\", "/")};
+            mediaDirMiximages = romPath + "/media/miximages";
+            mediaDirScreenshots = romPath + "/media/images";
+            mediaDirTitlescreens = romPath + "/media/titlescreens";
+            mediaDirCovers = romPath + "/media/thumbnails";
+        }
+        else {
+            mediaDirMiximages =
+                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/miximages";
+            mediaDirScreenshots =
+                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/screenshots";
+            mediaDirTitlescreens =
+                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/titlescreens";
+            mediaDirCovers = mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/covers";
+        }
 
         Utils::FileSystem::StringList dirContentMiximages;
         Utils::FileSystem::StringList dirContentScreenshots;
@@ -552,8 +568,16 @@ void Screensaver::generateVideoList()
 #else
         const std::string mediaBaseDir {FileData::getMediaDirectory()};
 #endif
-        const std::string mediaDir {mediaBaseDir + (*it)->getRootFolder()->getSystemName() +
-                                    "/videos"};
+        std::string mediaDir;
+        if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+            // Legacy mode: videos are stored under <ROM system folder>/media/videos/
+            const std::string romPath {
+                Utils::String::replace((*it)->getRootFolder()->getPath(), "\\", "/")};
+            mediaDir = romPath + "/media/videos";
+        }
+        else {
+            mediaDir = mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/videos";
+        }
         Utils::FileSystem::StringList dirContent;
 
         // This method of building an inventory of all video files isn't pretty, but to use the

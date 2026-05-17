@@ -31,6 +31,33 @@ namespace
     const std::map<std::string, generate_scraper_requests_func> scraper_request_funcs {
         {"thegamesdb", &thegamesdb_generate_json_scraper_requests},
         {"screenscraper", &screenscraper_generate_scraper_requests}};
+
+    // Map ES-DE media subdirectory names to ES (original EmulationStation) style names.
+    // Used in Legacy mode for the folder structure: <ROM>/<system>/media/<type>/<game>.<ext>
+    std::string mapMediaSubdirToESStyle(const std::string& esdeSubdir)
+    {
+        if (esdeSubdir == "screenshots")  return "images";
+        if (esdeSubdir == "covers")       return "thumbnails";
+        if (esdeSubdir == "marquees")     return "marquees";
+        if (esdeSubdir == "videos")       return "videos";
+        if (esdeSubdir == "fanart")       return "fanart";
+        if (esdeSubdir == "manuals")      return "manuals";
+        // For media types not mapped, use the original name
+        return esdeSubdir;
+    }
+
+    // Map ES-DE media subdirectory names to gamelist.xml metadata keys (for Legacy mode).
+    // Returns empty string for media types not stored in metadata.
+    std::string mapMediaSubdirToMDKey(const std::string& esdeSubdir)
+    {
+        if (esdeSubdir == "screenshots")  return "image";
+        if (esdeSubdir == "covers")       return "thumbnail";
+        if (esdeSubdir == "marquees")     return "marquee";
+        if (esdeSubdir == "videos")       return "video";
+        if (esdeSubdir == "fanart")       return "fanart";
+        if (esdeSubdir == "manuals")      return "manual";
+        return "";
+    }
 }
 
 std::unique_ptr<ScraperSearchHandle> startScraperSearch(const ScraperSearchParams& params)
@@ -767,33 +794,6 @@ bool resizeImage(const std::string& path, const std::string& mediaType)
     }
 
     return saved;
-}
-
-// Map ES-DE media subdirectory names to ES (original EmulationStation) style names.
-// Used in Legacy mode for the folder structure: <ROM>/<system>/media/<type>/<game>.<ext>
-std::string mapMediaSubdirToESStyle(const std::string& esdeSubdir)
-{
-    if (esdeSubdir == "screenshots")  return "images";
-    if (esdeSubdir == "covers")       return "thumbnails";
-    if (esdeSubdir == "marquees")     return "marquees";
-    if (esdeSubdir == "videos")       return "videos";
-    if (esdeSubdir == "fanart")       return "fanart";
-    if (esdeSubdir == "manuals")      return "manuals";
-    // For media types not mapped, use the original name (titlescreens, 3dboxes, backcovers, physicalmedia)
-    return esdeSubdir;
-}
-
-// Map ES-DE media subdirectory names to gamelist.xml metadata keys (for Legacy mode).
-// Returns empty string for media types not stored in metadata.
-std::string mapMediaSubdirToMDKey(const std::string& esdeSubdir)
-{
-    if (esdeSubdir == "screenshots")  return "image";
-    if (esdeSubdir == "covers")       return "thumbnail";
-    if (esdeSubdir == "marquees")     return "marquee";
-    if (esdeSubdir == "videos")       return "video";
-    if (esdeSubdir == "fanart")       return "fanart";
-    if (esdeSubdir == "manuals")      return "manual";
-    return "";
 }
 
 std::string getSaveAsPath(const ScraperSearchParams& params,

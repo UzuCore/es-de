@@ -643,7 +643,15 @@ void GamelistBase::remove(FileData* game, bool deleteFile)
 
 void GamelistBase::removeMedia(FileData* game)
 {
-    std::string systemMediaDir {FileData::getMediaDirectory() + game->getSystem()->getName()};
+    const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
+    std::string systemMediaDir;
+    if (legacyMode) {
+        // Legacy mode: media is stored under <ROM system folder>/media/
+        systemMediaDir = game->getSystem()->getRootFolder()->getPath() + "/media";
+    }
+    else {
+        systemMediaDir = FileData::getMediaDirectory() + game->getSystem()->getName();
+    }
     std::string mediaType;
     std::string path;
 
@@ -652,10 +660,11 @@ void GamelistBase::removeMedia(FileData* game)
 
     // If there are no media files left in the directory after the deletion, then remove
     // the directory too. Remove any empty parent directories as well.
-    auto removeEmptyDirFunc = [](std::string systemMediaDir, std::string mediaType,
-                                 std::string path) {
+    auto removeEmptyDirFunc = [systemMediaDir](std::string mediaType, std::string path) {
         std::string parentPath {Utils::FileSystem::getParent(path)};
-        while (parentPath != systemMediaDir + "/" + mediaType) {
+        const std::string stopAt {systemMediaDir + "/" + mediaType};
+        // Safety: stop if we somehow go above systemMediaDir (shouldn't happen normally).
+        while (parentPath != stopAt && parentPath.find(systemMediaDir) == 0) {
             if (Utils::FileSystem::getDirContent(parentPath).size() == 0) {
                 Utils::FileSystem::removeDirectory(parentPath, false);
                 parentPath = Utils::FileSystem::getParent(parentPath);
@@ -672,7 +681,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getVideoPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getManualPath())) {
@@ -680,7 +689,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getManualPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getMiximagePath())) {
@@ -688,7 +697,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getMiximagePath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getScreenshotPath())) {
@@ -696,7 +705,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getScreenshotPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getTitleScreenPath())) {
@@ -704,7 +713,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getTitleScreenPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getCoverPath())) {
@@ -712,7 +721,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getCoverPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getBackCoverPath())) {
@@ -720,7 +729,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getBackCoverPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getFanArtPath())) {
@@ -728,7 +737,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getFanArtPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getMarqueePath())) {
@@ -736,7 +745,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getMarqueePath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->get3DBoxPath())) {
@@ -744,7 +753,7 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->get3DBoxPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
     }
 
     while (Utils::FileSystem::exists(game->getPhysicalMediaPath())) {
@@ -752,7 +761,43 @@ void GamelistBase::removeMedia(FileData* game)
         path = game->getPhysicalMediaPath();
         if (!Utils::FileSystem::removeFile(path))
             break;
-        removeEmptyDirFunc(systemMediaDir, mediaType, path);
+        removeEmptyDirFunc(mediaType, path);
+    }
+
+    // In legacy mode, additionally scan all subdirectories under <ROM>/<system>/media/
+    // and remove any file matching the game name. This catches media types not stored as
+    // metadata (e.g., 3dboxes, backcovers, miximages, titlescreens, physicalmedia) that
+    // would otherwise be left behind because their path functions don't know about Legacy mode.
+    if (legacyMode && Utils::FileSystem::isDirectory(systemMediaDir)) {
+        std::string gameStem {Utils::FileSystem::getStem(game->getPath())};
+        const Utils::FileSystem::StringList& subdirs {
+            Utils::FileSystem::getDirContent(systemMediaDir, false)};
+        for (auto& subdir : subdirs) {
+            if (!Utils::FileSystem::isDirectory(subdir))
+                continue;
+            const Utils::FileSystem::StringList& dirContent {
+                Utils::FileSystem::getDirContent(subdir, true)};
+            for (auto& mediaFile : dirContent) {
+                if (Utils::FileSystem::isDirectory(mediaFile))
+                    continue;
+                if (Utils::FileSystem::getStem(mediaFile) != gameStem)
+                    continue;
+                LOG(LogInfo) << "Removing orphaned media file \"" << mediaFile << "\"";
+                if (!Utils::FileSystem::removeFile(mediaFile))
+                    continue;
+                // Try to remove parent directory if it became empty.
+                std::string parentPath {Utils::FileSystem::getParent(mediaFile)};
+                while (parentPath.find(systemMediaDir) == 0 && parentPath != systemMediaDir) {
+                    if (Utils::FileSystem::getDirContent(parentPath).size() == 0) {
+                        Utils::FileSystem::removeDirectory(parentPath, false);
+                        parentPath = Utils::FileSystem::getParent(parentPath);
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+        }
     }
 }
 

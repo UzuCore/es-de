@@ -907,22 +907,32 @@ std::string MiximageGenerator::getSavePath() const
         subFolders = Utils::String::replace(Utils::FileSystem::getParent(mGame->getPath()),
                                             mGame->getSystemEnvData()->mStartPath, "");
 
-    std::string path {FileData::getMediaDirectory()};
+    std::string path;
 
-    if (!Utils::FileSystem::exists(path))
-        Utils::FileSystem::createDirectory(path);
+    // Legacy mode: save under <ROM>/<system>/media/miximages/
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        path = mGame->getSystemEnvData()->mStartPath;
+        if (path.back() != '/' && path.back() != '\\')
+            path.append("/");
+        path += "media/miximages" + subFolders + "/";
+    }
+    else {
+        path = FileData::getMediaDirectory();
+        if (!Utils::FileSystem::exists(path))
+            Utils::FileSystem::createDirectory(path);
 
 #if defined(__ANDROID__)
-    if (!Utils::FileSystem::exists(path + ".nomedia")) {
-        LOG(LogInfo) << "Creating \"no media\" file \"" << path + ".nomedia" << "\"...";
-        Utils::FileSystem::createEmptyFile(path + ".nomedia");
         if (!Utils::FileSystem::exists(path + ".nomedia")) {
-            LOG(LogWarning) << "Couldn't create file, permission problems?";
+            LOG(LogInfo) << "Creating \"no media\" file \"" << path + ".nomedia" << "\"...";
+            Utils::FileSystem::createEmptyFile(path + ".nomedia");
+            if (!Utils::FileSystem::exists(path + ".nomedia")) {
+                LOG(LogWarning) << "Couldn't create file, permission problems?";
+            }
         }
-    }
 #endif
 
-    path += mGame->getSystemName() + "/miximages" + subFolders + "/";
+        path += mGame->getSystemName() + "/miximages" + subFolders + "/";
+    }
 
     if (!Utils::FileSystem::exists(path))
         Utils::FileSystem::createDirectory(path);

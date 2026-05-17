@@ -843,36 +843,39 @@ int main(int argc, char* argv[])
         }
     }
 
-    {
-        // Create the gamelists folder in the application data directory.
-        const std::string gamelistsDir {Utils::FileSystem::getAppDataDirectory() + "/gamelists"};
-        if (!Utils::FileSystem::exists(gamelistsDir)) {
-#if defined(_WIN64)
-            LOG(LogInfo) << "Creating gamelists directory \""
-                         << Utils::String::replace(gamelistsDir, "/", "\\") << "\"...";
-#else
-            LOG(LogInfo) << "Creating gamelists directory \"" << gamelistsDir << "\"...";
-#endif
-            Utils::FileSystem::createDirectory(gamelistsDir);
+    // Skip creating ES-DE standard gamelists/media folders in legacy mode (they are unused).
+    if (!Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        {
+            // Create the gamelists folder in the application data directory.
+            const std::string gamelistsDir {Utils::FileSystem::getAppDataDirectory() + "/gamelists"};
             if (!Utils::FileSystem::exists(gamelistsDir)) {
-                LOG(LogWarning) << "Couldn't create directory, permission problems?";
+#if defined(_WIN64)
+                LOG(LogInfo) << "Creating gamelists directory \""
+                             << Utils::String::replace(gamelistsDir, "/", "\\") << "\"...";
+#else
+                LOG(LogInfo) << "Creating gamelists directory \"" << gamelistsDir << "\"...";
+#endif
+                Utils::FileSystem::createDirectory(gamelistsDir);
+                if (!Utils::FileSystem::exists(gamelistsDir)) {
+                    LOG(LogWarning) << "Couldn't create directory, permission problems?";
+                }
             }
         }
-    }
 
-    {
-        // Create the game media folder.
-        const std::string mediaDirectory {FileData::getMediaDirectory()};
-        if (!Utils::FileSystem::exists(mediaDirectory)) {
-#if defined(_WIN64)
-            LOG(LogInfo) << "Creating game media directory \""
-                         << Utils::String::replace(mediaDirectory, "/", "\\") << "\"...";
-#else
-            LOG(LogInfo) << "Creating game media directory \"" << mediaDirectory << "\"...";
-#endif
-            Utils::FileSystem::createDirectory(mediaDirectory);
+        {
+            // Create the game media folder.
+            const std::string mediaDirectory {FileData::getMediaDirectory()};
             if (!Utils::FileSystem::exists(mediaDirectory)) {
-                LOG(LogWarning) << "Couldn't create directory, permission problems?";
+#if defined(_WIN64)
+                LOG(LogInfo) << "Creating game media directory \""
+                             << Utils::String::replace(mediaDirectory, "/", "\\") << "\"...";
+#else
+                LOG(LogInfo) << "Creating game media directory \"" << mediaDirectory << "\"...";
+#endif
+                Utils::FileSystem::createDirectory(mediaDirectory);
+                if (!Utils::FileSystem::exists(mediaDirectory)) {
+                    LOG(LogWarning) << "Couldn't create directory, permission problems?";
+                }
             }
         }
     }

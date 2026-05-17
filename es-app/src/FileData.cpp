@@ -453,6 +453,13 @@ const std::string FileData::getMiximagePath() const
 
 const std::string FileData::getScreenshotPath() const
 {
+    // Legacy mode: use path from gamelist.xml <image> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdImage {metadata.get("image")};
+        if (!mdImage.empty() && Utils::FileSystem::exists(mdImage))
+            return mdImage;
+    }
+
     // Return path to the screenshot image.
     return getMediafilePath("screenshots");
 }

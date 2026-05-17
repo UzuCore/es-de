@@ -9,6 +9,7 @@
 #include "guis/GuiOrphanedDataCleanup.h"
 
 #include "CollectionSystemsManager.h"
+#include "Settings.h"
 #include "utils/FileSystemUtil.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/PlatformUtil.h"
@@ -367,8 +368,23 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
         }
 
         std::vector<std::string> cleanupFiles;
-        const std::string systemMediaDir {mMediaDirectory + system->getName()};
-        for (auto& mediaType : mMediaTypes) {
+        const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
+
+        // In Legacy mode, media is stored under <ROM>/<system>/media/<type>/ with ES-style names.
+        std::string systemMediaDir;
+        std::vector<std::string> mediaTypesToScan;
+
+        if (legacyMode) {
+            systemMediaDir = system->getRootFolder()->getPath() + "/media";
+            mediaTypesToScan = {"images", "thumbnails", "marquees", "videos",
+                                "fanart", "manuals", "miximages", "titlescreens"};
+        }
+        else {
+            systemMediaDir = mMediaDirectory + system->getName();
+            mediaTypesToScan = mMediaTypes;
+        }
+
+        for (auto& mediaType : mediaTypesToScan) {
             const std::string mediaTypeDir {systemMediaDir + "/" + mediaType};
             const Utils::FileSystem::StringList& dirContent {
                 Utils::FileSystem::getDirContent(mediaTypeDir, true)};
@@ -411,7 +427,10 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             std::strftime(&dateString[0], 20, "%Y-%m-%d_%H%M%S", localtime_r(&currentTime, &tm));
 #endif
             dateString.erase(dateString.find('\0'));
-            const std::string targetDirectory {mMediaDirectory + "CLEANUP/" + dateString + "/"};
+            // In Legacy mode, place CLEANUP folder under the ROM system directory.
+            const std::string cleanupBaseDir {
+                legacyMode ? (system->getRootFolder()->getPath() + "/") : mMediaDirectory};
+            const std::string targetDirectory {cleanupBaseDir + "CLEANUP/" + dateString + "/"};
 #if defined(_WIN64)
             LOG(LogInfo) << "Moving orphaned files to \""
                          << Utils::String::replace(targetDirectory, "/", "\\") + system->getName()
@@ -424,7 +443,7 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             for (auto& file : cleanupFiles) {
                 const std::string fileDirectory {
                     targetDirectory +
-                    Utils::FileSystem::getParent(file.substr(mMediaDirectory.length()))};
+                    Utils::FileSystem::getParent(file.substr(cleanupBaseDir.length()))};
                 const std::string fileName {Utils::FileSystem::getFileName(file)};
                 if (!Utils::FileSystem::isDirectory(fileDirectory) &&
                     !Utils::FileSystem::createDirectory(fileDirectory)) {
