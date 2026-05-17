@@ -111,10 +111,15 @@ if exist "resources" xcopy /e /i /q /y "resources" "%PACKAGE_DIR%\resources" > n
 if exist "themes" xcopy /e /i /q /y "themes" "%PACKAGE_DIR%\themes" > nul
 if exist "licenses" xcopy /e /i /q /y "licenses" "%PACKAGE_DIR%\licenses" > nul
 if exist "locale" xcopy /e /i /q /y "locale" "%PACKAGE_DIR%\locale" > nul
+if exist "es-pdf-converter\es-pdf-convert.exe" copy "es-pdf-converter\es-pdf-convert.exe" "%PACKAGE_DIR%\" > nul
 
-::echo [6/6] Creating zip archive with 7-Zip...
-::"%SEVENZIP%" a -tzip -mx9 "%ZIP_FILE%" "%PACKAGE_DIR%\*" > nul
-::if %errorlevel% neq 0 ( echo Zip FAILED & goto :end )
+echo Creating user directories...
+mkdir "%PACKAGE_DIR%\Emulators" 2> nul
+mkdir "%PACKAGE_DIR%\ROMs" 2> nul
+
+echo [6/6] Creating zip archive with 7-Zip...
+"%SEVENZIP%" a -tzip -mx9 "%ZIP_FILE%" "%PACKAGE_DIR%\*" > nul
+if %errorlevel% neq 0 ( echo Zip FAILED & goto :end )
 
 echo.
 echo Done!
