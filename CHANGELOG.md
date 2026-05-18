@@ -12,12 +12,13 @@
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
+* Added support for parsing the Path key in .desktop files on Linux and Unix
 * Added the .a0, .b0 and .rom file extensions to the vic20 system
 * (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
 
 ### Bug fixes
 
-Some specific theme configuration for the system status indicators could lead to a crash on battery charge status changes
+* Some specific theme configuration for the system status indicators could lead to a crash on battery charge status changes
 
 ## Version 3.4.1 / 3.4.1-58
 
