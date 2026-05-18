@@ -345,6 +345,26 @@ const std::string FileData::getMediafilePath(const std::string& subdirectory) co
     const std::string tempPath {getMediaDirectory() + mSystemName + "/" + subdirectory +
                                 subFolders + "/" + getDisplayName()};
 
+    // Legacy mode fallback: also check <ROM system>/media/<ES-style type>/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        static const std::map<std::string, std::string> kESStyleMap {
+            {"screenshots",  "images"},
+            {"covers",       "thumbnails"},
+            {"marquees",     "marquees"},
+            {"fanart",       "fanart"},
+            {"miximages",    "miximages"},
+            {"titlescreens", "titlescreens"},
+        };
+        const std::string esSubdir {kESStyleMap.count(subdirectory) ?
+                                    kESStyleMap.at(subdirectory) : subdirectory};
+        const std::string legacyPath {mEnvData->mStartPath + "/media/" +
+                                      esSubdir + subFolders + "/" + getDisplayName()};
+        for (auto& extension : sImageExtensions) {
+            if (Utils::FileSystem::exists(legacyPath + extension))
+                return legacyPath + extension;
+        }
+    }
+
     // Look for an image file in the media directory.
     for (auto& extension : sImageExtensions) {
         const std::string mediaPath {tempPath + extension};
@@ -495,6 +515,16 @@ const std::string FileData::getVideoPath() const
     const std::string tempPath {getMediaDirectory() + mSystemName + "/videos" + subFolders + "/" +
                                 getDisplayName()};
 
+    // Legacy mode fallback: also check <ROM system>/media/videos/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string legacyPath {mEnvData->mStartPath + "/media/videos" +
+                                      subFolders + "/" + getDisplayName()};
+        for (auto& extension : sVideoExtensions) {
+            if (Utils::FileSystem::exists(legacyPath + extension))
+                return legacyPath + extension;
+        }
+    }
+
     // Look for media in the media directory.
     for (auto& extension : sVideoExtensions) {
         const std::string mediaPath {tempPath + extension};
@@ -524,6 +554,16 @@ const std::string FileData::getManualPath() const
 
     const std::string tempPath {getMediaDirectory() + mSystemName + "/manuals" + subFolders + "/" +
                                 getDisplayName()};
+
+    // Legacy mode fallback: also check <ROM system>/media/manuals/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string legacyPath {mEnvData->mStartPath + "/media/manuals" +
+                                      subFolders + "/" + getDisplayName()};
+        for (size_t i {0}; i < extList.size(); ++i) {
+            if (Utils::FileSystem::exists(legacyPath + extList[i]))
+                return legacyPath + extList[i];
+        }
+    }
 
     // Look for manuals in the media directory.
     for (size_t i {0}; i < extList.size(); ++i) {

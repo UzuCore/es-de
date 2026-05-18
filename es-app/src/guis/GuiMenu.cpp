@@ -6,6 +6,10 @@
 //  Main menu.
 //  Some submenus are covered in separate source files.
 //
+#include <SDL2/SDL_hints.h>
+#ifndef SDL_HINT_ENABLE_SCREEN_KEYBOARD
+#define SDL_HINT_ENABLE_SCREEN_KEYBOARD "SDL_ENABLE_SCREEN_KEYBOARD"
+#endif
 
 #include "guis/GuiMenu.h"
 

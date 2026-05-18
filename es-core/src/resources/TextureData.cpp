@@ -180,7 +180,7 @@ bool TextureData::load()
 
     // Need to load. See if there is a file.
     if (!mPath.empty()) {
-        const ResourceData& data = ResourceManager::getInstance().getFileData(mPath);
+        const ResourceData data = ResourceManager::getInstance().getFileData(mPath);
         // Is it an SVG?
         if (Utils::String::toLower(mPath.substr(mPath.size() - 4, std::string::npos)) == ".svg") {
             mScalable = true;

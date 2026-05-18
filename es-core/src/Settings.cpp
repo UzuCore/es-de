@@ -57,7 +57,8 @@ namespace
         "TransitionsStartupToGamelist",
 
         // Forced settings (not user-configurable):
-        "LegacyGamelistFileLocation"
+        "LegacyGamelistFileLocation",
+        "ApplicationLanguage"
         // clang-format on
     };
 
@@ -171,7 +172,7 @@ void Settings::setDefaults()
     mStringMap["ThemeAspectRatio"] = {"automatic", "automatic"};
     mStringMap["ThemeTransitions"] = {"automatic", "automatic"};
     mStringMap["ThemeLanguage"] = {"automatic", "automatic"};
-    mStringMap["ApplicationLanguage"] = {"automatic", "automatic"};
+    mStringMap["ApplicationLanguage"] = {"ko_KR", "ko_KR"};  // UzuCore: Korean fixed
     mStringMap["QuickSystemSelect"] = {"leftrightshoulders", "leftrightshoulders"};
     mStringMap["StartupSystem"] = {"", ""};
     mStringMap["StartupView"] = {"system", "system"};
@@ -473,8 +474,13 @@ void Settings::loadFile()
         setInt(node.attribute("name").as_string(), node.attribute("value").as_int());
     for (pugi::xml_node node = doc.child("float"); node; node = node.next_sibling("float"))
         setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
-    for (pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string"))
-        setString(node.attribute("name").as_string(), node.attribute("value").as_string());
+    for (pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string")) {
+        const std::string name {node.attribute("name").as_string()};
+        // Always force Korean, ignore any saved language setting
+        if (name == "ApplicationLanguage")
+            continue;
+        setString(name, node.attribute("value").as_string());
+    }
 }
 
 // Macro to create the get and set functions for the various data types.

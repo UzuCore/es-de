@@ -674,10 +674,8 @@ int main(int argc, char* argv[])
         Log::setReportingLevel(LogDebug);
     }
 
-#if defined(FREEIMAGE_LIB)
-    // Call this ONLY when linking with FreeImage as a static library.
+// FreeImage_Initialise() must be called explicitly for our dynamic .so build.
     FreeImage_Initialise();
-#endif
 
     // If the application data directory doesn't exist and can't be created, then exit.
     if (!checkApplicationDataDirectory())
@@ -1101,9 +1099,13 @@ int main(int argc, char* argv[])
         if (Settings::getInstance()->getBool("SplashScreen"))
             window->renderSplashScreen(Window::SplashScreenState::RESOURCE_COPY, 0.0f);
         if (Utils::Platform::Android::setupResources(buildIdentifier)) {
-            LOG(LogError) << "Copying of resources and themes failed";
-            return -1;
-        }
+			LOG(LogError) << "Copying of resources and themes failed";
+			return -1;
+		}
+		if (Utils::Platform::Android::setupThemes(buildIdentifier)) {
+			LOG(LogError) << "Copying of bundled themes failed";
+			return -1;
+		}
     }
 
     if (Utils::Platform::Android::getCreateSystemDirectories()) {

@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <iomanip>
 
-#define DEBUG_VIDEO false
+#define DEBUG_VIDEO true
 
 #if LIBAVUTIL_VERSION_MAJOR >= 58 ||                                                               \
     (LIBAVUTIL_VERSION_MAJOR >= 57 && LIBAVUTIL_VERSION_MINOR >= 28)
@@ -398,10 +398,13 @@ void VideoFFmpegComponent::frameProcessing()
     bool audioFilter {false};
 
     videoFilter = setupVideoFilters();
+    LOG(LogError) << "VideoFFmpeg: videoFilter=" << videoFilter;
 
     if (mAudioCodecContext)
         audioFilter = setupAudioFilters();
+        LOG(LogError) << "VideoFFmpeg: audioFilter=" << audioFilter;
 
+    LOG(LogError) << "VideoFFmpeg: frameProcessing loop start mIsPlaying=" << mIsPlaying << " mPaused=" << mPaused << " videoFilter=" << videoFilter << " audioFilter=" << audioFilter << " mAudioCodecContext=" << (mAudioCodecContext != nullptr);
     while (mIsPlaying && !mPaused && videoFilter && (!mAudioCodecContext || audioFilter)) {
         readFrames();
         if (!mIsPlaying)
@@ -493,9 +496,9 @@ bool VideoFFmpegComponent::setupVideoFilters()
         .append("/")
         .append(std::to_string(mVideoStream->time_base.den))
         .append(":sar=")
-        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.num))
+        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.num == 0 ? 1 : mVideoCodecContext->sample_aspect_ratio.num))
         .append("/")
-        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.den));
+        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.den == 0 ? 1 : mVideoCodecContext->sample_aspect_ratio.den));
 
     returnValue = avfilter_graph_create_filter(&mVBufferSrcContext, bufferSrc, "in",
                                                filterArguments.c_str(), nullptr, mVFilterGraph);
@@ -629,7 +632,11 @@ bool VideoFFmpegComponent::setupAudioFilters()
     (LIBAVUTIL_VERSION_MAJOR >= 57 && LIBAVUTIL_VERSION_MINOR >= 28)
     // FFmpeg 5.1 and above.
     AVChannelLayout chLayout {};
-    av_channel_layout_from_mask(&chLayout, mAudioCodecContext->ch_layout.u.mask);
+    // Use codecpar channel info as mAudioCodecContext ch_layout may not be properly
+    // initialized with ffmpeg-kit Android builds.
+    int nbChannels = mAudioStream->codecpar->ch_layout.nb_channels;
+    if (nbChannels <= 0) nbChannels = 2;
+    av_channel_layout_default(&chLayout, nbChannels);
     av_channel_layout_describe(&chLayout, &channelLayout[0], sizeof(channelLayout));
     av_channel_layout_uninit(&chLayout);
 #else
@@ -637,18 +644,29 @@ bool VideoFFmpegComponent::setupAudioFilters()
                                  mAudioCodecContext->CHANNELS, mAudioCodecContext->channel_layout);
 #endif
 
+    // Fallback values if codec context has invalid/uninitialized values.
+    int sampleRate = mAudioCodecContext->sample_rate > 0 ?
+        mAudioCodecContext->sample_rate : 44100;
+    // Get sample format from codecpar as mAudioCodecContext may not be initialized yet
+    AVSampleFormat sampleFmt = static_cast<AVSampleFormat>(mAudioStream->codecpar->format);
+    if (sampleFmt == AV_SAMPLE_FMT_NONE || sampleFmt < 0)
+        sampleFmt = static_cast<AVSampleFormat>(mAudioCodecContext->sample_fmt);
+    if (sampleFmt == AV_SAMPLE_FMT_NONE || sampleFmt < 0)
+        sampleFmt = AV_SAMPLE_FMT_FLTP;
+
     std::string filterArguments;
     filterArguments.append("time_base=")
         .append(std::to_string(mAudioStream->time_base.num))
         .append("/")
         .append(std::to_string(mAudioStream->time_base.den))
         .append(":sample_rate=")
-        .append(std::to_string(mAudioCodecContext->sample_rate))
+        .append(std::to_string(sampleRate))
         .append(":sample_fmt=")
-        .append(av_get_sample_fmt_name(mAudioCodecContext->sample_fmt))
+        .append(av_get_sample_fmt_name(sampleFmt))
         .append(":channel_layout=")
         .append(channelLayout);
 
+    LOG(LogError) << "AudioFilter args: " << filterArguments;
     returnValue = avfilter_graph_create_filter(&mABufferSrcContext, bufferSrc, "in",
                                                filterArguments.c_str(), nullptr, mAFilterGraph);
 
@@ -704,6 +722,12 @@ bool VideoFFmpegComponent::setupAudioFilters()
         LOG(LogError) << "VideoFFmpegComponent::setupAudioFilters(): "
                          "Couldn't configure graph: "
                       << av_make_error_string(&errorMessage[0], sizeof(errorMessage), returnValue);
+        // Dump filter graph for debugging.
+        char* graphDump = avfilter_graph_dump(mAFilterGraph, nullptr);
+        if (graphDump) {
+            LOG(LogError) << "Filter graph dump: " << graphDump;
+            av_free(graphDump);
+        }
         return false;
     }
 
@@ -712,6 +736,10 @@ bool VideoFFmpegComponent::setupAudioFilters()
 
 void VideoFFmpegComponent::readFrames()
 {
+    LOG(LogError) << "VideoFFmpeg: readFrames() mIsPlaying=" << mIsPlaying 
+                  << " mFormatContext=" << (mFormatContext != nullptr)
+                  << " mVFilterGraph=" << (mVFilterGraph != nullptr)
+                  << " mAFilterGraph=" << (mAFilterGraph != nullptr);
     int readFrameReturn {0};
 
     // It's not clear if this can actually happen in practise, but in theory we could
@@ -820,12 +848,15 @@ void VideoFFmpegComponent::readFrames()
                         }
                     }
                     else if (mPacket->stream_index == mAudioStreamIndex) {
-                        if (!avcodec_send_packet(mAudioCodecContext, mPacket) &&
-                            !avcodec_receive_frame(mAudioCodecContext, mAudioFrame)) {
+                        int sendRet = avcodec_send_packet(mAudioCodecContext, mPacket);
+                        int recvRet = avcodec_receive_frame(mAudioCodecContext, mAudioFrame);
+                        LOG(LogError) << "VideoFFmpeg: audio sendRet=" << sendRet << " recvRet=" << recvRet;
+                        if (!sendRet && !recvRet) {
 
                             // We have an audio frame that needs conversion and resampling.
                             int returnValue {av_buffersrc_add_frame_flags(
                                 mABufferSrcContext, mAudioFrame, AV_BUFFERSRC_FLAG_KEEP_REF)};
+                            LOG(LogError) << "VideoFFmpeg: audio buffersrc_add ret=" << returnValue;
 
                             if (returnValue < 0) {
                                 LOG(LogError) << "VideoFFmpegComponent::readFrames(): "
@@ -917,6 +948,15 @@ void VideoFFmpegComponent::getProcessedFrames()
     // Audio frames.
     // When resampling, we may not always get a frame returned from the sink as there may not
     // have been enough data available to the filter.
+    {
+        int audioSinkRet = mAudioCodecContext ?
+            av_buffersink_get_frame(mABufferSinkContext, mAudioFrameResampled) : -1;
+        LOG(LogError) << "VideoFFmpeg: audioSinkRet=" << audioSinkRet
+                      << " audioQ=" << mAudioFrameQueue.size()
+                      << " videoQ=" << mVideoFrameQueue.size();
+        if (mAudioCodecContext && audioSinkRet >= 0)
+            av_frame_unref(mAudioFrameResampled);
+    }
     while (mAudioCodecContext &&
            av_buffersink_get_frame(mABufferSinkContext, mAudioFrameResampled) >= 0) {
 
@@ -948,7 +988,8 @@ void VideoFFmpegComponent::outputFrames()
     // Check if we should start counting the time (i.e. start playing the video).
     // The audio stream controls when the playback and time counting starts, assuming
     // there is an audio track.
-    if (!mAudioCodecContext || (mAudioCodecContext && !mAudioFrameQueue.empty())) {
+    if (!mAudioCodecContext || !mAudioFrameQueue.empty() ||
+        mVideoFrameQueue.size() >= static_cast<size_t>(mVideoTargetQueueSize)) {
         if (!mStartTimeAccumulation) {
             std::unique_lock<std::mutex> audioLock {mAudioMutex};
             mTimeReference = std::chrono::high_resolution_clock::now();
@@ -971,9 +1012,9 @@ void VideoFFmpegComponent::outputFrames()
         if (mAudioFrameQueue.front().pts < mAccumulatedTime + AUDIO_BUFFER) {
             // Enable only when needed, as this generates a lot of debug output.
             if (DEBUG_VIDEO) {
-                LOG(LogDebug) << "Processing audio frame with PTS: "
+                LOG(LogError) << "Processing audio frame with PTS: "
                               << mAudioFrameQueue.front().pts;
-                LOG(LogDebug) << "Total audio frames processed / audio frame queue size: "
+                LOG(LogError) << "Total audio frames processed / audio frame queue size: "
                               << mAudioFrameCount << " / "
                               << std::to_string(mAudioFrameQueue.size());
             }
@@ -1022,13 +1063,13 @@ void VideoFFmpegComponent::outputFrames()
         if (mVideoFrameQueue.front().pts < mAccumulatedTime) {
             // Enable only when needed, as this generates a lot of debug output.
             if (DEBUG_VIDEO) {
-                LOG(LogDebug) << "Processing video frame with PTS: "
+                LOG(LogError) << "Processing video frame with PTS: "
                               << mVideoFrameQueue.front().pts;
-                LOG(LogDebug) << "Total video frames processed / video frame queue size: "
+                LOG(LogError) << "Total video frames processed / video frame queue size: "
                               << mVideoFrameCount << " / "
                               << std::to_string(mVideoFrameQueue.size());
                 if (mVideoFrameDroppedCount > 0) {
-                    LOG(LogDebug) << "Video frames dropped: " << mVideoFrameDroppedCount << " of "
+                    LOG(LogError) << "Video frames dropped: " << mVideoFrameDroppedCount << " of "
                                   << mVideoFrameReadCount << " (" << std::setprecision(2)
                                   << (static_cast<float>(mVideoFrameDroppedCount) /
                                       static_cast<float>(mVideoFrameReadCount)) *
@@ -1430,8 +1471,11 @@ bool VideoFFmpegComponent::decoderInitHW()
 
 void VideoFFmpegComponent::startVideoStream()
 {
-    if (!mVisible || mThemeOpacity == 0.0f)
+    LOG(LogError) << "VideoFFmpeg: startVideoStream() called path=" << mVideoPath << " visible=" << mVisible << " opacity=" << mThemeOpacity;
+    if (!mVisible || mThemeOpacity == 0.0f) {
+        LOG(LogError) << "VideoFFmpeg: early return due to visibility";
         return;
+    }
 
     mIsPlaying = true;
 
@@ -1467,8 +1511,15 @@ void VideoFFmpegComponent::startVideoStream()
 
         std::string filePath {"file:" + mVideoPath};
 
-        // This will disable the FFmpeg logging, so comment this out if debug info is needed.
-        av_log_set_callback(nullptr);
+        // FFmpeg log callback for debugging.
+        av_log_set_level(AV_LOG_ERROR);
+        av_log_set_callback([](void*, int level, const char* fmt, va_list args) {
+            if (level <= AV_LOG_ERROR) {
+                char buf[512];
+                vsnprintf(buf, sizeof(buf), fmt, args);
+                LOG(LogError) << "FFmpeg: " << buf;
+            }
+        });
 
         // File operations and basic setup.
 
@@ -1635,10 +1686,19 @@ void VideoFFmpegComponent::startVideoStream()
 
         // Set some reasonable target queue sizes (buffers).
         mVideoTargetQueueSize = static_cast<int>(av_q2d(mVideoStream->avg_frame_rate) / 2.0l);
-        if (mAudioStreamIndex >= 0)
+        // Fallback if avg_frame_rate is 0.
+        if (mVideoTargetQueueSize <= 0)
+            mVideoTargetQueueSize = 15;
+        if (mAudioStreamIndex >= 0) {
             mAudioTargetQueueSize = mAudioStream->codecpar->CHANNELS * 15;
+            if (mAudioTargetQueueSize <= 0)
+                mAudioTargetQueueSize = 30;
+        }
         else
             mAudioTargetQueueSize = 30;
+        LOG(LogError) << "VideoFFmpeg: avg_frame_rate=" << av_q2d(mVideoStream->avg_frame_rate)
+                      << " mVideoTargetQueueSize=" << mVideoTargetQueueSize
+                      << " mAudioTargetQueueSize=" << mAudioTargetQueueSize;
 
         mPacket = av_packet_alloc();
         mVideoFrame = av_frame_alloc();
