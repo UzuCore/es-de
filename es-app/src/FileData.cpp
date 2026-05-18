@@ -1833,7 +1833,6 @@ void FileData::launchGame()
     if (isShortcut) {
         // Note that the following is not an attempt to implement the entire FreeDesktop standard
         // for .desktop files, for example argument parsing is not really usable in this context.
-        // There's essentially only enough functionality here to be able to run games and emulators.
         if (Utils::FileSystem::exists(Utils::String::replace(romPath, "\\", "")) &&
             !Utils::FileSystem::isDirectory(Utils::String::replace(romPath, "\\", ""))) {
             LOG(LogInfo) << "Parsing desktop file \"" << Utils::String::replace(romPath, "\\", "")
@@ -1850,8 +1849,27 @@ void FileData::launchGame()
                 line = Utils::String::trim(line);
                 if (line.substr(0, 2) == "#!")
                     continue;
-                if (line.find("[Desktop Entry]") != std::string::npos)
+                if (line.find("[Desktop Entry]") != std::string::npos) {
                     validFile = true;
+                    continue;
+                }
+                if (line.substr(0, 5) == "Path=" && startDirectory == "") {
+                    // We only parse the Path key if the %STARTDIR% variable has not been set in
+                    // es_systems.xml.
+                    const std::string startDirectoryTemp {
+                        Utils::FileSystem::expandHomePath(line.substr(5, line.size() - 5))};
+                    if (startDirectoryTemp.empty())
+                        continue;
+                    if (!Utils::FileSystem::isDirectory(startDirectoryTemp)) {
+                        LOG(LogWarning) << "Path key set to nonexistent directory \""
+                                        << startDirectoryTemp << "\"";
+                    }
+                    else {
+                        LOG(LogDebug) << "FileData::launchGame(): Setting start directory to \""
+                                      << startDirectoryTemp << "\" as defined by the Path key";
+                        startDirectory = startDirectoryTemp;
+                    }
+                }
                 if (line.substr(0, 5) == "Exec=") {
                     romPath = {line.substr(5, line.size() - 5)};
                     const std::string regexString {"[^%]%"};
@@ -1871,7 +1889,6 @@ void FileData::launchGame()
                     romPath = Utils::String::trim(romPath);
                     command = Utils::String::replace(command, emulator.first, "");
                     execEntry = true;
-                    break;
                 }
             }
             desktopFileStream.close();
