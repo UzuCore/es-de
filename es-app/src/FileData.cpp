@@ -1867,7 +1867,7 @@ void FileData::launchGame()
                     else {
                         LOG(LogDebug) << "FileData::launchGame(): Setting start directory to \""
                                       << startDirectoryTemp << "\" as defined by the Path key";
-                        startDirectory = startDirectoryTemp;
+                        startDirectory = Utils::FileSystem::getEscapedPath(startDirectoryTemp);
                     }
                 }
                 if (line.substr(0, 5) == "Exec=") {
