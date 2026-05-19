@@ -660,7 +660,7 @@ int main(int argc, char* argv[])
         while (AndroidVariables::sHold)
             SDL_Delay(20);
 
-        if (Utils::Platform::Android::checkConfigurationNeeded())
+        if (!AndroidVariables::sConfiguratorCompleted)
             exit(0);
     }
 
