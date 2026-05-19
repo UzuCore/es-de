@@ -583,7 +583,7 @@ int main(int argc, char* argv[])
 
     std::locale::global(std::locale("C"));
 
-    SDL_SetHint(SDL_HINT_APP_NAME, "ES-DE");
+    SDL_SetHint(SDL_HINT_APP_NAME, "ES-DE +α");
 
 #if defined(__APPLE__) && !defined(__IOS__)
     // This is a workaround to disable the incredibly annoying save state functionality in
@@ -714,7 +714,7 @@ int main(int argc, char* argv[])
     Log::init();
     Log::open();
     {
-        const std::string applicationName {"ES-DE"};
+        const std::string applicationName {"ES-DE +α"};
 #if defined(__ANDROID__)
         LOG(LogInfo) << applicationName << " " << PROGRAM_VERSION_STRING << "-"
                      << ANDROID_VERSION_CODE << " (r" << PROGRAM_RELEASE_NUMBER << "), built "

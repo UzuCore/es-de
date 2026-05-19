@@ -89,15 +89,15 @@ GuiMenu::GuiMenu()
     if (!Settings::getInstance()->getBool("ForceKiosk") &&
         Settings::getInstance()->getString("UIMode") != "kiosk") {
 #if defined(__APPLE__)
-        addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+        addEntry(_("QUIT ES-DE +α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #elif defined(__ANDROID__)
         if (!AndroidVariables::sIsHomeApp)
-            addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+            addEntry(_("QUIT ES-DE +α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #else
         if (Settings::getInstance()->getBool("ShowQuitMenu"))
             addEntry(_("QUIT"), mMenuColorPrimary, true, [this] { openQuitMenu(); });
         else
-            addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+            addEntry(_("QUIT ES-DE +α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #endif
     }
 
@@ -569,6 +569,12 @@ void GuiMenu::openUIOptions()
     themeLanguageFunc(Settings::getInstance()->getString("Theme"),
                       Settings::getInstance()->getString("ThemeLanguage"));
 
+    // === ESDE-DEV PATCH: hide-application-language BEGIN =====================
+    // APPLICATION LANGUAGE 메뉴 항목 숨김 (한국어 고정).
+    // 기본값은 Settings.cpp 의 "ApplicationLanguage" = "ko_KR" 로 강제됨.
+    // 미래에 되돌리려면 아래 #if 0 → #if 1 로 한 글자 변경.
+    // upstream 이 이 블록 안을 손대도 rebase 가 자연스럽게 통과되도록 코드 보존.
+#if 0
     // Application language.
     auto applicationLanguage =
         std::make_shared<OptionListComponent<std::string>>(_("APPLICATION LANGUAGE"), false);
@@ -623,6 +629,8 @@ void GuiMenu::openUIOptions()
             s->setNeedsClearHelpPromptsImageCache();
         }
     });
+#endif
+    // === ESDE-DEV PATCH: hide-application-language END =======================
 
     // Quick system select (navigate between systems in the gamelist view).
     auto quickSystemSelect =
@@ -2412,7 +2420,7 @@ void GuiMenu::openQuitMenu()
                 _("NO"), nullptr));
         });
         auto quitText = std::make_shared<TextComponent>(
-            _("QUIT ES-DE"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
+            _("QUIT ES-DE +α"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
         quitText->setSelectable(true);
         row.addElement(quitText, true);
         s->addRow(row);
@@ -2486,7 +2494,7 @@ void GuiMenu::addVersionInfo()
     mVersion.setAutoCalcExtent(glm::ivec2 {0, 0});
     mVersion.setColor(mMenuColorTertiary);
 
-    const std::string applicationName {"ES-DE"};
+    const std::string applicationName {"ES-DE +α"};
 
 #if defined(IS_PRERELEASE)
 #if defined(__ANDROID__)

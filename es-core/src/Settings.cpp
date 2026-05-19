@@ -202,7 +202,7 @@ void Settings::setDefaults()
 
     // UI settings -> screensaver settings.
     mIntMap["ScreensaverTimer"] = {5 * 60 * 1000, 5 * 60 * 1000}; // 5 minutes.
-    mStringMap["ScreensaverType"] = {"video", "video"};
+    mStringMap["ScreensaverType"] = {"dim", "dim"};
     mBoolMap["ScreensaverControls"] = {true, true};
 
     // UI settings -> screensaver settings -> slideshow screensaver settings.
