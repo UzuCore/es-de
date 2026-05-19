@@ -59,6 +59,11 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/GamelistView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/SystemView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/ViewController.h
+
+    # === LEGACY PATCH BEGIN ===
+    # Legacy (ROM-folder media layout) support module
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/legacy/LegacyPaths.h
+    # === LEGACY PATCH END ===
 )
 
 set(ES_SOURCES
@@ -112,6 +117,11 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/GamelistView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/SystemView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/ViewController.cpp
+
+    # === LEGACY PATCH BEGIN ===
+    # Legacy (ROM-folder media layout) support module
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/legacy/LegacyPaths.cpp
+    # === LEGACY PATCH END ===
 )
 
 if(WIN32)

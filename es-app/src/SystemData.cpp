@@ -18,6 +18,9 @@
 #include "InputManager.h"
 #include "Log.h"
 #include "Settings.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 #include "ThemeData.h"
 #include "UIModeController.h"
 #include "resources/ResourceManager.h"
@@ -1713,27 +1716,27 @@ std::string SystemData::getGamelistPath(bool forWrite) const
     const std::string gamelistPath {Utils::FileSystem::getAppDataDirectory() + "/gamelists/" +
                                     mName};
 
-    // Legacy mode: always use ROM directory for both read and write
-    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
-        if (forWrite)
-            Utils::FileSystem::createDirectory(Utils::FileSystem::getParent(filePath));
-        if (forWrite || Utils::FileSystem::exists(filePath))
-            return filePath;
-        return "";
-    }
+    // === LEGACY PATCH BEGIN ===
+    if (auto p = Legacy::resolveGamelistPath(mRootFolder->getPath(), filePath, forWrite))
+        return *p;
+    // === LEGACY PATCH END ===
 
-    // Default ES-DE behavior
     if (Utils::FileSystem::exists(filePath)) {
+        if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+            return filePath;
+        }
+        else {
 #if defined(_WIN64)
-        LOG(LogWarning) << "Found a gamelist.xml file in \""
-                        << Utils::String::replace(mRootFolder->getPath(), "/", "\\")
-                        << "\\\" which will not get loaded, move it to \"" << gamelistPath
-                        << "\\\" or otherwise delete it";
+            LOG(LogWarning) << "Found a gamelist.xml file in \""
+                            << Utils::String::replace(mRootFolder->getPath(), "/", "\\")
+                            << "\\\" which will not get loaded, move it to \"" << gamelistPath
+                            << "\\\" or otherwise delete it";
 #else
-        LOG(LogWarning) << "Found a gamelist.xml file in \"" << mRootFolder->getPath()
-                        << "/\" which will not get loaded, move it to \"" << gamelistPath
-                        << "/\" or otherwise delete it";
+            LOG(LogWarning) << "Found a gamelist.xml file in \"" << mRootFolder->getPath()
+                            << "/\" which will not get loaded, move it to \"" << gamelistPath
+                            << "/\" or otherwise delete it";
 #endif
+        }
     }
 
     filePath = gamelistPath + "/gamelist.xml";

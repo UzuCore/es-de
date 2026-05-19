@@ -9,11 +9,13 @@
 #include "guis/GuiOrphanedDataCleanup.h"
 
 #include "CollectionSystemsManager.h"
-#include "Settings.h"
 #include "utils/FileSystemUtil.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/PlatformUtil.h"
 #include "views/ViewController.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #include <SDL2/SDL.h>
 #include <pugixml.hpp>
@@ -368,23 +370,15 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
         }
 
         std::vector<std::string> cleanupFiles;
-        const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
-
-        // In Legacy mode, media is stored under <ROM>/<system>/media/<type>/ with ES-style names.
-        std::string systemMediaDir;
-        std::vector<std::string> mediaTypesToScan;
-
-        if (legacyMode) {
-            systemMediaDir = system->getRootFolder()->getPath() + "/media";
-            mediaTypesToScan = {"images", "thumbnails", "marquees", "videos",
-                                "fanart", "manuals", "miximages", "titlescreens"};
-        }
-        else {
-            systemMediaDir = mMediaDirectory + system->getName();
-            mediaTypesToScan = mMediaTypes;
-        }
-
-        for (auto& mediaType : mediaTypesToScan) {
+        // === LEGACY PATCH: removed 'const' so Legacy mode can override below. ===
+        std::string systemMediaDir {mMediaDirectory + system->getName()};
+        // === LEGACY PATCH BEGIN ===
+        std::vector<std::string> legacyMediaTypes;
+        const bool legacyMode {Legacy::resolveOrphanedCleanupDirs(
+            system->getRootFolder()->getPath(), systemMediaDir, legacyMediaTypes)};
+        const std::vector<std::string>& mediaTypesEff {legacyMode ? legacyMediaTypes : mMediaTypes};
+        // === LEGACY PATCH END ===
+        for (auto& mediaType : mediaTypesEff) {
             const std::string mediaTypeDir {systemMediaDir + "/" + mediaType};
             const Utils::FileSystem::StringList& dirContent {
                 Utils::FileSystem::getDirContent(mediaTypeDir, true)};
@@ -427,9 +421,11 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             std::strftime(&dateString[0], 20, "%Y-%m-%d_%H%M%S", localtime_r(&currentTime, &tm));
 #endif
             dateString.erase(dateString.find('\0'));
-            // In Legacy mode, place CLEANUP folder under the ROM system directory.
+            // === LEGACY PATCH BEGIN ===
             const std::string cleanupBaseDir {
-                legacyMode ? (system->getRootFolder()->getPath() + "/") : mMediaDirectory};
+                legacyMode ? *Legacy::resolveCleanupBaseDir(system->getRootFolder()->getPath())
+                           : mMediaDirectory};
+            // === LEGACY PATCH END ===
             const std::string targetDirectory {cleanupBaseDir + "CLEANUP/" + dateString + "/"};
 #if defined(_WIN64)
             LOG(LogInfo) << "Moving orphaned files to \""
@@ -443,6 +439,7 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             for (auto& file : cleanupFiles) {
                 const std::string fileDirectory {
                     targetDirectory +
+                    // === LEGACY PATCH: use cleanupBaseDir (= mMediaDirectory in non-Legacy mode). ===
                     Utils::FileSystem::getParent(file.substr(cleanupBaseDir.length()))};
                 const std::string fileName {Utils::FileSystem::getFileName(file)};
                 if (!Utils::FileSystem::isDirectory(fileDirectory) &&

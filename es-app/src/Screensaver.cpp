@@ -20,6 +20,9 @@
 #include "utils/StringUtil.h"
 #include "views/GamelistView.h"
 #include "views/ViewController.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #include <random>
 #include <time.h>
@@ -422,30 +425,22 @@ void Screensaver::generateImageList()
 #else
         const std::string mediaBaseDir {FileData::getMediaDirectory()};
 #endif
-        const bool legacyMode {Settings::getInstance()->getBool("LegacyGamelistFileLocation")};
-        std::string mediaDirMiximages;
-        std::string mediaDirScreenshots;
-        std::string mediaDirTitlescreens;
-        std::string mediaDirCovers;
+        // === LEGACY PATCH: removed 'const' on the four strings below so Legacy mode
+        // ===                can override them via Legacy::resolveScreensaverImageDirs(). ===
+        std::string mediaDirMiximages {
+            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/miximages"};
+        std::string mediaDirScreenshots {
+            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/screenshots"};
+        std::string mediaDirTitlescreens {
+            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/titlescreens"};
+        std::string mediaDirCovers {mediaBaseDir + (*it)->getRootFolder()->getSystemName() +
+                                    "/covers"};
 
-        if (legacyMode) {
-            // Legacy mode: media is stored under <ROM system folder>/media/<type>/
-            const std::string romPath {
-                Utils::String::replace((*it)->getRootFolder()->getPath(), "\\", "/")};
-            mediaDirMiximages = romPath + "/media/miximages";
-            mediaDirScreenshots = romPath + "/media/images";
-            mediaDirTitlescreens = romPath + "/media/titlescreens";
-            mediaDirCovers = romPath + "/media/thumbnails";
-        }
-        else {
-            mediaDirMiximages =
-                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/miximages";
-            mediaDirScreenshots =
-                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/screenshots";
-            mediaDirTitlescreens =
-                mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/titlescreens";
-            mediaDirCovers = mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/covers";
-        }
+        // === LEGACY PATCH BEGIN ===
+        Legacy::resolveScreensaverImageDirs((*it)->getRootFolder()->getPath(),
+                                            mediaDirMiximages, mediaDirScreenshots,
+                                            mediaDirTitlescreens, mediaDirCovers);
+        // === LEGACY PATCH END ===
 
         Utils::FileSystem::StringList dirContentMiximages;
         Utils::FileSystem::StringList dirContentScreenshots;
@@ -568,16 +563,12 @@ void Screensaver::generateVideoList()
 #else
         const std::string mediaBaseDir {FileData::getMediaDirectory()};
 #endif
-        std::string mediaDir;
-        if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
-            // Legacy mode: videos are stored under <ROM system folder>/media/videos/
-            const std::string romPath {
-                Utils::String::replace((*it)->getRootFolder()->getPath(), "\\", "/")};
-            mediaDir = romPath + "/media/videos";
-        }
-        else {
-            mediaDir = mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/videos";
-        }
+        // === LEGACY PATCH: removed 'const' so Legacy mode can override mediaDir below. ===
+        std::string mediaDir {mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/videos"};
+        // === LEGACY PATCH BEGIN ===
+        if (auto v = Legacy::resolveScreensaverVideoDir((*it)->getRootFolder()->getPath()))
+            mediaDir = *v;
+        // === LEGACY PATCH END ===
         Utils::FileSystem::StringList dirContent;
 
         // This method of building an inventory of all video files isn't pretty, but to use the

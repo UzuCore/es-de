@@ -14,6 +14,9 @@
 #include "SystemData.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/StringUtil.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #include <chrono>
 
@@ -907,35 +910,37 @@ std::string MiximageGenerator::getSavePath() const
         subFolders = Utils::String::replace(Utils::FileSystem::getParent(mGame->getPath()),
                                             mGame->getSystemEnvData()->mStartPath, "");
 
-    std::string path;
+    std::string path {FileData::getMediaDirectory()};
 
-    // Legacy mode: save under <ROM>/<system>/media/miximages/
-    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
-        path = mGame->getSystemEnvData()->mStartPath;
-        if (path.back() != '/' && path.back() != '\\')
-            path.append("/");
-        path += "media/miximages" + subFolders + "/";
-    }
-    else {
-        path = FileData::getMediaDirectory();
+    // === LEGACY PATCH BEGIN ===
+    if (auto legacyPath = Legacy::resolveMiximagePath(
+            mGame->getSystemEnvData()->mStartPath, subFolders)) {
+        path = *legacyPath;
         if (!Utils::FileSystem::exists(path))
             Utils::FileSystem::createDirectory(path);
+    }
+    else {
+    // === LEGACY PATCH END ===
+    if (!Utils::FileSystem::exists(path))
+        Utils::FileSystem::createDirectory(path);
 
 #if defined(__ANDROID__)
+    if (!Utils::FileSystem::exists(path + ".nomedia")) {
+        LOG(LogInfo) << "Creating \"no media\" file \"" << path + ".nomedia" << "\"...";
+        Utils::FileSystem::createEmptyFile(path + ".nomedia");
         if (!Utils::FileSystem::exists(path + ".nomedia")) {
-            LOG(LogInfo) << "Creating \"no media\" file \"" << path + ".nomedia" << "\"...";
-            Utils::FileSystem::createEmptyFile(path + ".nomedia");
-            if (!Utils::FileSystem::exists(path + ".nomedia")) {
-                LOG(LogWarning) << "Couldn't create file, permission problems?";
-            }
+            LOG(LogWarning) << "Couldn't create file, permission problems?";
         }
+    }
 #endif
 
-        path += mGame->getSystemName() + "/miximages" + subFolders + "/";
-    }
+    path += mGame->getSystemName() + "/miximages" + subFolders + "/";
 
     if (!Utils::FileSystem::exists(path))
         Utils::FileSystem::createDirectory(path);
+    // === LEGACY PATCH BEGIN ===
+    }
+    // === LEGACY PATCH END ===
 
     if (Settings::getInstance()->getString("MiximageFileFormat") == "webp")
         path += name + ".webp";

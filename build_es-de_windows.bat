@@ -59,6 +59,53 @@ if !DEPS_OK!==0 (
     echo Dependencies OK.
 )
 
+REM Poppler 蹂꾨룄 泥댄겕 (setup.bat ?먯꽌 ?ㅼ튂, build.bat ?먮뒗 ?놁쓬)
+if not exist "external\poppler\Library\include\poppler\cpp\poppler-document.h" (
+    echo Poppler not found. Downloading...
+    cd external
+
+    if exist poppler-24.08.0 rmdir /S /Q poppler-24.08.0
+    if exist poppler rmdir /S /Q poppler
+    if exist Release-24.08.0-0.zip del Release-24.08.0-0.zip
+
+    curl -LO https://github.com/oschwartz10612/poppler-windows/releases/download/v24.08.0-0/Release-24.08.0-0.zip
+    if not exist Release-24.08.0-0.zip ( echo Poppler download FAILED & cd .. & goto :end )
+
+    "%SEVENZIP%" x Release-24.08.0-0.zip > nul
+    if not exist poppler-24.08.0\Library\ (
+        echo Poppler extraction FAILED
+        cd ..
+        goto :end
+    )
+
+    rename poppler-24.08.0 poppler
+
+    copy /Y poppler\Library\lib\poppler-cpp.lib ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\charset.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\deflate.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\freetype.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\iconv.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\jpeg8.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\lcms2.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\Lerc.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\libcrypto-3-x64.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\libcurl.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\liblzma.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\libpng16.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\libssh2.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\openjp2.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\poppler.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\poppler-cpp.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\tiff.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\zlib.dll ..\es-pdf-converter\ > nul
+    copy /Y poppler\Library\bin\zstd.dll ..\es-pdf-converter\ > nul
+
+    cd ..
+    echo Poppler OK.
+) else (
+    echo Poppler OK.
+)
+
 echo [2/6] Select build type:
 echo   1) Release  - Optimized build (default)
 echo   2) Debug    - Debug build with symbols
@@ -90,10 +137,9 @@ if not exist "ES-DE.exe" (
     goto :end
 )
 
-for /f "tokens=2 delims==" %%i in ('wmic os get LocalDateTime /value') do set DATETIME=%%i
-set BUILD_DATE=%DATETIME:~2,6%
+for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyMMdd"') do set BUILD_DATE=%%i
 
-set PACKAGE_NAME=ES-DE_%BUILD_LABEL%_%BUILD_DATE%
+set PACKAGE_NAME=ES-DE_windows_%BUILD_DATE%
 set PACKAGE_DIR=%RELEASE_DIR%\%PACKAGE_NAME%
 set ZIP_FILE=%RELEASE_DIR%\%PACKAGE_NAME%.zip
 
@@ -113,12 +159,16 @@ if exist "licenses" xcopy /e /i /q /y "licenses" "%PACKAGE_DIR%\licenses" > nul
 if exist "locale" xcopy /e /i /q /y "locale" "%PACKAGE_DIR%\locale" > nul
 if exist "es-pdf-converter\es-pdf-convert.exe" copy "es-pdf-converter\es-pdf-convert.exe" "%PACKAGE_DIR%\" > nul
 
+echo Copying es-pdf-converter dlls...
+if exist "es-pdf-converter\poppler-cpp.dll" copy "es-pdf-converter\poppler-cpp.dll" "%PACKAGE_DIR%\" > nul
+if exist "es-pdf-converter\poppler.dll" copy "es-pdf-converter\poppler.dll" "%PACKAGE_DIR%\" > nul
+
 echo Creating user directories...
 mkdir "%PACKAGE_DIR%\Emulators" 2> nul
 mkdir "%PACKAGE_DIR%\ROMs" 2> nul
 
 echo [6/6] Creating zip archive with 7-Zip...
-"%SEVENZIP%" a -tzip -mx9 "%ZIP_FILE%" "%PACKAGE_DIR%\*" > nul
+"%SEVENZIP%" a -tzip -mx10 "%ZIP_FILE%" "%PACKAGE_DIR%\*" > nul
 if %errorlevel% neq 0 ( echo Zip FAILED & goto :end )
 
 echo.
