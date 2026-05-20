@@ -774,6 +774,10 @@ msgstr "ユーティリティ"
 msgid "QUIT ES-DE"
 msgstr "ES-DEを終了"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "ES-DEを終了"
+
 msgid "THEME"
 msgstr "テーマ"
 

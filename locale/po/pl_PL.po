@@ -782,6 +782,10 @@ msgstr "NARZĘDZIA"
 msgid "QUIT ES-DE"
 msgstr "WYJDŹ Z ES-DE"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "WYJDŹ Z ES-DE"
+
 msgid "THEME"
 msgstr "MOTYW"
 

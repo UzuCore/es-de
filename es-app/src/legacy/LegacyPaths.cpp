@@ -96,11 +96,12 @@ namespace Legacy
 
     // ---------------------------------------------------------------- screensaver
 
+    // === LEGACY PATCH BEGIN === (titlescreens 제거: mdKey 매핑 없음)
     bool resolveScreensaverImageDirs(const std::string& systemRomPath,
                                      std::string& outMiximages,
                                      std::string& outScreenshots,
-                                     std::string& outTitlescreens,
                                      std::string& outCovers)
+    // === LEGACY PATCH END ===
     {
         if (!isEnabled())
             return false;
@@ -108,7 +109,9 @@ namespace Legacy
         const std::string romPath {Utils::String::replace(systemRomPath, "\\", "/")};
         outMiximages = romPath + "/media/miximages";
         outScreenshots = romPath + "/media/images";
-        outTitlescreens = romPath + "/media/titlescreens";
+        // === LEGACY PATCH BEGIN === (titlescreens 제거)
+        // outTitlescreens 삭제 — mdKey 매핑 없어서 스크래핑 저장 불가
+        // === LEGACY PATCH END ===
         outCovers = romPath + "/media/thumbnails";
         return true;
     }

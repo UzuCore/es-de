@@ -328,18 +328,7 @@ void GuiScraperMenu::openContentOptions()
         }
     });
 
-    // Scrape title screen images.
-    auto scrapeTitleScreens = std::make_shared<SwitchComponent>();
-    scrapeTitleScreens->setState(Settings::getInstance()->getBool("ScrapeTitleScreens"));
-    s->addWithLabel(_("TITLE SCREEN IMAGES"), scrapeTitleScreens);
-    s->addSaveFunc([scrapeTitleScreens, s] {
-        if (scrapeTitleScreens->getState() !=
-            Settings::getInstance()->getBool("ScrapeTitleScreens")) {
-            Settings::getInstance()->setBool("ScrapeTitleScreens", scrapeTitleScreens->getState());
-            s->setNeedsSaving();
-        }
-    });
-
+    // === LEGACY PATCH BEGIN === (매핑 없는 항목 UI 제거: ScrapeTitleScreens, ScrapeBackCovers, Scrape3DBoxes, ScrapePhysicalMedia)
     // Scrape box cover images.
     auto scrapeCovers = std::make_shared<SwitchComponent>();
     scrapeCovers->setState(Settings::getInstance()->getBool("ScrapeCovers"));
@@ -347,17 +336,6 @@ void GuiScraperMenu::openContentOptions()
     s->addSaveFunc([scrapeCovers, s] {
         if (scrapeCovers->getState() != Settings::getInstance()->getBool("ScrapeCovers")) {
             Settings::getInstance()->setBool("ScrapeCovers", scrapeCovers->getState());
-            s->setNeedsSaving();
-        }
-    });
-
-    // Scrape box back cover images.
-    auto scrapeBackCovers = std::make_shared<SwitchComponent>();
-    scrapeBackCovers->setState(Settings::getInstance()->getBool("ScrapeBackCovers"));
-    s->addWithLabel(_("BOX BACK COVER IMAGES"), scrapeBackCovers);
-    s->addSaveFunc([scrapeBackCovers, s] {
-        if (scrapeBackCovers->getState() != Settings::getInstance()->getBool("ScrapeBackCovers")) {
-            Settings::getInstance()->setBool("ScrapeBackCovers", scrapeBackCovers->getState());
             s->setNeedsSaving();
         }
     });
@@ -372,50 +350,7 @@ void GuiScraperMenu::openContentOptions()
             s->setNeedsSaving();
         }
     });
-
-    // Scrape 3D box images.
-    auto scrape3dBoxes = std::make_shared<SwitchComponent>();
-    scrape3dBoxes->setState(Settings::getInstance()->getBool("Scrape3DBoxes"));
-    s->addWithLabel(_("3D BOX IMAGES"), scrape3dBoxes);
-    s->addSaveFunc([scrape3dBoxes, s] {
-        if (scrape3dBoxes->getState() != Settings::getInstance()->getBool("Scrape3DBoxes")) {
-            Settings::getInstance()->setBool("Scrape3DBoxes", scrape3dBoxes->getState());
-            s->setNeedsSaving();
-        }
-    });
-
-    // 3D box images are not supported by TheGamesDB, so gray out the option if this scraper
-    // is selected.
-    if (Settings::getInstance()->getString("Scraper") == "thegamesdb") {
-        scrape3dBoxes->setEnabled(false);
-        scrape3dBoxes->setOpacity(DISABLED_OPACITY);
-        scrape3dBoxes->getParent()
-            ->getChild(scrape3dBoxes->getChildIndex() - 1)
-            ->setOpacity(DISABLED_OPACITY);
-    }
-
-    // Scrape physical media images.
-    auto scrapePhysicalMedia = std::make_shared<SwitchComponent>();
-    scrapePhysicalMedia->setState(Settings::getInstance()->getBool("ScrapePhysicalMedia"));
-    s->addWithLabel(_("PHYSICAL MEDIA IMAGES"), scrapePhysicalMedia);
-    s->addSaveFunc([scrapePhysicalMedia, s] {
-        if (scrapePhysicalMedia->getState() !=
-            Settings::getInstance()->getBool("ScrapePhysicalMedia")) {
-            Settings::getInstance()->setBool("ScrapePhysicalMedia",
-                                             scrapePhysicalMedia->getState());
-            s->setNeedsSaving();
-        }
-    });
-
-    // Physical media images are not supported by TheGamesDB, so gray out the option if this
-    // scraper is selected.
-    if (Settings::getInstance()->getString("Scraper") == "thegamesdb") {
-        scrapePhysicalMedia->setEnabled(false);
-        scrapePhysicalMedia->setOpacity(DISABLED_OPACITY);
-        scrapePhysicalMedia->getParent()
-            ->getChild(scrapePhysicalMedia->getChildIndex() - 1)
-            ->setOpacity(DISABLED_OPACITY);
-    }
+    // === LEGACY PATCH END ===
 
     // Scrape fan art images.
     auto scrapeFanArt = std::make_shared<SwitchComponent>();

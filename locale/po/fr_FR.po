@@ -782,6 +782,10 @@ msgstr "OUTILS"
 msgid "QUIT ES-DE"
 msgstr "QUITTER ES-DE"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "QUITTER ES-DE"
+
 msgid "THEME"
 msgstr "THÈME"
 

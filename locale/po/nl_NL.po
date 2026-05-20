@@ -770,6 +770,10 @@ msgstr "HULPPROGRAMMA'S"
 msgid "QUIT ES-DE"
 msgstr "STOP ES-DE"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "STOP ES-DE"
+
 msgid "THEME"
 msgstr "THEMA"
 

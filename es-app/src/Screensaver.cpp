@@ -425,26 +425,28 @@ void Screensaver::generateImageList()
 #else
         const std::string mediaBaseDir {FileData::getMediaDirectory()};
 #endif
-        // === LEGACY PATCH: removed 'const' on the four strings below so Legacy mode
+        // === LEGACY PATCH: removed 'const' on the three strings below so Legacy mode
         // ===                can override them via Legacy::resolveScreensaverImageDirs(). ===
         std::string mediaDirMiximages {
             mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/miximages"};
         std::string mediaDirScreenshots {
             mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/screenshots"};
-        std::string mediaDirTitlescreens {
-            mediaBaseDir + (*it)->getRootFolder()->getSystemName() + "/titlescreens"};
+        // === LEGACY PATCH BEGIN === (titlescreens 제거: mdKey 매핑 없음)
+        // mediaDirTitlescreens 삭제
         std::string mediaDirCovers {mediaBaseDir + (*it)->getRootFolder()->getSystemName() +
                                     "/covers"};
 
         // === LEGACY PATCH BEGIN ===
         Legacy::resolveScreensaverImageDirs((*it)->getRootFolder()->getPath(),
                                             mediaDirMiximages, mediaDirScreenshots,
-                                            mediaDirTitlescreens, mediaDirCovers);
+                                            mediaDirCovers);
         // === LEGACY PATCH END ===
 
         Utils::FileSystem::StringList dirContentMiximages;
         Utils::FileSystem::StringList dirContentScreenshots;
-        Utils::FileSystem::StringList dirContentTitlescreens;
+        // === LEGACY PATCH BEGIN === (titlescreens 제거)
+        // dirContentTitlescreens 삭제
+        // === LEGACY PATCH END ===
         Utils::FileSystem::StringList dirContentCovers;
 
         // This method of building an inventory of all image files isn't pretty, but to use the
@@ -475,12 +477,8 @@ void Screensaver::generateImageList()
                 dirContentScreenshots.emplace_back(Utils::String::toLower(entry));
         }
 
-        for (auto& entry : Utils::FileSystem::getDirContent(mediaDirTitlescreens, true)) {
-            if (caseSensitiveFilesystem)
-                dirContentTitlescreens.emplace_back(entry);
-            else
-                dirContentTitlescreens.emplace_back(Utils::String::toLower(entry));
-        }
+        // === LEGACY PATCH BEGIN === (titlescreens 루프 제거)
+        // === LEGACY PATCH END ===
 
         for (auto& entry : Utils::FileSystem::getDirContent(mediaDirCovers, true)) {
             if (caseSensitiveFilesystem)
@@ -523,15 +521,8 @@ void Screensaver::generateImageList()
                     mImageFiles.push_back((*it2));
                     break;
                 }
-                if (std::find(dirContentTitlescreens.cbegin(), dirContentTitlescreens.cend(),
-                              (caseSensitiveFilesystem ?
-                                   mediaDirTitlescreens + gamePath + extension :
-                                   Utils::String::toLower(mediaDirTitlescreens + gamePath +
-                                                          extension))) !=
-                    dirContentTitlescreens.cend()) {
-                    mImageFiles.push_back((*it2));
-                    break;
-                }
+                // === LEGACY PATCH BEGIN === (titlescreens 검색 제거: mdKey 매핑 없음)
+                // === LEGACY PATCH END ===
                 if (std::find(dirContentCovers.cbegin(), dirContentCovers.cend(),
                               (caseSensitiveFilesystem ?
                                    mediaDirCovers + gamePath + extension :

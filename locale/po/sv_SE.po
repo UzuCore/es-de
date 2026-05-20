@@ -766,6 +766,10 @@ msgstr "VERKTYG"
 msgid "QUIT ES-DE"
 msgstr "AVSLUTA ES-DE"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "AVSLUTA ES-DE"
+
 msgid "THEME"
 msgstr "TEMA"
 

@@ -171,6 +171,16 @@ GuiThemeDownloader::GuiThemeDownloader(std::function<void()> updateCallback)
 
     git_libgit2_init();
 
+#if defined(__ANDROID__)
+    // ES-DE 의 theme 디렉토리는 SAF/FUSE 가상 파일시스템 위에 있어서
+    // stat() 이 보고하는 owner UID 가 앱 UID 와 다르게 나온다.
+    // libgit2 의 CVE-2022-24765 대응 owner check 는 이를 보고 모든 작업을 거부하므로
+    // ("repository path ... is not owned by current user" 에러),
+    // 안드로이드에서는 owner validation 을 비활성화한다.
+    // 안드로이드 앱 샌드박스 자체가 보안 경계라 owner check 가 사실상 무의미.
+    git_libgit2_opts(GIT_OPT_SET_OWNER_VALIDATION, 0);
+#endif
+
 #if defined(USE_BUNDLED_CERTIFICATES)
     git_libgit2_opts(
         GIT_OPT_SET_SSL_CERT_LOCATIONS,

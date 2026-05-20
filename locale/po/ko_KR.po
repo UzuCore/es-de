@@ -756,6 +756,10 @@ msgstr "유틸리티"
 msgid "QUIT ES-DE"
 msgstr "ES-DE 종료"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "ES-DE 종료"
+
 msgid "THEME"
 msgstr "테마"
 

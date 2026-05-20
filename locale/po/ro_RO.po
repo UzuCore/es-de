@@ -778,6 +778,10 @@ msgstr "UTILITARE"
 msgid "QUIT ES-DE"
 msgstr "IEȘI DIN ES-DE"
 
+
+msgid "QUIT ES-DE+α"
+msgstr "IEȘI DIN ES-DE"
+
 msgid "THEME"
 msgstr "TEMĂ"
 

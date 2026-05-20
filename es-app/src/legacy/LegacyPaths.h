@@ -52,11 +52,12 @@ namespace Legacy
     // Screensaver image dirs for a given system root folder (one call replaces
     // four assignments). Outputs are written via out params; returns true when
     // Legacy values were written, false otherwise.
+    // === LEGACY PATCH BEGIN === (titlescreens 제거: mdKey 매핑 없음)
     bool resolveScreensaverImageDirs(const std::string& systemRomPath,
                                      std::string& outMiximages,
                                      std::string& outScreenshots,
-                                     std::string& outTitlescreens,
                                      std::string& outCovers);
+    // === LEGACY PATCH END ===
 
     // Screensaver video dir. Returns std::nullopt outside Legacy mode.
     std::optional<std::string> resolveScreensaverVideoDir(const std::string& systemRomPath);
