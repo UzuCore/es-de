@@ -10,6 +10,7 @@
 
 * Added translations for Czech (cs_CZ)
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
+* Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
