@@ -817,6 +817,7 @@
         <command label="Gearboy (Standalone)">%EMULATOR_GEARBOY% %ROM%</command>
         <command label="TGB Dual">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\tgbdual_libretro.dll %ROM%</command>
         <command label="DoubleCherryGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\DoubleCherryGB_libretro.dll %ROM%</command>
+        <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\irogb_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bsnes_libretro.dll %ROM%</command>
@@ -865,6 +866,7 @@
         <command label="Gearboy (Standalone)">%EMULATOR_GEARBOY% %ROM%</command>
         <command label="TGB Dual">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\tgbdual_libretro.dll %ROM%</command>
         <command label="DoubleCherryGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\DoubleCherryGB_libretro.dll %ROM%</command>
+        <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\irogb_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bsnes_libretro.dll %ROM%</command>

@@ -781,6 +781,7 @@
         <command label="SameBoy (Standalone)">%EMULATOR_SAMEBOY% %ROM%</command>
         <command label="Gearboy">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearboy_libretro.dylib %ROM%</command>
         <command label="TGB Dual">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tgbdual_libretro.dylib %ROM%</command>
+        <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/irogb_libretro.dylib %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen-s_libretro.dylib %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_libretro.dylib %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mgba_libretro.dylib %ROM%</command>
@@ -823,6 +824,7 @@
         <command label="SameBoy (Standalone)">%EMULATOR_SAMEBOY% %ROM%</command>
         <command label="Gearboy">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearboy_libretro.dylib %ROM%</command>
         <command label="TGB Dual">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tgbdual_libretro.dylib %ROM%</command>
+        <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/irogb_libretro.dylib %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen-s_libretro.dylib %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_libretro.dylib %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mgba_libretro.dylib %ROM%</command>
