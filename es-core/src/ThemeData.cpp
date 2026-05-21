@@ -340,6 +340,7 @@ std::map<std::string, std::map<std::string, ThemeData::ElementPropertyType>>
        {"origin", NORMALIZED_PAIR},
        {"rotation", FLOAT},
        {"rotationOrigin", NORMALIZED_PAIR},
+       {"scaleFactor", FLOAT},
        {"stationary", STRING},
        {"renderDuringTransitions", BOOLEAN},
        {"flipHorizontal", BOOLEAN},
