@@ -1,0 +1,15 @@
+name: Mirror sync from GitLab
+on:
+  schedule:
+    - cron: '0 17 * * *'
+  workflow_dispatch:
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync master branch from GitLab
+        run: |
+          git clone --single-branch --branch master https://gitlab.com/es-de/emulationstation-de.git repo
+          cd repo
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin master --force
