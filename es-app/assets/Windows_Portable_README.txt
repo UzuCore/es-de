@@ -145,6 +145,7 @@ Emulators\SSF\SSF.exe
 Emulators\Stella\64-bit\Stella.exe
 Emulators\Supermodel\Supermodel.exe
 Emulators\Supermodel-Dojo\supermodel.exe
+Emulators\SUPERZSNES\SUPERZSNES.exe
 Emulators\tic80\tic80.exe
 Emulators\Triforce\DolphinWX.exe
 Emulators\tsugaru\Tsugaru_CUI.exe

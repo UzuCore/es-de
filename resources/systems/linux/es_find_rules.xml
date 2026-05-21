@@ -1330,6 +1330,18 @@
             <entry>~/.local/share/flatpak/exports/bin/com.supermodel3.Supermodel</entry>
         </rule>
     </emulator>
+    <emulator name="SUPERZSNES">
+        <!-- Super Nintendo/Super Famicom emulator SUPER ZSNES -->
+        <rule type="systempath">
+            <entry>SUPERZSNES</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>~/Applications/SUPERZSNES/SUPERZSNES</entry>
+            <entry>~/.local/share/applications/SUPERZSNES/SUPERZSNES</entry>
+            <entry>~/.local/bin/SUPERZSNES/SUPERZSNES</entry>
+            <entry>~/bin/SUPERZSNES/SUPERZSNES</entry>
+        </rule>
+    </emulator>
     <emulator name="TIC-80">
         <!-- TIC-80 Fantasy Computer (game engine) -->
         <rule type="systempath">

@@ -1904,6 +1904,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="SUPER ZSNES (Standalone)">%EMULATOR_SUPERZSNES% %ROM%</command>
         <platform>snes</platform>
         <theme>sfc</theme>
     </system>
@@ -1954,6 +1955,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="SUPER ZSNES (Standalone)">%EMULATOR_SUPERZSNES% %ROM%</command>
         <platform>snes</platform>
         <theme>snes</theme>
     </system>
@@ -1977,6 +1979,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="SUPER ZSNES (Standalone)">%EMULATOR_SUPERZSNES% %ROM%</command>
         <platform>snes</platform>
         <theme>snesna</theme>
     </system>

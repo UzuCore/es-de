@@ -1082,6 +1082,16 @@
             <entry>%ESPATH%\..\Emulators\Supermodel-Dojo\supermodel.exe</entry>
         </rule>
     </emulator>
+    <emulator name="SUPERZSNES">
+        <!-- Super Nintendo/Super Famicom emulator SUPER ZSNES -->
+        <rule type="systempath">
+            <entry>SUPERZSNES.exe</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>%ESPATH%\Emulators\SUPERZSNES\SUPERZSNES.exe</entry>
+            <entry>%ESPATH%\..\Emulators\SUPERZSNES\SUPERZSNES.exe</entry>
+        </rule>
+    </emulator>
     <emulator name="TIC-80">
         <!-- TIC-80 Fantasy Computer (game engine) -->
         <rule type="systempath">
