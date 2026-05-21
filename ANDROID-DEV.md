@@ -219,7 +219,7 @@ This device will by default kill any process that is not currently focused, so i
 
 ### Mangmi Air X
 
-There is reportedly an issue with this device where starting ES-DE once will permanently slow down the entire device so that all emulators and such run a lot slower than normal. The only way to resolve this is apparently to reboot the device. It's possible that this bug was introduced with a recent firmware update, although that has not been confirmed. There is no known solution other than waiting for the hardware manufacturer to release a firmware update which fixes the problem, except perhaps to install GammaOS instead.
+There is an issue with this device where starting ES-DE once will permanently slow down the entire device so that all emulators and such run a lot slower than normal. The only way to resolve this is apparently to reboot the device. This bug was introduced with the 1.1.6 firmware update and there is no known solution other than waiting for the hardware manufacturer to make a new firmware release which fixes the problem, or to install GammaOS instead.
 
 ### Retroid Pocket G2
 
@@ -779,6 +779,8 @@ This is clearly not a complete list of Android devices, but rather those we know
 | LG           | V60 ThinQ               | 13              | Yes       | None                |                            |
 | Logitech     | G Cloud                 | 11              | Yes       | None                |                            |
 | Magicx       | Zero 40                 | 10              | Yes       | None                |                            |
+| Mangmi       | Air X                   | 14              | Yes       | 1.1.6 firmware is buggy | See _Known problems on specific devices_ for more info |
+| Mangmi       | Air X                   | GammaOS Next    | Yes       | None                |                            |
 | Meta         | Quest 3                 | 12 ?            | Yes       | None                |                            |
 | Microsoft    | Surface Duo 2           | 12              | Unclear   | Unclear             | Conflicting reports of whether this device works or not |
 | Motorola     | Moto G60                | 12              | Yes       | None                |                            |
