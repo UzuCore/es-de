@@ -937,7 +937,16 @@ bool SystemData::loadConfig()
             name = Utils::String::replace(system.child("name").text().get(), "\n", "");
             fullname = Utils::String::replace(system.child("fullname").text().get(), "\n", "");
             sortName = system.child("systemsortname").text().get();
-            path = system.child("path").text().get();
+            // === LEGACY PATCH BEGIN === (다중 <path> 지원: gc/gamecube, n3ds/3ds 등)
+            std::vector<std::string> systemPaths;
+            for (pugi::xml_node pathNode = system.child("path"); pathNode;
+                 pathNode = pathNode.next_sibling("path")) {
+                std::string p = pathNode.text().get();
+                if (!p.empty())
+                    systemPaths.emplace_back(p);
+            }
+            path = systemPaths.empty() ? "" : systemPaths.front();
+            // === LEGACY PATCH END ===
 
             for (auto& importRule : sImportRules->mSystems) {
                 if (importRule.first == name) {
@@ -973,9 +982,14 @@ bool SystemData::loadConfig()
                 return false;
             };
 
+            // === LEGACY PATCH BEGIN === (다중 path 지원: 각 path를 독립적으로 처리)
+            // nameFindFunc()는 이름 중복 체크인데 다중 path에서는 path 루프 안에서 처리함
+            for (auto& sysPath : systemPaths) {
+            path = sysPath;
+
             // If the name is matching a system that has already been loaded, then skip the entry.
             if (nameFindFunc())
-                continue;
+                break; // 같은 이름 시스템이 이미 로드됐으면 나머지 path도 스킵
 
             // If there is a %ROMPATH% variable set for the system, expand it. By doing this
             // it's possible to use either absolute ROM paths in es_systems.xml or to utilize
@@ -1166,9 +1180,28 @@ bool SystemData::loadConfig()
                 delete newSys;
             }
             else {
-                sSystemVector.emplace_back(newSys);
-                gameCount += newSys->getRootFolder()->getGameCount().first;
+                // === LEGACY PATCH BEGIN === (중복 시스템 방지: gc/gamecube 등 대체 경로)
+                // 같은 이름의 시스템이 이미 로드됐으면 이 경로는 건너뜀
+                bool alreadyLoaded {false};
+                for (auto* sys : sSystemVector) {
+                    if (sys->getName() == name) {
+                        alreadyLoaded = true;
+                        LOG(LogDebug) << "SystemData::loadConfig(): Skipping duplicate path \""
+                                      << path << "\" for system \"" << name
+                                      << "\" (already loaded from another path)";
+                        break;
+                    }
+                }
+                if (!alreadyLoaded) {
+                    sSystemVector.emplace_back(newSys);
+                    gameCount += newSys->getRootFolder()->getGameCount().first;
+                }
+                else {
+                    delete newSys;
+                }
+                // === LEGACY PATCH END ===
             }
+            } // end for (auto& sysPath : systemPaths) — LEGACY PATCH
         }
     }
 
@@ -1484,7 +1517,16 @@ bool SystemData::createSystemDirectories()
 
             name = system.child("name").text().get();
             fullname = system.child("fullname").text().get();
-            path = system.child("path").text().get();
+            // === LEGACY PATCH BEGIN === (다중 <path> 지원)
+            std::vector<std::string> systemPaths2;
+            for (pugi::xml_node pathNode = system.child("path"); pathNode;
+                 pathNode = pathNode.next_sibling("path")) {
+                std::string p = pathNode.text().get();
+                if (!p.empty())
+                    systemPaths2.emplace_back(p);
+            }
+            path = systemPaths2.empty() ? "" : systemPaths2.front();
+            // === LEGACY PATCH END ===
             extensions = system.child("extension").text().get();
             for (pugi::xml_node entry {system.child("command")}; entry;
                  entry = entry.next_sibling("command")) {
