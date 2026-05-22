@@ -356,6 +356,12 @@ This emulator can be installed from the Play store or it can be downloaded from 
 https://play.google.com/store/apps/details?id=com.github.eka2l1 \
 https://github.com/EKA2L1/EKA2L1/releases
 
+### EmuCoreV
+
+This emulator can be downloaded from their GitHub site.
+
+https://github.com/sashkinbro/EmuCoreV/releases
+
 ### EmuCoreX
 
 This emulator can be downloaded from their GitHub site.
@@ -1004,7 +1010,7 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | ps3                   | Sony PlayStation 3                             | aPS3e Game Serial **(Standalone)** | aPS3e Directory **(Standalone)**,<br>aPS3e ISO **(Standalone)** | Yes          | See the specific _Sony PlayStation 3_ section in the user guide |
 | ps4                   | Sony PlayStation 4                             | _Placeholder_                     |                                   |              |                                      |
 | psp                   | Sony PlayStation Portable                      | PPSSPP                            | PPSSPP **(Standalone)**           | No           | Single disc image file               |
-| psvita                | Sony PlayStation Vita                          | Vita3K **(Standalone)**           |                                   | Yes          | See the specific _Sony PlayStation Vita_ section in the User guide |
+| psvita                | Sony PlayStation Vita                          | Vita3K **(Standalone)**           | EmuCoreV **(Standalone)**         | Yes          | See the specific _Sony PlayStation Vita_ section in the User guide |
 | psx                   | Sony PlayStation                               | Beetle PSX                        | Beetle PSX HW,<br>PCSX ReARMed,<br>SwanStation,<br>DuckStation **(Standalone)**,<br>ePSXe **(Standalone)**,<br>FPseNG **(Standalone)**,<br>FPse **(Standalone)** | Yes          | .chd file for single-disc games, .m3u playlist for multi-disc games |
 | pv1000                | Casio PV-1000                                  | MAME4droid Current **(Standalone)**  |                                   | No           | Single archive or ROM file           |
 | quake                 | Quake                                          | TyrQuake                          | vitaQuake 2,<br>vitaQuake 2 [Rogue],<br>vitaQuake 2 [Xatrix],<br>vitaQuake 2 [Zaero],<br>idTech4A++ **(Standalone)** | No           |                                      |
