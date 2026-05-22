@@ -10,15 +10,19 @@
 
 * Added translations for Czech (cs_CZ)
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
+* Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
+* Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
+* Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
+* (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
-* Added support for parsing the Path key in .desktop files on Linux and Unix
 * Added the .a0, .b0 and .rom file extensions to the vic20 system
 * (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
 
 ### Bug fixes
 
 * Some specific theme configuration for the system status indicators could lead to a crash on battery charge status changes
+* (macOS) The Stella 2023 RetroArch core could not be used as the es_systems.xml entry was invalid
 
 ## Version 3.4.1 / 3.4.1-58
 

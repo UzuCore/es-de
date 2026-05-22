@@ -442,6 +442,12 @@
             <entry>/usr/local/bin/supermodel</entry>
         </rule>
     </emulator>
+    <emulator name="SUPERZSNES">
+        <!-- Super Nintendo/Super Famicom emulator SUPER ZSNES -->
+        <rule type="staticpath">
+            <entry>/Applications/SUPERZSNES.app/Contents/MacOS/SUPERZSNES</entry>
+        </rule>
+    </emulator>
     <emulator name="TIC-80">
         <!-- TIC-80 Fantasy Computer (game engine) -->
         <rule type="staticpath">

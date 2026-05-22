@@ -2453,6 +2453,11 @@ Properties:
     - Point around which the image will be rotated.
     - Minimum value per axis is `0` and maximum value per axis is `1`
     - Default is `0.5 0.5`
+* `scaleFactor` - type: FLOAT
+    - Using scalable vector graphics (SVG) files and displaying them at large sizes consume a lot of VRAM as these images will normally get rasterized at the actual pixel resolution. This is different to raster images which only consume as much VRAM as the actual textures require (regardless of rendered size) as they are scaled to the actual pixel size via the GPU in the rendering pipeline. However, using the `scaleFactor` property it's possible to set a factor for at what size to rasterize SVG images relative to the actual on screen dimensions and then having the GPU scale the textures in the same manner as for raster images. For instance, setting this factor to 0.5 will lead to a quarter of the required VRAM as both the X and Y axes are multiplied by 0.5. However, setting the value too low will lead to visibly pixellated graphics.
+    - Minimum value is `0.1` and maximum value is `1`
+    - Default is `1` (images are rasterized at the defined pixel size)
+    - This property can only be used for scalable vector graphics (SVG) files and it will be ignored if `tile` is set to `true`
 * `stationary` - type: STRING
     - If using slide transitions, then this property can be set to keep the element stationary during transition animations. This property has no effect when using instant or fade transitions.
     - `withinView` - Set element as stationary when navigating within the same view, i.e. from system to system or from gamelist to gamelist.
