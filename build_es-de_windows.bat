@@ -40,6 +40,51 @@ if /i "%CLEAN%"=="Y" (
     for /d %%d in (es-app es-core es-pdf-converter es-core-suspend) do (
         if exist "%%d\CMakeFiles" rmdir /s /q "%%d\CMakeFiles"
     )
+
+    echo.
+    echo [Clean] Checking external dependencies...
+
+    REM setup 여부 확인 (소스 다운로드)
+    set SETUP_OK=1
+    if not exist "external\pugixml\" set SETUP_OK=0
+    if not exist "external\harfbuzz\" set SETUP_OK=0
+    if not exist "external\freetype\" set SETUP_OK=0
+    if not exist "external\libgit2\" set SETUP_OK=0
+    if not exist "external\icu\" set SETUP_OK=0
+
+    if !SETUP_OK!==0 (
+        echo [Clean] External sources not found. Running setup first...
+        echo         This downloads source code and may take several minutes.
+        call tools\Windows_dependencies_setup.bat
+        if !errorlevel! neq 0 (
+            echo [Clean] Setup FAILED.
+            goto :end
+        )
+        echo [Clean] Setup complete.
+    ) else (
+        echo [Clean] External sources OK.
+    )
+
+    REM build 여부 확인 (컴파일된 라이브러리)
+    set DEPS_BUILT=1
+    if not exist "external\icu\icu4c\bin64\icudt77.dll" set DEPS_BUILT=0
+    if not exist "external\harfbuzz\build\harfbuzz.lib" set DEPS_BUILT=0
+    if not exist "external\freetype\build\freetype.lib" set DEPS_BUILT=0
+    if not exist "external\libgit2\build\git2.dll"      set DEPS_BUILT=0
+    if not exist "external\pugixml\pugixml.dll"         set DEPS_BUILT=0
+
+    if !DEPS_BUILT!==0 (
+        echo [Clean] Compiled libraries not found. Building dependencies...
+        echo         This may take 30-60 minutes.
+        call tools\Windows_dependencies_build.bat
+        if !errorlevel! neq 0 (
+            echo [Clean] Dependency build FAILED.
+            goto :end
+        )
+        echo [Clean] Dependencies built successfully.
+    ) else (
+        echo [Clean] Compiled libraries OK. Skipping dependency build.
+    )
 )
 
 echo [1/6] Check dependencies...
@@ -59,7 +104,7 @@ if !DEPS_OK!==0 (
     echo Dependencies OK.
 )
 
-REM Poppler 蹂꾨룄 泥댄겕 (setup.bat ?먯꽌 ?ㅼ튂, build.bat ?먮뒗 ?놁쓬)
+REM Poppler 별도 체크 (setup.bat 에서 설치, build.bat 에는 없음)
 if not exist "external\poppler\Library\include\poppler\cpp\poppler-document.h" (
     echo Poppler not found. Downloading...
     cd external
