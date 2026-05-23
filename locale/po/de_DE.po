@@ -780,10 +780,6 @@ msgstr "DIENSTPROGRAMME"
 msgid "QUIT ES-DE"
 msgstr "BEENDE ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "BEENDE ES-DE"
-
 msgid "THEME"
 msgstr "THEME"
 

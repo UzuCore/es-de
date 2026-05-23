@@ -783,10 +783,6 @@ msgstr "الفحص"
 msgid "QUIT ES-DE"
 msgstr "إغلاق ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "إغلاق ES-DE"
-
 msgid "THEME"
 msgstr "الثيمة"
 

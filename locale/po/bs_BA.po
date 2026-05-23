@@ -782,10 +782,6 @@ msgstr "KOMUNALNE USLUGE"
 msgid "QUIT ES-DE"
 msgstr "IZLAZ IZ ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "IZLAZ IZ ES-DE"
-
 msgid "THEME"
 msgstr "TEMA"
 

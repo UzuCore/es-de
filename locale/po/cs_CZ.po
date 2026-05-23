@@ -765,10 +765,6 @@ msgstr "NÁSTROJE"
 msgid "QUIT ES-DE"
 msgstr "UKONČIT ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "UKONČIT ES-DE"
-
 msgid "THEME"
 msgstr "TÉMA"
 

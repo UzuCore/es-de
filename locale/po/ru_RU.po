@@ -773,10 +773,6 @@ msgstr "УТИЛИТЫ"
 msgid "QUIT ES-DE"
 msgstr "ВЫХОД ИЗ ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "ВЫХОД ИЗ ES-DE"
-
 msgid "THEME"
 msgstr "ТЕМА"
 

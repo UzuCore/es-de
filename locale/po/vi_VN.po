@@ -761,10 +761,6 @@ msgstr "TIỆN ÍCH"
 msgid "QUIT ES-DE"
 msgstr "THOÁT"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "THOÁT"
-
 msgid "THEME"
 msgstr "GIAO DIỆN"
 

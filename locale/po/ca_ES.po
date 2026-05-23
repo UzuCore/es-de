@@ -768,10 +768,6 @@ msgstr "UTILITATS"
 msgid "QUIT ES-DE"
 msgstr "TANCAR ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "TANCAR ES-DE"
-
 msgid "THEME"
 msgstr "TEMA"
 

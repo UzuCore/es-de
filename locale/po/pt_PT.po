@@ -770,10 +770,6 @@ msgstr "UTILITÁRIOS"
 msgid "QUIT ES-DE"
 msgstr "SAIR DO ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "SAIR DO ES-DE"
-
 msgid "THEME"
 msgstr "TEMA"
 

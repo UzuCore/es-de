@@ -20,6 +20,7 @@
 
 #include "ApplicationVersion.h"
 #include "CollectionSystemsManager.h"
+#include "FileData.h"
 #include "FileFilterIndex.h"
 #include "FileSorts.h"
 #include "Scripting.h"
@@ -44,6 +45,8 @@
 #include "guis/GuiThemeDownloader.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/PlatformUtil.h"
+#include "utils/StringUtil.h"
+#include "views/ViewController.h"
 
 #if defined(__ANDROID__)
 #include "InputOverlay.h"
@@ -1673,47 +1676,55 @@ void GuiMenu::openOtherOptions()
     s->addRow(alternativeEmulatorsRow);
 
 #if !defined(__IOS__)
-    // Game media directory.
-    ComponentListRow rowMediaDir;
-    auto mediaDirectory = std::make_shared<TextComponent>(
-        _("GAME MEDIA DIRECTORY"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
-    auto bracketMediaDirectory = std::make_shared<ImageComponent>();
-    bracketMediaDirectory->setResize(
+    // ROM directory (replaces game media directory; media dir is unused in this fork).
+    ComponentListRow rowRomDir;
+    auto romDirectory = std::make_shared<TextComponent>(
+        _("ROM DIRECTORY"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
+    auto bracketRomDirectory = std::make_shared<ImageComponent>();
+    bracketRomDirectory->setResize(
         glm::vec2 {0.0f, Font::get(FONT_SIZE_MEDIUM)->getLetterHeight()});
-    bracketMediaDirectory->setImage(":/graphics/arrow.svg");
-    bracketMediaDirectory->setColorShift(mMenuColorPrimary);
-    rowMediaDir.addElement(mediaDirectory, true);
-    rowMediaDir.addElement(bracketMediaDirectory, false);
-    std::string titleMediaDir {_("ENTER GAME MEDIA DIRECTORY")};
-    std::string mediaDirectoryStaticText {_("Default directory:")};
-    std::string defaultDirectoryText {Utils::FileSystem::getAppDataDirectory() +
-                                      "/downloaded_media"};
-    std::string initValueMediaDir {Settings::getInstance()->getString("MediaDirectory")};
-    bool multiLineMediaDir {false};
-    auto updateValMediaDir = [this](const std::string& newVal) {
-        Settings::getInstance()->setString("MediaDirectory", newVal);
-        Settings::getInstance()->saveFile();
-        ViewController::getInstance()->reloadAll();
-        mWindow->invalidateCachedBackground();
-    };
-    rowMediaDir.makeAcceptInputHandler([this, s, titleMediaDir, mediaDirectoryStaticText,
-                                        defaultDirectoryText, initValueMediaDir, updateValMediaDir,
-                                        multiLineMediaDir] {
+    bracketRomDirectory->setImage(":/graphics/arrow.svg");
+    bracketRomDirectory->setColorShift(mMenuColorPrimary);
+    rowRomDir.addElement(romDirectory, true);
+    rowRomDir.addElement(bracketRomDirectory, false);
+
+    rowRomDir.makeAcceptInputHandler([this, s] {
+        std::string currentROMDirectory;
+#if defined(_WIN64)
+        currentROMDirectory = Utils::String::replace(FileData::getROMDirectory(), "/", "\\");
+#else
+        currentROMDirectory = FileData::getROMDirectory();
+#endif
+        auto savedHandler = [this](const std::string& newROMDirectory) {
+            Settings::getInstance()->setString("ROMDirectory",
+                                               Utils::String::trim(newROMDirectory));
+            Settings::getInstance()->saveFile();
+            mWindow->pushGui(new GuiMsgBox(
+                _("ROM DIRECTORY SETTING SAVED, RESTART "
+                  "THE APPLICATION TO RESCAN THE SYSTEMS"),
+                _("OK"), nullptr, "", nullptr, "", nullptr, "", nullptr, nullptr, true, true,
+                (mRenderer->getIsVerticalOrientation() ?
+                     0.66f :
+                     0.42f * (1.778f / mRenderer->getScreenAspectRatio()))));
+        };
+
         if (Settings::getInstance()->getBool("VirtualKeyboard")) {
             mWindow->pushGui(new GuiTextEditKeyboardPopup(
-                s->getMenu().getPosition().y, titleMediaDir,
-                Settings::getInstance()->getString("MediaDirectory"), updateValMediaDir,
-                multiLineMediaDir, _("SAVE"), _("SAVE CHANGES?"), mediaDirectoryStaticText,
-                defaultDirectoryText, _("load default directory")));
+                s->getMenu().getPosition().y, _("ENTER ROM DIRECTORY PATH"),
+                currentROMDirectory, savedHandler, false, _("SAVE"), _("SAVE CHANGES?"),
+                _("Currently configured path:"), currentROMDirectory,
+                _("LOAD CURRENTLY CONFIGURED PATH"),
+                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
         }
         else {
             mWindow->pushGui(new GuiTextEditPopup(
-                titleMediaDir, Settings::getInstance()->getString("MediaDirectory"),
-                updateValMediaDir, multiLineMediaDir, _("SAVE"), _("SAVE CHANGES?"),
-                mediaDirectoryStaticText, defaultDirectoryText, _("load default directory")));
+                _("ENTER ROM DIRECTORY PATH"), currentROMDirectory, savedHandler, false,
+                _("SAVE"), _("SAVE CHANGES?"), _("Currently configured path:"),
+                currentROMDirectory, _("LOAD CURRENTLY CONFIGURED PATH"),
+                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
         }
     });
-    s->addRow(rowMediaDir);
+    s->addRow(rowRomDir);
 #endif
 
     // Maximum play time tracking.

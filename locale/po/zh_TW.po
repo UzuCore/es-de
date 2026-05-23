@@ -750,10 +750,6 @@ msgstr "工具"
 msgid "QUIT ES-DE"
 msgstr "退出ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "退出ES-DE"
-
 msgid "THEME"
 msgstr "主題"
 

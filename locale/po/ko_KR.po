@@ -1098,6 +1098,9 @@ msgstr "진행하기"
 msgid "GAME MEDIA DIRECTORY"
 msgstr "게임 미디어 디렉터리"
 
+msgid "ROM DIRECTORY"
+msgstr "롬 디렉터리"
+
 msgid "ENTER GAME MEDIA DIRECTORY"
 msgstr "게임 미디어 디렉터리 입력"
 
@@ -2696,7 +2699,7 @@ msgstr "롬 디렉터리 경로 입력"
 msgid ""
 "ROM DIRECTORY SETTING SAVED, RESTART THE APPLICATION TO RESCAN THE SYSTEMS"
 msgstr ""
-"롬 디렉터리 설정 저장됨, 시스템을 재스킨 하기 위해 어플리케이션을 다시 시작하"
+"롬 디렉터리 설정 저장됨, 시스템을 재스캔 하기 위해 어플리케이션을 다시 시작하"
 "십시오"
 
 msgid "Currently configured path:"

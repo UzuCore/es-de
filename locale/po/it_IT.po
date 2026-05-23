@@ -779,10 +779,6 @@ msgstr "STRUMENTI"
 msgid "QUIT ES-DE"
 msgstr "ESCI DA ES-DE"
 
-
-msgid "QUIT ES-DE+α"
-msgstr "ESCI DA ES-DE"
-
 msgid "THEME"
 msgstr "TEMA"
 
