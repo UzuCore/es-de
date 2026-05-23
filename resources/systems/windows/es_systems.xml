@@ -2344,6 +2344,7 @@
         <name>wonderswan</name>
         <fullname>Bandai WonderSwan</fullname>
         <path>%ROMPATH%\wonderswan</path>
+        <path>%ROMPATH%\wswan</path>
         <extension>.pc2 .PC2 .ws .WS .7z .7Z .zip .ZIP</extension>
         <command label="Beetle Cygne">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mednafen_wswan_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module wswan %ROM%</command>
@@ -2357,6 +2358,7 @@
         <name>wonderswancolor</name>
         <fullname>Bandai WonderSwan Color</fullname>
         <path>%ROMPATH%\wonderswancolor</path>
+        <path>%ROMPATH%\wswanc</path>
         <extension>.pc2 .PC2 .ws .WS .wsc .WSC .7z .7Z .zip .ZIP</extension>
         <command label="Beetle Cygne">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mednafen_wswan_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module wswan %ROM%</command>
