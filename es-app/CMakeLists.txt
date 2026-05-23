@@ -39,6 +39,9 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiMetaDataEd.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOfflineGenerator.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOrphanedDataCleanup.h
+    # === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomDirectories.h
+    # === LEGACY PATCH END ===
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMenu.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperSearch.h
@@ -97,6 +100,9 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiMetaDataEd.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOfflineGenerator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOrphanedDataCleanup.cpp
+    # === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomDirectories.cpp
+    # === LEGACY PATCH END ===
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMenu.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperSearch.cpp

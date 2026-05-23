@@ -377,6 +377,13 @@ void Settings::setDefaults()
     mStringMap["OpenGLVersion"] = {"", ""};
 #if !defined(__ANDROID__) && !defined(__IOS__)
     mStringMap["ROMDirectory"] = {"", ""};
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리)
+    // ';' separated list of additional ROM directories (entries with index >= 1
+    // in the GuiRomDirectories list). The main directory is stored separately
+    // in "ROMDirectory" above. Earlier-registered directories take precedence
+    // when the same system is found in multiple directories.
+    mStringMap["ROMDirectoryAdditional"] = {"", ""};
+    // === LEGACY PATCH END ===
 #endif
     mStringMap["UIMode_passkey"] = {"uuddlrlrba", "uuddlrlrba"};
 #if !defined(__ANDROID__) && !defined(__IOS__)

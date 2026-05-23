@@ -828,7 +828,12 @@ bool SystemData::loadConfig()
     }
 
     const std::vector<std::string>& configPaths {getConfigPath()};
-    const std::string& rompath {FileData::getROMDirectory()};
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 모든 ROM 디렉토리를 순차 스캔)
+    // 각 ROM 디렉토리에 대해 시스템 로딩을 반복한다. 동일한 시스템 이름이 여러
+    // 디렉토리에서 발견되면 nameFindFunc()에 의해 먼저 등록된(= 먼저 스캔된)
+    // 디렉토리의 항목이 우선한다. ROMDirectory 설정 변경은 재시작 시 반영됨.
+    const std::vector<std::string> allRomPaths {FileData::getROMDirectories()};
+    // === LEGACY PATCH END ===
     bool onlyProcessCustomFile {false};
 
     const bool splashScreen {Settings::getInstance()->getBool("SplashScreen")};
@@ -857,6 +862,22 @@ bool SystemData::loadConfig()
         if (doc.child("loadExclusive"))
             break;
     }
+
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 외부 루프)
+    // 각 ROM 디렉토리에 대해 전체 시스템 처리 루프를 실행한다. 첫 번째(메인) ROM
+    // 디렉토리가 가장 높은 우선순위를 가지며, 같은 시스템이 이후 디렉토리에서
+    // 다시 발견되면 nameFindFunc() 에서 걸러진다.
+    for (size_t romDirIdx = 0; romDirIdx < allRomPaths.size(); ++romDirIdx) {
+        const std::string& rompath = allRomPaths[romDirIdx];
+        if (romDirIdx > 0) {
+            // 추가 디렉토리부터는 loadExclusive 상태를 리셋해서 동일 로직으로
+            // 재처리할 수 있게 한다.
+            onlyProcessCustomFile = false;
+        }
+        LOG(LogInfo) << "Scanning ROM directory ["
+                     << (romDirIdx + 1) << "/" << allRomPaths.size() << "]: \""
+                     << rompath << "\"";
+    // === LEGACY PATCH END ===
 
     for (auto& configPath : configPaths) {
         // If the loadExclusive tag is present in the custom es_systems.xml file, then skip
@@ -1204,6 +1225,9 @@ bool SystemData::loadConfig()
             } // end for (auto& sysPath : systemPaths) — LEGACY PATCH
         }
     }
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 외부 루프 종료)
+    } // end for (romDirIdx in allRomPaths)
+    // === LEGACY PATCH END ===
 
     if (splashScreen) {
         if (sSystemVector.size() > 0)

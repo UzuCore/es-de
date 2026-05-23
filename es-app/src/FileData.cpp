@@ -304,6 +304,64 @@ const std::string FileData::getROMDirectory()
     return romDirPath;
 }
 
+// === LEGACY PATCH BEGIN === (멀티 롬디렉토리 지원)
+const std::vector<std::string> FileData::getROMDirectories()
+{
+    std::vector<std::string> result;
+    // First entry: the main ROMDirectory (always present, even if defaulted to ~/ROMs/).
+    result.emplace_back(getROMDirectory());
+
+#if defined(__ANDROID__) || defined(__IOS__)
+    // Multi-directory is desktop-only — these platforms have a fixed ROM directory.
+    return result;
+#else
+    const std::string& additional {
+        Settings::getInstance()->getString("ROMDirectoryAdditional")};
+    if (additional.empty())
+        return result;
+
+    // Split additional list by ';'.
+    size_t start {0};
+    while (start <= additional.size()) {
+        size_t end {additional.find(';', start)};
+        if (end == std::string::npos)
+            end = additional.size();
+        std::string piece {additional.substr(start, end - start)};
+        piece = Utils::String::trim(piece);
+
+        if (!piece.empty()) {
+            std::string path {Utils::FileSystem::expandHomePath(piece)};
+#if defined(_WIN64)
+            if (path.back() != '\\' && path.back() != '/')
+                path += "\\";
+#else
+            if (path.back() != '/')
+                path += "/";
+#endif
+            // Expand %ESPATH%.
+            path = Utils::String::replace(path, "%ESPATH%",
+                                          Utils::FileSystem::getExePath());
+
+            // Skip duplicates of already-added paths (including the main one).
+            bool dup {false};
+            for (const auto& p : result) {
+                if (p == path) {
+                    dup = true;
+                    break;
+                }
+            }
+            if (!dup)
+                result.emplace_back(path);
+        }
+        if (end == additional.size())
+            break;
+        start = end + 1;
+    }
+    return result;
+#endif
+}
+// === LEGACY PATCH END ===
+
 const std::string FileData::getMediaDirectory()
 {
 #if defined(__IOS__)

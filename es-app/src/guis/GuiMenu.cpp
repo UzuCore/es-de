@@ -37,6 +37,9 @@
 #include "guis/GuiMediaViewerOptions.h"
 #include "guis/GuiMsgBox.h"
 #include "guis/GuiOrphanedDataCleanup.h"
+// === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+#include "guis/GuiRomDirectories.h"
+// === LEGACY PATCH END ===
 #include "guis/GuiScraperMenu.h"
 #include "guis/GuiScreensaverOptions.h"
 #include "guis/GuiSystemStatusOptions.h"
@@ -1688,42 +1691,14 @@ void GuiMenu::openOtherOptions()
     rowRomDir.addElement(romDirectory, true);
     rowRomDir.addElement(bracketRomDirectory, false);
 
-    rowRomDir.makeAcceptInputHandler([this, s] {
-        std::string currentROMDirectory;
-#if defined(_WIN64)
-        currentROMDirectory = Utils::String::replace(FileData::getROMDirectory(), "/", "\\");
-#else
-        currentROMDirectory = FileData::getROMDirectory();
-#endif
-        auto savedHandler = [this](const std::string& newROMDirectory) {
-            Settings::getInstance()->setString("ROMDirectory",
-                                               Utils::String::trim(newROMDirectory));
-            Settings::getInstance()->saveFile();
-            mWindow->pushGui(new GuiMsgBox(
-                _("ROM DIRECTORY SETTING SAVED, RESTART "
-                  "THE APPLICATION TO RESCAN THE SYSTEMS"),
-                _("OK"), nullptr, "", nullptr, "", nullptr, "", nullptr, nullptr, true, true,
-                (mRenderer->getIsVerticalOrientation() ?
-                     0.66f :
-                     0.42f * (1.778f / mRenderer->getScreenAspectRatio()))));
-        };
-
-        if (Settings::getInstance()->getBool("VirtualKeyboard")) {
-            mWindow->pushGui(new GuiTextEditKeyboardPopup(
-                s->getMenu().getPosition().y, _("ENTER ROM DIRECTORY PATH"),
-                currentROMDirectory, savedHandler, false, _("SAVE"), _("SAVE CHANGES?"),
-                _("Currently configured path:"), currentROMDirectory,
-                _("LOAD CURRENTLY CONFIGURED PATH"),
-                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
-        }
-        else {
-            mWindow->pushGui(new GuiTextEditPopup(
-                _("ENTER ROM DIRECTORY PATH"), currentROMDirectory, savedHandler, false,
-                _("SAVE"), _("SAVE CHANGES?"), _("Currently configured path:"),
-                currentROMDirectory, _("LOAD CURRENTLY CONFIGURED PATH"),
-                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
-        }
-    });
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    // 이전 동작: 텍스트 편집 팝업이 바로 떴음.
+    // 새 동작: 전용 GUI(GuiRomDirectories)가 떠서 여러 디렉토리를 관리할 수 있고,
+    // 그 안에서 "ADD DIRECTORY" 버튼을 통해 텍스트 편집 팝업을 띄움. 설정은 GUI를
+    // 닫는 시점에만 저장되며, 변경이 있으면 재시작 안내 메시지가 표시된다.
+    rowRomDir.makeAcceptInputHandler(
+        [this] { mWindow->pushGui(new GuiRomDirectories()); });
+    // === LEGACY PATCH END ===
     s->addRow(rowRomDir);
 #endif
 

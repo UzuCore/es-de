@@ -81,6 +81,14 @@ public:
     const bool getOnlyFoldersFlag() const { return mOnlyFolders; }
     const bool getHasFoldersFlag() const { return mHasFolders; }
     static const std::string getROMDirectory();
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리 지원)
+    // Returns all configured ROM directories in priority order (main + additional).
+    // The first entry is the value of the "ROMDirectory" setting (or the hardcoded
+    // default if it is empty); subsequent entries come from "ROMDirectoryAdditional"
+    // as a ';' separated list. Each path is expanded (~, %ESPATH%) and guaranteed
+    // to end with a path separator.
+    static const std::vector<std::string> getROMDirectories();
+    // === LEGACY PATCH END ===
     static const std::string getMediaDirectory();
     const std::string getMediafilePath(const std::string& subdirectory) const;
     const std::string getImagePath() const;

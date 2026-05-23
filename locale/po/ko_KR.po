@@ -3102,3 +3102,35 @@ msgstr "시스템 디렉터리 생성 중..."
 
 msgid "ERROR: COULDN'T RENDER PDF FILE"
 msgstr "오류: PDF 파일을 렌더링할 수 없습니다"
+
+# === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI 번역)
+msgid "ROM DIRECTORIES"
+msgstr "롬 디렉터리"
+
+msgid "ADD DIRECTORY"
+msgstr "디렉터리 추가"
+
+msgid "add a new rom directory"
+msgstr "새 롬 디렉터리 추가"
+
+msgid "CHOOSE AN ACTION"
+msgstr "동작 선택"
+
+msgid "EDIT"
+msgstr "편집"
+
+msgid "REMOVE"
+msgstr "제거"
+
+msgid "REMOVE THIS ROM DIRECTORY?"
+msgstr "이 롬 디렉터리를 제거하시겠습니까?"
+
+msgid "THIS DIRECTORY IS ALREADY IN THE LIST"
+msgstr "이 디렉터리는 이미 목록에 있습니다"
+
+msgid "NO ROM DIRECTORIES CONFIGURED (DEFAULT WILL BE USED)"
+msgstr "구성된 롬 디렉터리가 없습니다 (기본값이 사용됩니다)"
+
+msgid "CLEAR (LEAVE BLANK TO REMOVE THIS ENTRY)"
+msgstr "지우기 (이 항목을 제거하려면 비워두기)"
+# === LEGACY PATCH END ===
