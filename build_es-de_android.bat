@@ -5,6 +5,7 @@ setlocal enabledelayedexpansion
 set SOURCE_DIR=D:\Github\es-de
 set ADB=C:\platform-tools\adb.exe
 set IMAGE_NAME=es-de-builder
+set GRADLE_VOLUME=es-de-gradle-cache
 set PKG=org.es_de.frontend
 
 set APK_BUILD=%SOURCE_DIR%\docker\ES-DE_Dec_3.4.1.apk
@@ -28,7 +29,7 @@ echo   2) Build + Install + Run
 echo   3) Install + Run only      (use last APK)
 echo   4) Quick build --only 5,6  (Kotlin/res/Gradle)
 echo   5) Rebuild Docker image + full build
-echo   6) Clean build + Install   (delete android/ then full build)
+echo   6) Clean build + Install   (nuke android/ + Gradle cache + bundled APK)
 echo.
 set /p CHOICE=Select (1~6, default 1): 
 if "%CHOICE%"=="" set CHOICE=1
@@ -36,12 +37,30 @@ if "%CHOICE%"=="" set CHOICE=1
 if "%CHOICE%"=="3" goto :install
 
 if "%CHOICE%"=="6" (
-    echo [INFO] Deleting android/ folder for clean build...
+    echo [INFO] Clean build: removing all build artifacts...
+
+    REM 1) Gradle 캐시 볼륨 제거 (모듈 메타데이터까지 초기화)
+    docker volume rm %GRADLE_VOLUME% > nul 2>&1
+    if !errorlevel! equ 0 (
+        echo [OK]  Gradle cache volume removed
+    ) else (
+        echo [OK]  Gradle cache volume did not exist
+    )
+
+    REM 2) android/ 폴더 제거
     if exist "%SOURCE_DIR%\android" (
         rmdir /s /q "%SOURCE_DIR%\android"
-        echo [OK] android/ deleted
+        echo [OK]  android/ deleted
     ) else (
-        echo [OK] android/ not found, already clean
+        echo [OK]  android/ already clean
+    )
+
+    REM 3) 번들된 APK 제거 (재추출 강제)
+    if exist "%APK_BUILD%" (
+        del /q "%APK_BUILD%"
+        echo [OK]  bundled APK deleted
+    ) else (
+        echo [OK]  bundled APK already absent
     )
 )
 
