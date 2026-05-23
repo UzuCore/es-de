@@ -40,73 +40,120 @@ if /i "%CLEAN%"=="Y" (
     for /d %%d in (es-app es-core es-pdf-converter es-core-suspend) do (
         if exist "%%d\CMakeFiles" rmdir /s /q "%%d\CMakeFiles"
     )
+)
 
-    echo.
-    echo [Clean] Checking external dependencies...
+REM ==========================================================
+REM [1/6] 의존성 통합 점검
+REM   폴더 존재 여부가 아니라 폴더 안의 핵심 파일 존재 여부로 판정
+REM ==========================================================
+echo [1/6] Check dependencies...
 
-    REM setup 여부 확인 (소스 다운로드)
-    set SETUP_OK=1
-    if not exist "external\pugixml\" set SETUP_OK=0
-    if not exist "external\harfbuzz\" set SETUP_OK=0
-    if not exist "external\freetype\" set SETUP_OK=0
-    if not exist "external\libgit2\" set SETUP_OK=0
-    if not exist "external\icu\" set SETUP_OK=0
+REM (1) setup.bat 산출물 확인 - 각 라이브러리의 핵심 파일(소스 또는 다운로드 산출물) 체크
+set SETUP_OK=1
+if not exist "external\pugixml\CMakeLists.txt"          set SETUP_OK=0
+if not exist "external\harfbuzz\CMakeLists.txt"         set SETUP_OK=0
+if not exist "external\harfbuzz\build\"                 set SETUP_OK=0
+if not exist "external\freetype\CMakeLists.txt"         set SETUP_OK=0
+if not exist "external\freetype\build\"                 set SETUP_OK=0
+if not exist "external\libgit2\CMakeLists.txt"          set SETUP_OK=0
+if not exist "external\libgit2\build\"                  set SETUP_OK=0
+if not exist "external\icu\icu4c\source\icu_filters.json" set SETUP_OK=0
+if not exist "external\curl\bin\libcurl-x64.dll"        set SETUP_OK=0
+if not exist "external\SDL2\lib\x64\SDL2.lib"           set SETUP_OK=0
+if not exist "external\ffmpeg\bin\avcodec-61.dll"       set SETUP_OK=0
+if not exist "external\glew\lib\Release\x64\glew32.lib" set SETUP_OK=0
+if not exist "external\FreeImage\Dist\x64\FreeImage.lib" set SETUP_OK=0
+if not exist "external\gettext\bin\libintl-8.dll"       set SETUP_OK=0
 
-    if !SETUP_OK!==0 (
-        echo [Clean] External sources not found. Running setup first...
-        echo         This downloads source code and may take several minutes.
-        call tools\Windows_dependencies_setup.bat
-        if !errorlevel! neq 0 (
-            echo [Clean] Setup FAILED.
-            goto :end
-        )
-        echo [Clean] Setup complete.
-    ) else (
-        echo [Clean] External sources OK.
-    )
+REM (2) setup.bat 가 루트로 복사한 라이브러리 파일 확인
+set ROOT_LIBS_OK=1
+if not exist "libcurl-x64.lib"    set ROOT_LIBS_OK=0
+if not exist "libcurl-x64.dll"    set ROOT_LIBS_OK=0
+if not exist "SDL2.lib"           set ROOT_LIBS_OK=0
+if not exist "SDL2.dll"           set ROOT_LIBS_OK=0
+if not exist "FreeImage.lib"      set ROOT_LIBS_OK=0
+if not exist "FreeImage.dll"      set ROOT_LIBS_OK=0
+if not exist "glew32.lib"         set ROOT_LIBS_OK=0
+if not exist "glew32.dll"         set ROOT_LIBS_OK=0
+if not exist "avcodec.lib"        set ROOT_LIBS_OK=0
+if not exist "avformat.lib"       set ROOT_LIBS_OK=0
+if not exist "avutil.lib"         set ROOT_LIBS_OK=0
+if not exist "libintl-8.lib"      set ROOT_LIBS_OK=0
 
-    REM build 여부 확인 (컴파일된 라이브러리)
+REM (3) build.bat 산출물(컴파일된 라이브러리) 확인
+set DEPS_BUILT=1
+if not exist "external\icu\icu4c\bin64\icudt77.dll" set DEPS_BUILT=0
+if not exist "external\harfbuzz\build\harfbuzz.lib" set DEPS_BUILT=0
+if not exist "external\freetype\build\freetype.lib" set DEPS_BUILT=0
+if not exist "external\libgit2\build\git2.dll"      set DEPS_BUILT=0
+if not exist "external\pugixml\pugixml.dll"         set DEPS_BUILT=0
+
+REM --- 자동 복구: setup ---
+if !SETUP_OK!==0 (
+    echo   [!] External sources are missing or incomplete. Running setup...
+    echo       Cleaning incomplete external folders first...
+
+    REM 빈 폴더나 불완전한 폴더 제거 (setup.bat 가 깨끗한 상태에서 시작하도록)
+    if exist "external\pugixml"  rmdir /S /Q "external\pugixml"
+    if exist "external\harfbuzz" rmdir /S /Q "external\harfbuzz"
+    if exist "external\freetype" rmdir /S /Q "external\freetype"
+    if exist "external\libgit2"  rmdir /S /Q "external\libgit2"
+    if exist "external\icu"      rmdir /S /Q "external\icu"
+    if exist "external\curl"     rmdir /S /Q "external\curl"
+    if exist "external\SDL2"     rmdir /S /Q "external\SDL2"
+    if exist "external\ffmpeg"   rmdir /S /Q "external\ffmpeg"
+    if exist "external\glew"     rmdir /S /Q "external\glew"
+    if exist "external\FreeImage" rmdir /S /Q "external\FreeImage"
+    if exist "external\gettext"  rmdir /S /Q "external\gettext"
+
+    echo       This downloads source code and may take several minutes.
+    call tools\Windows_dependencies_setup.bat
+    if !errorlevel! neq 0 ( echo Setup FAILED & goto :end )
+    echo   [+] Setup complete.
+
+    REM setup 후엔 컴파일도 다시 필요함
+    set DEPS_BUILT=0
+) else if !ROOT_LIBS_OK!==0 (
+    echo   [!] Root-level libs missing ^(setup was incomplete^). Re-running setup...
+    call tools\Windows_dependencies_setup.bat
+    if !errorlevel! neq 0 ( echo Setup FAILED & goto :end )
+    echo   [+] Setup complete.
+    set DEPS_BUILT=0
+) else (
+    echo   [+] External sources OK.
+)
+
+REM --- 자동 복구: dependency build ---
+if !DEPS_BUILT!==0 (
+    echo   [!] Compiled libs missing. Building dependencies...
+    echo       This may take 30-60 minutes.
+    call tools\Windows_dependencies_build.bat
+    if !errorlevel! neq 0 ( echo Dependency build FAILED & goto :end )
+
+    REM build.bat 결과 재검증
     set DEPS_BUILT=1
     if not exist "external\icu\icu4c\bin64\icudt77.dll" set DEPS_BUILT=0
     if not exist "external\harfbuzz\build\harfbuzz.lib" set DEPS_BUILT=0
     if not exist "external\freetype\build\freetype.lib" set DEPS_BUILT=0
     if not exist "external\libgit2\build\git2.dll"      set DEPS_BUILT=0
     if not exist "external\pugixml\pugixml.dll"         set DEPS_BUILT=0
-
     if !DEPS_BUILT!==0 (
-        echo [Clean] Compiled libraries not found. Building dependencies...
-        echo         This may take 30-60 minutes.
-        call tools\Windows_dependencies_build.bat
-        if !errorlevel! neq 0 (
-            echo [Clean] Dependency build FAILED.
-            goto :end
-        )
-        echo [Clean] Dependencies built successfully.
-    ) else (
-        echo [Clean] Compiled libraries OK. Skipping dependency build.
+        echo   [X] Dependency build finished but some outputs are still missing:
+        if not exist "external\icu\icu4c\bin64\icudt77.dll" echo       - external\icu\icu4c\bin64\icudt77.dll
+        if not exist "external\harfbuzz\build\harfbuzz.lib" echo       - external\harfbuzz\build\harfbuzz.lib
+        if not exist "external\freetype\build\freetype.lib" echo       - external\freetype\build\freetype.lib
+        if not exist "external\libgit2\build\git2.dll"      echo       - external\libgit2\build\git2.dll
+        if not exist "external\pugixml\pugixml.dll"         echo       - external\pugixml\pugixml.dll
+        goto :end
     )
-)
-
-echo [1/6] Check dependencies...
-set DEPS_OK=1
-if not exist "external\icu\icu4c\bin64\icudt77.dll" set DEPS_OK=0
-if not exist "external\harfbuzz\build\harfbuzz.lib" set DEPS_OK=0
-if not exist "external\freetype\build\freetype.lib" set DEPS_OK=0
-if not exist "external\libgit2\build\git2.dll" set DEPS_OK=0
-if not exist "external\pugixml\pugixml.dll" set DEPS_OK=0
-
-if !DEPS_OK!==0 (
-    echo Dependencies missing. Building dependencies first...
-    echo This may take 30-60 minutes...
-    call tools\Windows_dependencies_build.bat
-    if !errorlevel! neq 0 ( echo Dependencies build FAILED & goto :end )
+    echo   [+] Dependencies built.
 ) else (
-    echo Dependencies OK.
+    echo   [+] Compiled libs OK.
 )
 
-REM Poppler 별도 체크 (setup.bat 에서 설치, build.bat 에는 없음)
+REM Poppler 별도 체크
 if not exist "external\poppler\Library\include\poppler\cpp\poppler-document.h" (
-    echo Poppler not found. Downloading...
+    echo   [!] Poppler not found. Downloading...
     cd external
 
     if exist poppler-24.08.0 rmdir /S /Q poppler-24.08.0
@@ -146,9 +193,9 @@ if not exist "external\poppler\Library\include\poppler\cpp\poppler-document.h" (
     copy /Y poppler\Library\bin\zstd.dll ..\es-pdf-converter\ > nul
 
     cd ..
-    echo Poppler OK.
+    echo   [+] Poppler OK.
 ) else (
-    echo Poppler OK.
+    echo   [+] Poppler OK.
 )
 
 echo [2/6] Select build type:
@@ -184,7 +231,7 @@ if not exist "ES-DE.exe" (
 
 for /f %%i in ('powershell -NoProfile -Command "Get-Date -Format yyMMdd"') do set BUILD_DATE=%%i
 
-set PACKAGE_NAME=ES-DE_windows_%BUILD_DATE%
+set PACKAGE_NAME=ES-DE+a_windows_%BUILD_DATE%
 set PACKAGE_DIR=%RELEASE_DIR%\%PACKAGE_NAME%
 set ZIP_FILE=%RELEASE_DIR%\%PACKAGE_NAME%.zip
 
