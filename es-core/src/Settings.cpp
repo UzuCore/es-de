@@ -305,8 +305,13 @@ void Settings::setDefaults()
     mBoolMap["VideoUpscaleFrameRate"] = {false, false};
 #endif
     mBoolMap["AlternativeEmulatorPerGame"] = {true, true};
+    // === LEGACY PATCH BEGIN === (gamelist.xml 의 hidden 태그를 기본 적용)
+    // ShowHiddenFiles 는 원래 기본값 그대로 두어 OS 레벨 숨김 체크(stat) 부담을
+    // 늘리지 않는다. ShowHiddenGames 만 false 로 바꾸어 <hidden>true</hidden> 태그가
+    // 직관대로 동작하게 한다. 사용자가 보고 싶으면 메뉴에서 토글 가능.
     mBoolMap["ShowHiddenFiles"] = {true, true};
-    mBoolMap["ShowHiddenGames"] = {true, true};
+    mBoolMap["ShowHiddenGames"] = {false, false};
+    // === LEGACY PATCH END ===
 #if defined(__ANDROID__)
     mBoolMap["LaunchOnOtherScreen"] = {false, false};
 #endif
