@@ -11,6 +11,7 @@
 * Added translations for Czech (cs_CZ)
 * Added a SplashScreenProgressBarColor option that can be manually set in es_settings.xml to customize the splash screen progress bar color
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
+* Added "itemLinearScale" and "itemLinearSpacing" properties to the carousel element
 * Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
 * Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems

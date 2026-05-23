@@ -1787,6 +1787,16 @@ Properties:
     - Selected item is scaled by the value defined by this property.
     - Minimum value is `0.2` and maximum value is `3`
     - Default is `1.2`
+* `itemLinearScale` - type: NORMALIZED_PAIR
+    - This property makes it possible to linearly increase or decrease the scale of items before and after the center position. The first axis sets scaling for items before the center position, and the second axis sets scaling for items after the center position. Either axis can be independently set as negative or positive values, which means items on one side of the center position can be scaled up while items on the other side can be scaled down, which for a horizontal carousel could be used to simulate perspective with items being closer or further away from the camera depending on their location in the carousel. You probably want to combine this property with `itemLinearSpacing` to prevent item overlap and to achieve visually coherent item spacing.
+    - Minimum value per axis is `-0.5` and maximum value per axis is `1`
+    - Default is `0 0`
+    - This property can only be used when `type` is `horizontal` or `vertical`
+* `itemLinearSpacing` - type: NORMALIZED_PAIR
+    - This property makes it possible to linearly increase or decrease the spacing of items before and after the center position. The first axis sets spacing for items before the center position, and the second axis sets spacing for items after the center position. Either axis can be independently set as negative or positive values, which means items on one side of the center position can be spaced closer while items on the other side can be spaced further away.
+    - Minimum value per axis is `-0.5` and maximum value per axis is `1`
+    - Default is `0 0`
+    - This property can only be used when `type` is `horizontal` or `vertical`
 * `itemRotation` - type: FLOAT
     - Angle in degrees that items should be rotated. This value should be positive if the `itemRotationOrigin` X axis has a negative value, and it should be negative if the `itemRotationOrigin` X axis has a positive value, otherwise the wheel will rotate in the wrong direction.
     - Default is `7.5`
