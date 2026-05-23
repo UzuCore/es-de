@@ -3133,4 +3133,7 @@ msgstr "구성된 롬 디렉터리가 없습니다 (기본값이 사용됩니다
 
 msgid "CLEAR (LEAVE BLANK TO REMOVE THIS ENTRY)"
 msgstr "지우기 (이 항목을 제거하려면 비워두기)"
+
+msgid "GAME LIST UPDATE"
+msgstr "게임 목록 업데이트"
 # === LEGACY PATCH END ===

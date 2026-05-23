@@ -70,6 +70,36 @@ GuiMenu::GuiMenu()
 {
     const bool isFullUI {UIModeController::getInstance()->isUIModeFull()};
 
+    // === LEGACY PATCH BEGIN === (게임 목록 업데이트 - 최상단 메뉴로 노출)
+    // 기존 UTILITIES 안의 "RESCAN ROM DIRECTORY" 와 동일한 기능을 메인 메뉴 최상단
+    // (SCRAPER 위)에 분리된 영문 키로 노출. 메뉴 라벨이 강하게 보이지 않도록 별도
+    // 키("GAME LIST UPDATE")로 번역만 따로 관리한다.
+    if (isFullUI) {
+        addEntry(_("GAME LIST UPDATE"), mMenuColorPrimary, false, [this] {
+            mWindow->pushGui(new GuiMsgBox(
+                _("THIS WILL RESCAN YOUR ROM DIRECTORY FOR CHANGES SUCH AS ADDED OR REMOVED GAMES AND "
+                  "SYSTEMS"),
+                _("PROCEED"),
+                [this] {
+                    if (CollectionSystemsManager::getInstance()->isEditing())
+                        CollectionSystemsManager::getInstance()->exitEditMode();
+                    mWindow->stopInfoPopup();
+                    GuiMenu::close(true);
+                    // Write any gamelist.xml changes before proceeding with the rescan.
+                    if (Settings::getInstance()->getString("SaveGamelistsMode") == "on exit") {
+                        for (auto system : SystemData::sSystemVector)
+                            system->writeMetaData();
+                    }
+                    ViewController::getInstance()->rescanROMDirectory();
+                },
+                _("CANCEL"), nullptr, "", nullptr, "", nullptr, nullptr, false, true,
+                (mRenderer->getIsVerticalOrientation() ?
+                     0.76f :
+                     0.52f * (1.778f / mRenderer->getScreenAspectRatio()))));
+        });
+    }
+    // === LEGACY PATCH END ===
+
     if (isFullUI)
         addEntry(_("SCRAPER"), mMenuColorPrimary, true, [this] { openScraperOptions(); });
 
@@ -2371,37 +2401,10 @@ void GuiMenu::openUtilities()
 
     s->addRow(row);
 
-    row.elements.clear();
-    row.addElement(std::make_shared<TextComponent>(_("RESCAN ROM DIRECTORY"),
-                                                   Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary),
-                   true);
-
-    // This transparent dummy arrow is only here to enable the "select" help prompt.
-    row.addElement(dummyArrow, false);
-
-    row.makeAcceptInputHandler([this] {
-        mWindow->pushGui(new GuiMsgBox(
-            _("THIS WILL RESCAN YOUR ROM DIRECTORY FOR CHANGES SUCH AS ADDED OR REMOVED GAMES AND "
-              "SYSTEMS"),
-            _("PROCEED"),
-            [this] {
-                if (CollectionSystemsManager::getInstance()->isEditing())
-                    CollectionSystemsManager::getInstance()->exitEditMode();
-                mWindow->stopInfoPopup();
-                GuiMenu::close(true);
-                // Write any gamelist.xml changes before proceeding with the rescan.
-                if (Settings::getInstance()->getString("SaveGamelistsMode") == "on exit") {
-                    for (auto system : SystemData::sSystemVector)
-                        system->writeMetaData();
-                }
-                ViewController::getInstance()->rescanROMDirectory();
-            },
-            _("CANCEL"), nullptr, "", nullptr, "", nullptr, nullptr, false, true,
-            (mRenderer->getIsVerticalOrientation() ?
-                 0.76f :
-                 0.52f * (1.778f / mRenderer->getScreenAspectRatio()))));
-    });
-    s->addRow(row);
+    // === LEGACY PATCH BEGIN === (롬 디렉터리 스캔 - 최상단 메뉴로 이동)
+    // 기존 "RESCAN ROM DIRECTORY" 행은 메인 메뉴 최상단(SCRAPER 위)으로 이동했음.
+    // UTILITIES 안의 중복 항목 제거.
+    // === LEGACY PATCH END ===
 
     s->setSize(mSize);
     mWindow->pushGui(s);

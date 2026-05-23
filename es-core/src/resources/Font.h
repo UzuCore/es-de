@@ -55,41 +55,53 @@ public:
     }
     static float getMediumFont(bool forceUpdate = false)
     {
+        // === LEGACY PATCH BEGIN === (메뉴 행 더 보이게 폰트 10% 축소)
+        // 원래 값: 세로 0.040, 가로 0.045
         static float sMediumFont {
-            (Renderer::getIsVerticalOrientation() ? 0.040f : 0.045f) *
+            (Renderer::getIsVerticalOrientation() ? 0.0360f : 0.0405f) *
             std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
         if (forceUpdate)
-            sMediumFont = (Renderer::getIsVerticalOrientation() ? 0.040f : 0.045f) *
+            sMediumFont = (Renderer::getIsVerticalOrientation() ? 0.0360f : 0.0405f) *
                           std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+        // === LEGACY PATCH END ===
         return sMediumFont;
     }
     static float getMediumFixedFont(bool forceUpdate = false)
     {
         // Fixed size regardless of screen orientation.
+        // === LEGACY PATCH BEGIN === (일관성: MEDIUM 폰트와 동일하게 10% 축소)
+        // 원래 값: 0.045
         static float sMediumFixedFont {
-            0.045f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
+            0.0405f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
         if (forceUpdate)
             sMediumFixedFont =
-                0.045f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+                0.0405f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+        // === LEGACY PATCH END ===
         return sMediumFixedFont;
     }
     static float getLargeFont(bool forceUpdate = false)
     {
-        static float sLargeFont {(Renderer::getIsVerticalOrientation() ? 0.080f : 0.085f) *
+        // === LEGACY PATCH BEGIN === (메뉴 타이틀 폰트 20% 축소)
+        // 원래 값: 세로 0.080, 가로 0.085
+        static float sLargeFont {(Renderer::getIsVerticalOrientation() ? 0.0640f : 0.0680f) *
                                  std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
         if (forceUpdate)
-            sLargeFont = (Renderer::getIsVerticalOrientation() ? 0.080f : 0.085f) *
+            sLargeFont = (Renderer::getIsVerticalOrientation() ? 0.0640f : 0.0680f) *
                          std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+        // === LEGACY PATCH END ===
         return sLargeFont;
     }
     static float getLargeFixedFont(bool forceUpdate = false)
     {
         // Fixed size regardless of screen orientation.
+        // === LEGACY PATCH BEGIN === (일관성: LARGE 폰트와 동일하게 20% 축소)
+        // 원래 값: 0.085
         static float sLargeFixedFont {
-            0.085f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
+            0.0680f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth())};
         if (forceUpdate)
             sLargeFixedFont =
-                0.085f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+                0.0680f * std::min(Renderer::getScreenHeight(), Renderer::getScreenWidth());
+        // === LEGACY PATCH END ===
         return sLargeFixedFont;
     }
 

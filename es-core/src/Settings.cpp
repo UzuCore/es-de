@@ -314,7 +314,11 @@ void Settings::setDefaults()
     mBoolMap["CustomEventScripts"] = {false, false};
     mBoolMap["CustomEventScriptsBrowsing"] = {false, false};
 #endif
-    mBoolMap["ParseGamelistOnly"] = {false, false};
+    // === LEGACY PATCH BEGIN === (gamelist.xml 기반 게임 표시를 기본 ON)
+    // 기존 기본값은 {false, false} 였으나, ROM 디렉토리 스캔 없이 gamelist.xml 만으로
+    // 시스템을 빠르게 띄우는 워크플로우를 선호하므로 기본값을 true 로 변경.
+    mBoolMap["ParseGamelistOnly"] = {true, true};
+    // === LEGACY PATCH END ===
     mBoolMap["MAMENameStripExtraInfo"] = {true, true};
 #if defined(__unix__) && !defined(__ANDROID__)
     mBoolMap["DisableComposition"] = {false, false};
