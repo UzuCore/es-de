@@ -9,11 +9,15 @@
 ### Detailed list of changes
 
 * Added translations for Czech (cs_CZ)
+* Added a SplashScreenProgressBarColor option that can be manually set in es_settings.xml to customize the splash screen progress bar color
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
+* Added "itemLinearScale" and "itemLinearSpacing" properties to the carousel element
 * Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
+* Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
+* (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
 * Added the .a0, .b0 and .rom file extensions to the vic20 system

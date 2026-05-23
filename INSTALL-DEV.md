@@ -1238,6 +1238,10 @@ Sets the transfer timeout per HTTPS request. Minimum value is 0 seconds (infinit
 
 Normally the scraper will stop whenever an HTTP error code with value 400 or above is returned from the scraper service, but by default there is an exception for 404 errors (resource not found). Changing this setting to _false_ will make the scraper handle 404 errors as all other error codes, meaning it will run through the configured retry attempts and then display an error notification dialog if the resource could not be retrieved.
 
+**SplashScreenProgressBarColor**
+
+Customizes the color of the splash screen progress bar via a hexadecimal RGB or RGBA color value consisting of 6 or 8 digits. The default color is 79010FFF which will be used if this setting is left blank.
+
 **SystemStatusDisplayAll**
 
 If setting this to true then all system status indicators (Bluetooth icon, Wi-Fi icon, cellular icon, battery icon and battery percentage text) will always be displayed, assuming they have been enabled in the _UI settings_ menu and via the `entries` property for the `systemstatus` element. The only purpose of this setting is for theme developers to be able to see all indicators when working on their theme design.

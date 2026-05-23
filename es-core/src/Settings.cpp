@@ -394,6 +394,7 @@ void Settings::setDefaults()
     mStringMap["ROMDirectoryAdditional"] = {"", ""};
     // === LEGACY PATCH END ===
 #endif
+    mStringMap["SplashScreenProgressBarColor"] = {"", ""};
     mStringMap["UIMode_passkey"] = {"uuddlrlrba", "uuddlrlrba"};
 #if !defined(__ANDROID__) && !defined(__IOS__)
     mStringMap["UserThemeDirectory"] = {"", ""};
