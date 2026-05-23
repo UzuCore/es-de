@@ -172,6 +172,8 @@ std::map<std::string, std::map<std::string, ThemeData::ElementPropertyType>>
        {"selectedItemOffset", NORMALIZED_PAIR},
        {"itemSize", NORMALIZED_PAIR},
        {"itemScale", FLOAT},
+       {"itemLinearScale", NORMALIZED_PAIR},
+       {"itemLinearSpacing", NORMALIZED_PAIR},
        {"itemRotation", FLOAT},
        {"itemRotationOrigin", NORMALIZED_PAIR},
        {"itemAxisHorizontal", BOOLEAN},
