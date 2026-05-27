@@ -43,6 +43,12 @@ Then you can use dnf to install all the required packages:
 sudo dnf install gcc-c++ clang-tools-extra cmake gettext harfbuzz-devel libicu-devel libasan rpm-build SDL2-devel ffmpeg-devel libavcodec-devel libavfilter-devel freeimage-devel freetype-devel libgit2-devel curl-devel pugixml-devel alsa-lib-devel bluez-libs-devel mesa-libGL-devel poppler-cpp-devel
 ```
 
+Sometimes FFmpeg refuses to install, and in this case you may need to run the following as well:
+```
+dnf remove ffmpeg-free
+dnf install --allowerasing ffmpeg-devel
+```
+
 ### Arch/Manjaro
 
 Use pacman to install all the required packages:

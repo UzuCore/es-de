@@ -824,6 +824,7 @@ The following emulators are supported in AppImage format when using the bundled 
 | gc                   | Triforce            | dolphin-emu-triforce*.AppImage | Community            |
 | macintosh            | Basilisk II         | BasiliskII*.AppImage           | Official             |
 | macintosh            | SheepShaver         | SheepShaver*.AppImage          | Official             |
+| model3               | Supermodel          | Supermodel*.AppImage           | pkgforge-dev         |
 | n3ds                 | Azahar              | azahar*.AppImage               | Official             |
 | n3ds                 | Azahar              | Azahar-Enhanced*.AppImage      | pkgforge-dev         |
 | n3ds                 | AzaharPlus          | azaharplus*.AppImage           | Official             |
@@ -863,6 +864,7 @@ The following emulators are supported in AppImage format when using the bundled 
 | _Multiple_           | ares                | ares*.AppImage                 | pkgforge-dev         |
 | _Multiple_           | MAME                | MAME*.AppImage                 | pkgforge-dev         |
 | gba                  | mGBA                | mGBA*.AppImage                 | Official             |
+| model3               | Supermodel          | Supermodel*.AppImage           | pkgforge-dev         |
 | n3ds                 | Azahar              | Azahar-Enhanced*.AppImage      | pkgforge-dev         |
 | nds                  | DeSmuME             | desmume*.AppImage              | pkgforge-dev         |
 | nds                  | melonDS             | melonDS*.AppImage              | Official             |
