@@ -589,6 +589,11 @@
             <entry>supermodel</entry>
         </rule>
         <rule type="staticpath">
+            <entry>~/Applications/Supermodel*.AppImage</entry>
+            <entry>~/AppImages/Supermodel*.AppImage</entry>
+            <entry>~/.local/share/applications/Supermodel*.AppImage</entry>
+            <entry>~/.local/bin/Supermodel*.AppImage</entry>
+            <entry>~/bin/Supermodel*.AppImage</entry>
             <entry>/var/lib/flatpak/exports/bin/com.supermodel3.Supermodel</entry>
             <entry>~/.local/share/flatpak/exports/bin/com.supermodel3.Supermodel</entry>
         </rule>
