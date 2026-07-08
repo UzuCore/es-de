@@ -212,6 +212,22 @@ endif()
 if(ANDROID)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -Wno-unused-result")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -llog")
+    # === LEGACY PATCH BEGIN === (APK 용량 절감: LTO + 미사용 섹션 제거)
+    # 안드로이드 Release 빌드에만 적용한다 (Debug 는 -O0 이라 LTO 가 의미 없고
+    # 디버깅을 방해함).
+    #   -ffunction-sections / -fdata-sections : 함수와 데이터를 작은 섹션 단위로 배치
+    #   -Wl,--gc-sections                     : 어디서도 참조 안 된 섹션을 링커가 통째로 제거
+    #   -flto=thin                            : Link Time Optimization 으로 전체 프로그램 단위
+    #                                            데드코드 제거 + 인라이닝
+    # 합계 약 1~3MB 의 .so 용량 절감 효과. 빌드 시간이 약간 늘어남(LTO 비용).
+    if(CMAKE_BUILD_TYPE MATCHES Release OR NOT CMAKE_BUILD_TYPE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ffunction-sections -fdata-sections -flto=thin")
+        set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   -ffunction-sections -fdata-sections -flto=thin")
+        set(CMAKE_EXE_LINKER_FLAGS    "${CMAKE_EXE_LINKER_FLAGS}    -Wl,--gc-sections -flto=thin")
+        set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--gc-sections -flto=thin")
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,--gc-sections -flto=thin")
+    endif()
+    # === LEGACY PATCH END ===
 endif()
 
 if(EMSCRIPTEN)
@@ -353,6 +369,14 @@ endif()
 if(AUR_BUILD OR FLATPAK_BUILD OR RETRODECK OR HAIKU OR IOS OR CMAKE_SYSTEM_NAME MATCHES FreeBSD)
     set(APPLICATION_UPDATER OFF)
 endif()
+
+# === LEGACY PATCH BEGIN === (APK 용량 절감: 안드로이드는 자체 업데이터 불필요)
+# Play Store / 사이드로드 환경에서는 자체 업데이터가 필요 없고, 이걸 빼면 관련
+# 코드 + curl 호출 + UI 가 .so 에서 제거되어 약 0.2~0.5MB 절감.
+if(ANDROID)
+    set(APPLICATION_UPDATER OFF)
+endif()
+# === LEGACY PATCH END ===
 
 if(APPLICATION_UPDATER)
     add_compile_definitions(APPLICATION_UPDATER)
