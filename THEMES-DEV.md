@@ -1787,6 +1787,16 @@ Properties:
     - Selected item is scaled by the value defined by this property.
     - Minimum value is `0.2` and maximum value is `3`
     - Default is `1.2`
+* `itemLinearScale` - type: NORMALIZED_PAIR
+    - This property makes it possible to linearly increase or decrease the scale of items before and after the center position. The first axis sets scaling for items before the center position, and the second axis sets scaling for items after the center position. Either axis can be independently set as negative or positive values, which means items on one side of the center position can be scaled up while items on the other side can be scaled down, which for a horizontal carousel could be used to simulate perspective with items being closer or further away from the camera depending on their location in the carousel. You probably want to combine this property with `itemLinearSpacing` to prevent item overlap and to achieve visually coherent item spacing.
+    - Minimum value per axis is `-0.5` and maximum value per axis is `1`
+    - Default is `0 0`
+    - This property can only be used when `type` is `horizontal` or `vertical`
+* `itemLinearSpacing` - type: NORMALIZED_PAIR
+    - This property makes it possible to linearly increase or decrease the spacing of items before and after the center position. The first axis sets spacing for items before the center position, and the second axis sets spacing for items after the center position. Either axis can be independently set as negative or positive values, which means items on one side of the center position can be spaced closer while items on the other side can be spaced further away.
+    - Minimum value per axis is `-0.5` and maximum value per axis is `1`
+    - Default is `0 0`
+    - This property can only be used when `type` is `horizontal` or `vertical`
 * `itemRotation` - type: FLOAT
     - Angle in degrees that items should be rotated. This value should be positive if the `itemRotationOrigin` X axis has a negative value, and it should be negative if the `itemRotationOrigin` X axis has a positive value, otherwise the wheel will rotate in the wrong direction.
     - Default is `7.5`
@@ -2454,7 +2464,7 @@ Properties:
     - Minimum value per axis is `0` and maximum value per axis is `1`
     - Default is `0.5 0.5`
 * `scaleFactor` - type: FLOAT
-    - Using scalable vector graphics (SVG) files and displaying them at large sizes consume a lot of VRAM as these images will normally get rasterized at the actual pixel resolution. This is different to raster images which only consume as much VRAM as the actual textures require (regardless of rendered size) as they are scaled to the actual pixel size via the GPU in the rendering pipeline. However, using the `scaleFactor` property it's possible to set a factor for at what size to rasterize SVG images relative to the actual on screen dimensions and then having the GPU scale the textures in the same manner as for raster images. For instance, setting this factor to 0.5 will lead to a quarter of the required VRAM as both the X and Y axes are multiplied by 0.5. However, setting the value too low will lead to visibly pixellated graphics.
+    - Using scalable vector graphics (SVG) files and displaying them at large sizes consume a lot of VRAM as these images will normally get rasterized at the actual pixel resolution. This is different to raster images which only consume as much VRAM as the actual textures require (regardless of rendered size) as they are scaled to the actual pixel size via the GPU in the rendering pipeline. However, using the `scaleFactor` property it's possible to set a factor for at what size to rasterize SVG images relative to the actual on screen dimensions and then having the GPU scale the textures in the same manner as for raster images. For instance, setting this factor to 0.5 will lead to a quarter of the required VRAM as both the X and Y axes are multiplied by 0.5. However, setting the value too low will lead to visibly pixelated graphics.
     - Minimum value is `0.1` and maximum value is `1`
     - Default is `1` (images are rasterized at the defined pixel size)
     - This property can only be used for scalable vector graphics (SVG) files and it will be ignored if `tile` is set to `true`
@@ -2520,7 +2530,7 @@ Properties:
     - Valid values are `top` or `bottom`
     - Default is `bottom`
 * `interpolation` - type: STRING
-    - Interpolation method to use when scaling and rotating images. Nearest neighbor (`nearest`) preserves sharp pixels and linear filtering (`linear`) makes the image smoother. This property has limited effect on scalable vector graphics (SVG) images unless rotation is applied.
+    - Interpolation method to use when scaling and rotating images. Nearest neighbor (`nearest`) preserves sharp pixels and linear filtering (`linear`) makes the image smoother. This property has limited effect on scalable vector graphics (SVG) images unless rotation or scaleFactor is applied.
     - Valid values are `nearest` or `linear`
     - Default is `nearest` if `rotation` is `0`, `90`, `180` or `270` degrees, otherwise it's `linear`
 * `mipmap` - type: BOOLEAN
@@ -2765,6 +2775,11 @@ Properties:
     - Point around which the animation will be rotated.
     - Minimum value per axis is `0` and maximum value per axis is `1`
     - Default is `0.5 0.5`
+* `scaleFactor` - type: FLOAT
+    - Using scalable vector graphics files such as Lottie animations and displaying them at large sizes consume a lot of VRAM as these animations will normally get rasterized at the actual pixel resolution. This is different to raster animations (GIFs) which only consume as much VRAM as the actual textures require (regardless of rendered size) as they are scaled to the actual pixel size via the GPU in the rendering pipeline. However, using the `scaleFactor` property it's possible to set a factor for at what size to rasterize Lottie animations relative to the actual on screen dimensions and then having the GPU scale the textures in the same manner as for raster animations. For instance, setting this factor to 0.5 will lead to a quarter of the required VRAM as both the X and Y axes are multiplied by 0.5. However, setting the value too low will lead to visibly pixelated graphics.
+    - Minimum value is `0.1` and maximum value is `1`
+    - Default is `1` (Lottie animations are rasterized at the defined pixel size)
+    - This property can only be used for Lottie animations
 * `stationary` - type: STRING
     - If using slide transitions, then this property can be set to keep the element stationary during transition animations. This property has no effect when using instant or fade transitions.
     - `withinView` - Set element as stationary when navigating within the same view, i.e. from system to system or from gamelist to gamelist.
@@ -2790,7 +2805,7 @@ Properties:
     - Minimum value is `0` and maximum value is `10`
     - Default is `0` (infinite amount of times)
 * `interpolation` - type: STRING
-    - Interpolation method to use when scaling and rotating animations. Nearest neighbor (`nearest`) preserves sharp pixels and linear filtering (`linear`) makes the animation smoother. This property has limited effect on Lottie animations unless rotation is applied.
+    - Interpolation method to use when scaling and rotating animations. Nearest neighbor (`nearest`) preserves sharp pixels and linear filtering (`linear`) makes the animation smoother. This property has limited effect on Lottie animations unless rotation or scaleFactor is applied.
     - Valid values are `nearest` or `linear`
     - Default is `nearest` if `rotation` is `0`, `90`, `180` or `270` degrees, otherwise it's `linear`
 * `cornerRadius` - type: FLOAT

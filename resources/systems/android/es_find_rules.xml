@@ -154,6 +154,12 @@
             <entry>com.github.eka2l1/.emu.EmulatorActivity</entry>
         </rule>
     </emulator>
+    <emulator name="EMUCOREV">
+        <!-- Sony PlayStation Vita emulator EmuCoreV -->
+        <rule type="androidpackage">
+            <entry>com.sbro.emucorev/.core.vita.Emulator</entry>
+        </rule>
+    </emulator>
     <emulator name="EMUCOREX">
         <!-- Sony PlayStation 2 emulator EmuCoreX -->
         <rule type="androidpackage">
