@@ -404,22 +404,34 @@ const std::string FileData::getMediafilePath(const std::string& subdirectory) co
                                 subFolders + "/" + getDisplayName()};
 
     // Legacy mode fallback: also check <ROM system>/media/<ES-style type>/<game>
+    // The same media is named differently across frontends (ES-DE / classic ES / Batocera),
+    // so try several candidate folder names for each ES-DE media type.
     if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
-        static const std::map<std::string, std::string> kESStyleMap {
-            {"screenshots",  "images"},
-            {"covers",       "thumbnails"},
-            {"marquees",     "marquees"},
-            {"fanart",       "fanart"},
-            {"miximages",    "miximages"},
-            {"titlescreens", "titlescreens"},
+        static const std::map<std::string, std::vector<std::string>> kESStyleMap {
+            {"screenshots",   {"screenshot", "images"}},
+            {"covers",        {"box2dfront", "thumbnails", "boxart", "box2d"}},
+            {"marquees",      {"wheel", "marquees", "logo"}},
+            {"titlescreens",  {"titlescreen", "titlescreens"}},
+            {"fanart",        {"fanart", "fanarts"}},
+            {"miximages",     {"miximages", "miximage", "mix"}},
+            {"3dboxes",       {"box3d", "3dboxes", "box3dfront"}},
+            {"backcovers",    {"box2dback", "backcovers", "boxback"}},
+            {"physicalmedia", {"support", "physicalmedia", "cartridge", "disc"}},
         };
-        const std::string esSubdir {kESStyleMap.count(subdirectory) ?
-                                    kESStyleMap.at(subdirectory) : subdirectory};
-        const std::string legacyPath {mEnvData->mStartPath + "/media/" +
-                                      esSubdir + subFolders + "/" + getDisplayName()};
-        for (auto& extension : sImageExtensions) {
-            if (Utils::FileSystem::exists(legacyPath + extension))
-                return legacyPath + extension;
+        std::vector<std::string> candidates;
+        const auto mapIt {kESStyleMap.find(subdirectory)};
+        if (mapIt != kESStyleMap.cend())
+            candidates = mapIt->second;
+        else
+            candidates.emplace_back(subdirectory);
+
+        for (const auto& esSubdir : candidates) {
+            const std::string legacyPath {mEnvData->mStartPath + "/media/" +
+                                          esSubdir + subFolders + "/" + getDisplayName()};
+            for (auto& extension : sImageExtensions) {
+                if (Utils::FileSystem::exists(legacyPath + extension))
+                    return legacyPath + extension;
+            }
         }
     }
 
