@@ -6,6 +6,10 @@
 //  Main menu.
 //  Some submenus are covered in separate source files.
 //
+#include <SDL2/SDL_hints.h>
+#ifndef SDL_HINT_ENABLE_SCREEN_KEYBOARD
+#define SDL_HINT_ENABLE_SCREEN_KEYBOARD "SDL_ENABLE_SCREEN_KEYBOARD"
+#endif
 
 #include "guis/GuiMenu.h"
 
@@ -16,6 +20,7 @@
 
 #include "ApplicationVersion.h"
 #include "CollectionSystemsManager.h"
+#include "FileData.h"
 #include "FileFilterIndex.h"
 #include "FileSorts.h"
 #include "Scripting.h"
@@ -32,6 +37,9 @@
 #include "guis/GuiMediaViewerOptions.h"
 #include "guis/GuiMsgBox.h"
 #include "guis/GuiOrphanedDataCleanup.h"
+// === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+#include "guis/GuiRomDirectories.h"
+// === LEGACY PATCH END ===
 #include "guis/GuiScraperMenu.h"
 #include "guis/GuiScreensaverOptions.h"
 #include "guis/GuiSystemStatusOptions.h"
@@ -40,6 +48,8 @@
 #include "guis/GuiThemeDownloader.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/PlatformUtil.h"
+#include "utils/StringUtil.h"
+#include "views/ViewController.h"
 
 #if defined(__ANDROID__)
 #include "InputOverlay.h"
@@ -59,6 +69,36 @@ GuiMenu::GuiMenu()
     , mThemeDownloaderReloadCounter {0}
 {
     const bool isFullUI {UIModeController::getInstance()->isUIModeFull()};
+
+    // === LEGACY PATCH BEGIN === (게임 목록 업데이트 - 최상단 메뉴로 노출)
+    // 기존 UTILITIES 안의 "RESCAN ROM DIRECTORY" 와 동일한 기능을 메인 메뉴 최상단
+    // (SCRAPER 위)에 분리된 영문 키로 노출. 메뉴 라벨이 강하게 보이지 않도록 별도
+    // 키("GAME LIST UPDATE")로 번역만 따로 관리한다.
+    if (isFullUI) {
+        addEntry(_("GAME LIST UPDATE"), mMenuColorPrimary, false, [this] {
+            mWindow->pushGui(new GuiMsgBox(
+                _("THIS WILL RESCAN YOUR ROM DIRECTORY FOR CHANGES SUCH AS ADDED OR REMOVED GAMES AND "
+                  "SYSTEMS"),
+                _("PROCEED"),
+                [this] {
+                    if (CollectionSystemsManager::getInstance()->isEditing())
+                        CollectionSystemsManager::getInstance()->exitEditMode();
+                    mWindow->stopInfoPopup();
+                    GuiMenu::close(true);
+                    // Write any gamelist.xml changes before proceeding with the rescan.
+                    if (Settings::getInstance()->getString("SaveGamelistsMode") == "on exit") {
+                        for (auto system : SystemData::sSystemVector)
+                            system->writeMetaData();
+                    }
+                    ViewController::getInstance()->rescanROMDirectory();
+                },
+                _("CANCEL"), nullptr, "", nullptr, "", nullptr, nullptr, false, true,
+                (mRenderer->getIsVerticalOrientation() ?
+                     0.76f :
+                     0.52f * (1.778f / mRenderer->getScreenAspectRatio()))));
+        });
+    }
+    // === LEGACY PATCH END ===
 
     if (isFullUI)
         addEntry(_("SCRAPER"), mMenuColorPrimary, true, [this] { openScraperOptions(); });
@@ -85,15 +125,15 @@ GuiMenu::GuiMenu()
     if (!Settings::getInstance()->getBool("ForceKiosk") &&
         Settings::getInstance()->getString("UIMode") != "kiosk") {
 #if defined(__APPLE__)
-        addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+        addEntry(_("QUIT ES-DE+α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #elif defined(__ANDROID__)
         if (!AndroidVariables::sIsHomeApp)
-            addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+            addEntry(_("QUIT ES-DE+α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #else
         if (Settings::getInstance()->getBool("ShowQuitMenu"))
             addEntry(_("QUIT"), mMenuColorPrimary, true, [this] { openQuitMenu(); });
         else
-            addEntry(_("QUIT ES-DE"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
+            addEntry(_("QUIT ES-DE+α"), mMenuColorPrimary, false, [this] { openQuitMenu(); });
 #endif
     }
 
@@ -565,6 +605,12 @@ void GuiMenu::openUIOptions()
     themeLanguageFunc(Settings::getInstance()->getString("Theme"),
                       Settings::getInstance()->getString("ThemeLanguage"));
 
+    // === ESDE-DEV PATCH: hide-application-language BEGIN =====================
+    // APPLICATION LANGUAGE 메뉴 항목 숨김 (한국어 고정).
+    // 기본값은 Settings.cpp 의 "ApplicationLanguage" = "ko_KR" 로 강제됨.
+    // 미래에 되돌리려면 아래 #if 0 → #if 1 로 한 글자 변경.
+    // upstream 이 이 블록 안을 손대도 rebase 가 자연스럽게 통과되도록 코드 보존.
+#if 0
     // Application language.
     auto applicationLanguage =
         std::make_shared<OptionListComponent<std::string>>(_("APPLICATION LANGUAGE"), false);
@@ -619,6 +665,8 @@ void GuiMenu::openUIOptions()
             s->setNeedsClearHelpPromptsImageCache();
         }
     });
+#endif
+    // === ESDE-DEV PATCH: hide-application-language END =======================
 
     // Quick system select (navigate between systems in the gamelist view).
     auto quickSystemSelect =
@@ -1661,47 +1709,60 @@ void GuiMenu::openOtherOptions()
     s->addRow(alternativeEmulatorsRow);
 
 #if !defined(__IOS__)
-    // Game media directory.
-    ComponentListRow rowMediaDir;
-    auto mediaDirectory = std::make_shared<TextComponent>(
-        _("GAME MEDIA DIRECTORY"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
-    auto bracketMediaDirectory = std::make_shared<ImageComponent>();
-    bracketMediaDirectory->setResize(
+    // ROM directory (replaces game media directory; media dir is unused in this fork).
+    ComponentListRow rowRomDir;
+    auto romDirectory = std::make_shared<TextComponent>(
+        _("ROM DIRECTORY"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
+    auto bracketRomDirectory = std::make_shared<ImageComponent>();
+    bracketRomDirectory->setResize(
         glm::vec2 {0.0f, Font::get(FONT_SIZE_MEDIUM)->getLetterHeight()});
-    bracketMediaDirectory->setImage(":/graphics/arrow.svg");
-    bracketMediaDirectory->setColorShift(mMenuColorPrimary);
-    rowMediaDir.addElement(mediaDirectory, true);
-    rowMediaDir.addElement(bracketMediaDirectory, false);
-    std::string titleMediaDir {_("ENTER GAME MEDIA DIRECTORY")};
-    std::string mediaDirectoryStaticText {_("Default directory:")};
-    std::string defaultDirectoryText {Utils::FileSystem::getAppDataDirectory() +
-                                      "/downloaded_media"};
-    std::string initValueMediaDir {Settings::getInstance()->getString("MediaDirectory")};
-    bool multiLineMediaDir {false};
-    auto updateValMediaDir = [this](const std::string& newVal) {
-        Settings::getInstance()->setString("MediaDirectory", newVal);
-        Settings::getInstance()->saveFile();
-        ViewController::getInstance()->reloadAll();
-        mWindow->invalidateCachedBackground();
-    };
-    rowMediaDir.makeAcceptInputHandler([this, s, titleMediaDir, mediaDirectoryStaticText,
-                                        defaultDirectoryText, initValueMediaDir, updateValMediaDir,
-                                        multiLineMediaDir] {
+    bracketRomDirectory->setImage(":/graphics/arrow.svg");
+    bracketRomDirectory->setColorShift(mMenuColorPrimary);
+    rowRomDir.addElement(romDirectory, true);
+    rowRomDir.addElement(bracketRomDirectory, false);
+
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    // 데스크톱: 멀티 롬 디렉토리 관리 GUI (GuiRomDirectories) 를 띄움.
+    // 안드로이드: ROM 경로가 OS 차원에서 고정이고 멀티 디렉토리 동작이 의미 없으므로
+    //           기존 단일 텍스트 입력 팝업을 그대로 유지한다.
+#if defined(__ANDROID__)
+    rowRomDir.makeAcceptInputHandler([this, s] {
+        std::string currentROMDirectory {FileData::getROMDirectory()};
+        auto savedHandler = [this](const std::string& newROMDirectory) {
+            Settings::getInstance()->setString("ROMDirectory",
+                                               Utils::String::trim(newROMDirectory));
+            Settings::getInstance()->saveFile();
+            mWindow->pushGui(new GuiMsgBox(
+                _("ROM DIRECTORY SETTING SAVED, RESTART "
+                  "THE APPLICATION TO RESCAN THE SYSTEMS"),
+                _("OK"), nullptr, "", nullptr, "", nullptr, "", nullptr, nullptr, true, true,
+                (mRenderer->getIsVerticalOrientation() ?
+                     0.66f :
+                     0.42f * (1.778f / mRenderer->getScreenAspectRatio()))));
+        };
+
         if (Settings::getInstance()->getBool("VirtualKeyboard")) {
             mWindow->pushGui(new GuiTextEditKeyboardPopup(
-                s->getMenu().getPosition().y, titleMediaDir,
-                Settings::getInstance()->getString("MediaDirectory"), updateValMediaDir,
-                multiLineMediaDir, _("SAVE"), _("SAVE CHANGES?"), mediaDirectoryStaticText,
-                defaultDirectoryText, _("load default directory")));
+                s->getMenu().getPosition().y, _("ENTER ROM DIRECTORY PATH"),
+                currentROMDirectory, savedHandler, false, _("SAVE"), _("SAVE CHANGES?"),
+                _("Currently configured path:"), currentROMDirectory,
+                _("LOAD CURRENTLY CONFIGURED PATH"),
+                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
         }
         else {
             mWindow->pushGui(new GuiTextEditPopup(
-                titleMediaDir, Settings::getInstance()->getString("MediaDirectory"),
-                updateValMediaDir, multiLineMediaDir, _("SAVE"), _("SAVE CHANGES?"),
-                mediaDirectoryStaticText, defaultDirectoryText, _("load default directory")));
+                _("ENTER ROM DIRECTORY PATH"), currentROMDirectory, savedHandler, false,
+                _("SAVE"), _("SAVE CHANGES?"), _("Currently configured path:"),
+                currentROMDirectory, _("LOAD CURRENTLY CONFIGURED PATH"),
+                _("CLEAR (LEAVE BLANK TO RESET TO DEFAULT PATH)")));
         }
     });
-    s->addRow(rowMediaDir);
+#else
+    rowRomDir.makeAcceptInputHandler(
+        [this] { mWindow->pushGui(new GuiRomDirectories()); });
+#endif
+    // === LEGACY PATCH END ===
+    s->addRow(rowRomDir);
 #endif
 
     // Maximum play time tracking.
@@ -2340,37 +2401,10 @@ void GuiMenu::openUtilities()
 
     s->addRow(row);
 
-    row.elements.clear();
-    row.addElement(std::make_shared<TextComponent>(_("RESCAN ROM DIRECTORY"),
-                                                   Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary),
-                   true);
-
-    // This transparent dummy arrow is only here to enable the "select" help prompt.
-    row.addElement(dummyArrow, false);
-
-    row.makeAcceptInputHandler([this] {
-        mWindow->pushGui(new GuiMsgBox(
-            _("THIS WILL RESCAN YOUR ROM DIRECTORY FOR CHANGES SUCH AS ADDED OR REMOVED GAMES AND "
-              "SYSTEMS"),
-            _("PROCEED"),
-            [this] {
-                if (CollectionSystemsManager::getInstance()->isEditing())
-                    CollectionSystemsManager::getInstance()->exitEditMode();
-                mWindow->stopInfoPopup();
-                GuiMenu::close(true);
-                // Write any gamelist.xml changes before proceeding with the rescan.
-                if (Settings::getInstance()->getString("SaveGamelistsMode") == "on exit") {
-                    for (auto system : SystemData::sSystemVector)
-                        system->writeMetaData();
-                }
-                ViewController::getInstance()->rescanROMDirectory();
-            },
-            _("CANCEL"), nullptr, "", nullptr, "", nullptr, nullptr, false, true,
-            (mRenderer->getIsVerticalOrientation() ?
-                 0.76f :
-                 0.52f * (1.778f / mRenderer->getScreenAspectRatio()))));
-    });
-    s->addRow(row);
+    // === LEGACY PATCH BEGIN === (롬 디렉터리 스캔 - 최상단 메뉴로 이동)
+    // 기존 "RESCAN ROM DIRECTORY" 행은 메인 메뉴 최상단(SCRAPER 위)으로 이동했음.
+    // UTILITIES 안의 중복 항목 제거.
+    // === LEGACY PATCH END ===
 
     s->setSize(mSize);
     mWindow->pushGui(s);
@@ -2408,7 +2442,7 @@ void GuiMenu::openQuitMenu()
                 _("NO"), nullptr));
         });
         auto quitText = std::make_shared<TextComponent>(
-            _("QUIT ES-DE"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
+            _("QUIT ES-DE+α"), Font::get(FONT_SIZE_MEDIUM), mMenuColorPrimary);
         quitText->setSelectable(true);
         row.addElement(quitText, true);
         s->addRow(row);
@@ -2482,7 +2516,7 @@ void GuiMenu::addVersionInfo()
     mVersion.setAutoCalcExtent(glm::ivec2 {0, 0});
     mVersion.setColor(mMenuColorTertiary);
 
-    const std::string applicationName {"ES-DE"};
+    const std::string applicationName {"ES-DE+α"};
 
 #if defined(IS_PRERELEASE)
 #if defined(__ANDROID__)

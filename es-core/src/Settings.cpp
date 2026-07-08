@@ -54,7 +54,11 @@ namespace
         "TransitionsGamelistToGamelist",
         "TransitionsGamelistToSystem",
         "TransitionsStartupToSystem",
-        "TransitionsStartupToGamelist"
+        "TransitionsStartupToGamelist",
+
+        // Forced settings (not user-configurable):
+        "LegacyGamelistFileLocation",
+        "ApplicationLanguage"
         // clang-format on
     };
 
@@ -168,7 +172,7 @@ void Settings::setDefaults()
     mStringMap["ThemeAspectRatio"] = {"automatic", "automatic"};
     mStringMap["ThemeTransitions"] = {"automatic", "automatic"};
     mStringMap["ThemeLanguage"] = {"automatic", "automatic"};
-    mStringMap["ApplicationLanguage"] = {"automatic", "automatic"};
+    mStringMap["ApplicationLanguage"] = {"ko_KR", "ko_KR"};  // UzuCore: Korean fixed
     mStringMap["QuickSystemSelect"] = {"leftrightshoulders", "leftrightshoulders"};
     mStringMap["StartupSystem"] = {"", ""};
     mStringMap["StartupView"] = {"system", "system"};
@@ -198,7 +202,7 @@ void Settings::setDefaults()
 
     // UI settings -> screensaver settings.
     mIntMap["ScreensaverTimer"] = {5 * 60 * 1000, 5 * 60 * 1000}; // 5 minutes.
-    mStringMap["ScreensaverType"] = {"video", "video"};
+    mStringMap["ScreensaverType"] = {"dim", "dim"};
     mBoolMap["ScreensaverControls"] = {true, true};
 
     // UI settings -> screensaver settings -> slideshow screensaver settings.
@@ -301,8 +305,13 @@ void Settings::setDefaults()
     mBoolMap["VideoUpscaleFrameRate"] = {false, false};
 #endif
     mBoolMap["AlternativeEmulatorPerGame"] = {true, true};
+    // === LEGACY PATCH BEGIN === (gamelist.xml 의 hidden 태그를 기본 적용)
+    // ShowHiddenFiles 는 원래 기본값 그대로 두어 OS 레벨 숨김 체크(stat) 부담을
+    // 늘리지 않는다. ShowHiddenGames 만 false 로 바꾸어 <hidden>true</hidden> 태그가
+    // 직관대로 동작하게 한다. 사용자가 보고 싶으면 메뉴에서 토글 가능.
     mBoolMap["ShowHiddenFiles"] = {true, true};
-    mBoolMap["ShowHiddenGames"] = {true, true};
+    mBoolMap["ShowHiddenGames"] = {false, false};
+    // === LEGACY PATCH END ===
 #if defined(__ANDROID__)
     mBoolMap["LaunchOnOtherScreen"] = {false, false};
 #endif
@@ -310,7 +319,11 @@ void Settings::setDefaults()
     mBoolMap["CustomEventScripts"] = {false, false};
     mBoolMap["CustomEventScriptsBrowsing"] = {false, false};
 #endif
-    mBoolMap["ParseGamelistOnly"] = {false, false};
+    // === LEGACY PATCH BEGIN === (gamelist.xml 기반 게임 표시를 기본 ON)
+    // 기존 기본값은 {false, false} 였으나, ROM 디렉토리 스캔 없이 gamelist.xml 만으로
+    // 시스템을 빠르게 띄우는 워크플로우를 선호하므로 기본값을 true 로 변경.
+    mBoolMap["ParseGamelistOnly"] = {true, true};
+    // === LEGACY PATCH END ===
     mBoolMap["MAMENameStripExtraInfo"] = {true, true};
 #if defined(__unix__) && !defined(__ANDROID__)
     mBoolMap["DisableComposition"] = {false, false};
@@ -367,12 +380,19 @@ void Settings::setDefaults()
     mBoolMap["DebugSkipInputLogging"] = {false, false};
     mBoolMap["DebugSkipMissingThemeFiles"] = {false, false};
     mBoolMap["DebugSkipMissingThemeFilesCustomCollections"] = {true, true};
-    mBoolMap["LegacyGamelistFileLocation"] = {false, false};
+    mBoolMap["LegacyGamelistFileLocation"] = {true, true};
     mBoolMap["CreatePlaceholderSystemDirectories"] = {false, false};
     mBoolMap["SystemStatusDisplayAll"] = {false, false};
     mStringMap["OpenGLVersion"] = {"", ""};
 #if !defined(__ANDROID__) && !defined(__IOS__)
     mStringMap["ROMDirectory"] = {"", ""};
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리)
+    // ';' separated list of additional ROM directories (entries with index >= 1
+    // in the GuiRomDirectories list). The main directory is stored separately
+    // in "ROMDirectory" above. Earlier-registered directories take precedence
+    // when the same system is found in multiple directories.
+    mStringMap["ROMDirectoryAdditional"] = {"", ""};
+    // === LEGACY PATCH END ===
 #endif
     mStringMap["SplashScreenProgressBarColor"] = {"", ""};
     mStringMap["UIMode_passkey"] = {"uuddlrlrba", "uuddlrlrba"};
@@ -460,14 +480,24 @@ void Settings::loadFile()
         return;
     }
 
-    for (pugi::xml_node node = doc.child("bool"); node; node = node.next_sibling("bool"))
-        setBool(node.attribute("name").as_string(), node.attribute("value").as_bool());
+    for (pugi::xml_node node = doc.child("bool"); node; node = node.next_sibling("bool")) {
+        const std::string name {node.attribute("name").as_string()};
+        // Always force this setting to true, ignore any value from es_settings.xml
+        if (name == "LegacyGamelistFileLocation")
+            continue;
+        setBool(name, node.attribute("value").as_bool());
+    }
     for (pugi::xml_node node = doc.child("int"); node; node = node.next_sibling("int"))
         setInt(node.attribute("name").as_string(), node.attribute("value").as_int());
     for (pugi::xml_node node = doc.child("float"); node; node = node.next_sibling("float"))
         setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
-    for (pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string"))
-        setString(node.attribute("name").as_string(), node.attribute("value").as_string());
+    for (pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string")) {
+        const std::string name {node.attribute("name").as_string()};
+        // Always force Korean, ignore any saved language setting
+        if (name == "ApplicationLanguage")
+            continue;
+        setString(name, node.attribute("value").as_string());
+    }
 }
 
 // Macro to create the get and set functions for the various data types.

@@ -18,6 +18,9 @@
 #include "InputManager.h"
 #include "Log.h"
 #include "Settings.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 #include "ThemeData.h"
 #include "UIModeController.h"
 #include "resources/ResourceManager.h"
@@ -825,7 +828,12 @@ bool SystemData::loadConfig()
     }
 
     const std::vector<std::string>& configPaths {getConfigPath()};
-    const std::string& rompath {FileData::getROMDirectory()};
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 모든 ROM 디렉토리를 순차 스캔)
+    // 각 ROM 디렉토리에 대해 시스템 로딩을 반복한다. 동일한 시스템 이름이 여러
+    // 디렉토리에서 발견되면 nameFindFunc()에 의해 먼저 등록된(= 먼저 스캔된)
+    // 디렉토리의 항목이 우선한다. ROMDirectory 설정 변경은 재시작 시 반영됨.
+    const std::vector<std::string> allRomPaths {FileData::getROMDirectories()};
+    // === LEGACY PATCH END ===
     bool onlyProcessCustomFile {false};
 
     const bool splashScreen {Settings::getInstance()->getBool("SplashScreen")};
@@ -854,6 +862,22 @@ bool SystemData::loadConfig()
         if (doc.child("loadExclusive"))
             break;
     }
+
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 외부 루프)
+    // 각 ROM 디렉토리에 대해 전체 시스템 처리 루프를 실행한다. 첫 번째(메인) ROM
+    // 디렉토리가 가장 높은 우선순위를 가지며, 같은 시스템이 이후 디렉토리에서
+    // 다시 발견되면 nameFindFunc() 에서 걸러진다.
+    for (size_t romDirIdx = 0; romDirIdx < allRomPaths.size(); ++romDirIdx) {
+        const std::string& rompath = allRomPaths[romDirIdx];
+        if (romDirIdx > 0) {
+            // 추가 디렉토리부터는 loadExclusive 상태를 리셋해서 동일 로직으로
+            // 재처리할 수 있게 한다.
+            onlyProcessCustomFile = false;
+        }
+        LOG(LogInfo) << "Scanning ROM directory ["
+                     << (romDirIdx + 1) << "/" << allRomPaths.size() << "]: \""
+                     << rompath << "\"";
+    // === LEGACY PATCH END ===
 
     for (auto& configPath : configPaths) {
         // If the loadExclusive tag is present in the custom es_systems.xml file, then skip
@@ -934,7 +958,16 @@ bool SystemData::loadConfig()
             name = Utils::String::replace(system.child("name").text().get(), "\n", "");
             fullname = Utils::String::replace(system.child("fullname").text().get(), "\n", "");
             sortName = system.child("systemsortname").text().get();
-            path = system.child("path").text().get();
+            // === LEGACY PATCH BEGIN === (다중 <path> 지원: gc/gamecube, n3ds/3ds 등)
+            std::vector<std::string> systemPaths;
+            for (pugi::xml_node pathNode = system.child("path"); pathNode;
+                 pathNode = pathNode.next_sibling("path")) {
+                std::string p = pathNode.text().get();
+                if (!p.empty())
+                    systemPaths.emplace_back(p);
+            }
+            path = systemPaths.empty() ? "" : systemPaths.front();
+            // === LEGACY PATCH END ===
 
             for (auto& importRule : sImportRules->mSystems) {
                 if (importRule.first == name) {
@@ -970,9 +1003,14 @@ bool SystemData::loadConfig()
                 return false;
             };
 
+            // === LEGACY PATCH BEGIN === (다중 path 지원: 각 path를 독립적으로 처리)
+            // nameFindFunc()는 이름 중복 체크인데 다중 path에서는 path 루프 안에서 처리함
+            for (auto& sysPath : systemPaths) {
+            path = sysPath;
+
             // If the name is matching a system that has already been loaded, then skip the entry.
             if (nameFindFunc())
-                continue;
+                break; // 같은 이름 시스템이 이미 로드됐으면 나머지 path도 스킵
 
             // If there is a %ROMPATH% variable set for the system, expand it. By doing this
             // it's possible to use either absolute ROM paths in es_systems.xml or to utilize
@@ -1163,11 +1201,33 @@ bool SystemData::loadConfig()
                 delete newSys;
             }
             else {
-                sSystemVector.emplace_back(newSys);
-                gameCount += newSys->getRootFolder()->getGameCount().first;
+                // === LEGACY PATCH BEGIN === (중복 시스템 방지: gc/gamecube 등 대체 경로)
+                // 같은 이름의 시스템이 이미 로드됐으면 이 경로는 건너뜀
+                bool alreadyLoaded {false};
+                for (auto* sys : sSystemVector) {
+                    if (sys->getName() == name) {
+                        alreadyLoaded = true;
+                        LOG(LogDebug) << "SystemData::loadConfig(): Skipping duplicate path \""
+                                      << path << "\" for system \"" << name
+                                      << "\" (already loaded from another path)";
+                        break;
+                    }
+                }
+                if (!alreadyLoaded) {
+                    sSystemVector.emplace_back(newSys);
+                    gameCount += newSys->getRootFolder()->getGameCount().first;
+                }
+                else {
+                    delete newSys;
+                }
+                // === LEGACY PATCH END ===
             }
+            } // end for (auto& sysPath : systemPaths) — LEGACY PATCH
         }
     }
+    // === LEGACY PATCH BEGIN === (멀티 롬디렉토리: 외부 루프 종료)
+    } // end for (romDirIdx in allRomPaths)
+    // === LEGACY PATCH END ===
 
     if (splashScreen) {
         if (sSystemVector.size() > 0)
@@ -1481,7 +1541,16 @@ bool SystemData::createSystemDirectories()
 
             name = system.child("name").text().get();
             fullname = system.child("fullname").text().get();
-            path = system.child("path").text().get();
+            // === LEGACY PATCH BEGIN === (다중 <path> 지원)
+            std::vector<std::string> systemPaths2;
+            for (pugi::xml_node pathNode = system.child("path"); pathNode;
+                 pathNode = pathNode.next_sibling("path")) {
+                std::string p = pathNode.text().get();
+                if (!p.empty())
+                    systemPaths2.emplace_back(p);
+            }
+            path = systemPaths2.empty() ? "" : systemPaths2.front();
+            // === LEGACY PATCH END ===
             extensions = system.child("extension").text().get();
             for (pugi::xml_node entry {system.child("command")}; entry;
                  entry = entry.next_sibling("command")) {
@@ -1712,6 +1781,11 @@ std::string SystemData::getGamelistPath(bool forWrite) const
     std::string filePath {mRootFolder->getPath() + "/gamelist.xml"};
     const std::string gamelistPath {Utils::FileSystem::getAppDataDirectory() + "/gamelists/" +
                                     mName};
+
+    // === LEGACY PATCH BEGIN ===
+    if (auto p = Legacy::resolveGamelistPath(mRootFolder->getPath(), filePath, forWrite))
+        return *p;
+    // === LEGACY PATCH END ===
 
     if (Utils::FileSystem::exists(filePath)) {
         if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {

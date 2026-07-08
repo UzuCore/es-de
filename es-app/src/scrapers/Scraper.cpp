@@ -17,6 +17,9 @@
 #include "SystemData.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/StringUtil.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #if defined(_WIN64)
 #include "views/ViewController.h"
@@ -303,6 +306,17 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
 
         std::string filePath {getSaveAsPath(search, it->subDirectory, ext)};
 
+        // === LEGACY PATCH BEGIN ===
+        // In Legacy mode, after the file is saved, write a relative-path entry into
+        // the game's gamelist.xml metadata (no-op outside Legacy mode).
+        auto updateMetadataWithPath = [game = search.game,
+                                       mdKey = Legacy::mapMediaSubdirToMDKey(it->subDirectory),
+                                       startPath = search.system->getSystemEnvData()->mStartPath,
+                                       filePath]() {
+            Legacy::updateMetadataRelativePath(game, mdKey, startPath, filePath);
+        };
+        // === LEGACY PATCH END ===
+
         // If there is an existing media file on disk and the setting to overwrite data
         // has been set to no, then don't proceed with downloading or saving a new file.
         if (it->existingMediaFile != "" &&
@@ -377,13 +391,20 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
             }
 
             mResult.savedNewMedia = true;
+            // === LEGACY PATCH BEGIN ===
+            updateMetadataWithPath();
+            // === LEGACY PATCH END ===
         }
         // If it's not cached, then initiate the download.
         else {
             mFuncs.push_back(ResolvePair(downloadMediaAsync(it->fileURL, filePath,
                                                             it->existingMediaFile, it->subDirectory,
                                                             it->resizeFile, mResult.savedNewMedia),
-                                         [filePath] {}));
+                                         // === LEGACY PATCH BEGIN ===
+                                         [filePath, updateMetadataWithPath] {
+                                             updateMetadataWithPath();
+                                         }));
+                                         // === LEGACY PATCH END ===
         }
     }
 }
@@ -754,6 +775,12 @@ std::string getSaveAsPath(const ScraperSearchParams& params,
     if (params.system->getSystemEnvData()->mStartPath != "")
         subFolders = Utils::String::replace(Utils::FileSystem::getParent(params.game->getPath()),
                                             params.system->getSystemEnvData()->mStartPath, "");
+
+    // === LEGACY PATCH BEGIN ===
+    if (auto legacyPath = Legacy::resolveScraperSavePath(params, filetypeSubdirectory, subFolders,
+                                                        name, extension))
+        return *legacyPath;
+    // === LEGACY PATCH END ===
 
     std::string path {FileData::getMediaDirectory()};
 

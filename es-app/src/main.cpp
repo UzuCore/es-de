@@ -583,7 +583,7 @@ int main(int argc, char* argv[])
 
     std::locale::global(std::locale("C"));
 
-    SDL_SetHint(SDL_HINT_APP_NAME, "ES-DE");
+    SDL_SetHint(SDL_HINT_APP_NAME, "ES-DE+α");
 
 #if defined(__APPLE__) && !defined(__IOS__)
     // This is a workaround to disable the incredibly annoying save state functionality in
@@ -660,7 +660,7 @@ int main(int argc, char* argv[])
         while (AndroidVariables::sHold)
             SDL_Delay(20);
 
-        if (Utils::Platform::Android::checkConfigurationNeeded())
+        if (!AndroidVariables::sConfiguratorCompleted)
             exit(0);
     }
 
@@ -674,10 +674,8 @@ int main(int argc, char* argv[])
         Log::setReportingLevel(LogDebug);
     }
 
-#if defined(FREEIMAGE_LIB)
-    // Call this ONLY when linking with FreeImage as a static library.
+// FreeImage_Initialise() must be called explicitly for our dynamic .so build.
     FreeImage_Initialise();
-#endif
 
     // If the application data directory doesn't exist and can't be created, then exit.
     if (!checkApplicationDataDirectory())
@@ -716,7 +714,7 @@ int main(int argc, char* argv[])
     Log::init();
     Log::open();
     {
-        const std::string applicationName {"ES-DE"};
+        const std::string applicationName {"ES-DE+α"};
 #if defined(__ANDROID__)
         LOG(LogInfo) << applicationName << " " << PROGRAM_VERSION_STRING << "-"
                      << ANDROID_VERSION_CODE << " (r" << PROGRAM_RELEASE_NUMBER << "), built "
@@ -843,36 +841,39 @@ int main(int argc, char* argv[])
         }
     }
 
-    {
-        // Create the gamelists folder in the application data directory.
-        const std::string gamelistsDir {Utils::FileSystem::getAppDataDirectory() + "/gamelists"};
-        if (!Utils::FileSystem::exists(gamelistsDir)) {
-#if defined(_WIN64)
-            LOG(LogInfo) << "Creating gamelists directory \""
-                         << Utils::String::replace(gamelistsDir, "/", "\\") << "\"...";
-#else
-            LOG(LogInfo) << "Creating gamelists directory \"" << gamelistsDir << "\"...";
-#endif
-            Utils::FileSystem::createDirectory(gamelistsDir);
+    // Skip creating ES-DE standard gamelists/media folders in legacy mode (they are unused).
+    if (!Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        {
+            // Create the gamelists folder in the application data directory.
+            const std::string gamelistsDir {Utils::FileSystem::getAppDataDirectory() + "/gamelists"};
             if (!Utils::FileSystem::exists(gamelistsDir)) {
-                LOG(LogWarning) << "Couldn't create directory, permission problems?";
+#if defined(_WIN64)
+                LOG(LogInfo) << "Creating gamelists directory \""
+                             << Utils::String::replace(gamelistsDir, "/", "\\") << "\"...";
+#else
+                LOG(LogInfo) << "Creating gamelists directory \"" << gamelistsDir << "\"...";
+#endif
+                Utils::FileSystem::createDirectory(gamelistsDir);
+                if (!Utils::FileSystem::exists(gamelistsDir)) {
+                    LOG(LogWarning) << "Couldn't create directory, permission problems?";
+                }
             }
         }
-    }
 
-    {
-        // Create the game media folder.
-        const std::string mediaDirectory {FileData::getMediaDirectory()};
-        if (!Utils::FileSystem::exists(mediaDirectory)) {
-#if defined(_WIN64)
-            LOG(LogInfo) << "Creating game media directory \""
-                         << Utils::String::replace(mediaDirectory, "/", "\\") << "\"...";
-#else
-            LOG(LogInfo) << "Creating game media directory \"" << mediaDirectory << "\"...";
-#endif
-            Utils::FileSystem::createDirectory(mediaDirectory);
+        {
+            // Create the game media folder.
+            const std::string mediaDirectory {FileData::getMediaDirectory()};
             if (!Utils::FileSystem::exists(mediaDirectory)) {
-                LOG(LogWarning) << "Couldn't create directory, permission problems?";
+#if defined(_WIN64)
+                LOG(LogInfo) << "Creating game media directory \""
+                             << Utils::String::replace(mediaDirectory, "/", "\\") << "\"...";
+#else
+                LOG(LogInfo) << "Creating game media directory \"" << mediaDirectory << "\"...";
+#endif
+                Utils::FileSystem::createDirectory(mediaDirectory);
+                if (!Utils::FileSystem::exists(mediaDirectory)) {
+                    LOG(LogWarning) << "Couldn't create directory, permission problems?";
+                }
             }
         }
     }
@@ -1098,9 +1099,13 @@ int main(int argc, char* argv[])
         if (Settings::getInstance()->getBool("SplashScreen"))
             window->renderSplashScreen(Window::SplashScreenState::RESOURCE_COPY, 0.0f);
         if (Utils::Platform::Android::setupResources(buildIdentifier)) {
-            LOG(LogError) << "Copying of resources and themes failed";
-            return -1;
-        }
+			LOG(LogError) << "Copying of resources and themes failed";
+			return -1;
+		}
+		if (Utils::Platform::Android::setupThemes(buildIdentifier)) {
+			LOG(LogError) << "Copying of bundled themes failed";
+			return -1;
+		}
     }
 
     if (Utils::Platform::Android::getCreateSystemDirectories()) {

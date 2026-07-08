@@ -14,6 +14,9 @@
 #include "SystemData.h"
 #include "utils/LocalizationUtil.h"
 #include "utils/StringUtil.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #include <chrono>
 
@@ -909,6 +912,15 @@ std::string MiximageGenerator::getSavePath() const
 
     std::string path {FileData::getMediaDirectory()};
 
+    // === LEGACY PATCH BEGIN ===
+    if (auto legacyPath = Legacy::resolveMiximagePath(
+            mGame->getSystemEnvData()->mStartPath, subFolders)) {
+        path = *legacyPath;
+        if (!Utils::FileSystem::exists(path))
+            Utils::FileSystem::createDirectory(path);
+    }
+    else {
+    // === LEGACY PATCH END ===
     if (!Utils::FileSystem::exists(path))
         Utils::FileSystem::createDirectory(path);
 
@@ -926,6 +938,9 @@ std::string MiximageGenerator::getSavePath() const
 
     if (!Utils::FileSystem::exists(path))
         Utils::FileSystem::createDirectory(path);
+    // === LEGACY PATCH BEGIN ===
+    }
+    // === LEGACY PATCH END ===
 
     if (Settings::getInstance()->getString("MiximageFileFormat") == "webp")
         path += name + ".webp";

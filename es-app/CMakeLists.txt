@@ -39,6 +39,9 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiMetaDataEd.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOfflineGenerator.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOrphanedDataCleanup.h
+    # === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomDirectories.h
+    # === LEGACY PATCH END ===
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMenu.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperSearch.h
@@ -59,6 +62,11 @@ set(ES_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/GamelistView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/SystemView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/ViewController.h
+
+    # === LEGACY PATCH BEGIN ===
+    # Legacy (ROM-folder media layout) support module
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/legacy/LegacyPaths.h
+    # === LEGACY PATCH END ===
 )
 
 set(ES_SOURCES
@@ -92,6 +100,9 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiMetaDataEd.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOfflineGenerator.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiOrphanedDataCleanup.cpp
+    # === LEGACY PATCH BEGIN === (멀티 롬디렉토리 GUI)
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiRomDirectories.cpp
+    # === LEGACY PATCH END ===
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMenu.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperMulti.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiScraperSearch.cpp
@@ -112,6 +123,11 @@ set(ES_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/GamelistView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/SystemView.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/views/ViewController.cpp
+
+    # === LEGACY PATCH BEGIN ===
+    # Legacy (ROM-folder media layout) support module
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/legacy/LegacyPaths.cpp
+    # === LEGACY PATCH END ===
 )
 
 if(WIN32)

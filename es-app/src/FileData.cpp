@@ -304,6 +304,64 @@ const std::string FileData::getROMDirectory()
     return romDirPath;
 }
 
+// === LEGACY PATCH BEGIN === (멀티 롬디렉토리 지원)
+const std::vector<std::string> FileData::getROMDirectories()
+{
+    std::vector<std::string> result;
+    // First entry: the main ROMDirectory (always present, even if defaulted to ~/ROMs/).
+    result.emplace_back(getROMDirectory());
+
+#if defined(__ANDROID__) || defined(__IOS__)
+    // Multi-directory is desktop-only — these platforms have a fixed ROM directory.
+    return result;
+#else
+    const std::string& additional {
+        Settings::getInstance()->getString("ROMDirectoryAdditional")};
+    if (additional.empty())
+        return result;
+
+    // Split additional list by ';'.
+    size_t start {0};
+    while (start <= additional.size()) {
+        size_t end {additional.find(';', start)};
+        if (end == std::string::npos)
+            end = additional.size();
+        std::string piece {additional.substr(start, end - start)};
+        piece = Utils::String::trim(piece);
+
+        if (!piece.empty()) {
+            std::string path {Utils::FileSystem::expandHomePath(piece)};
+#if defined(_WIN64)
+            if (path.back() != '\\' && path.back() != '/')
+                path += "\\";
+#else
+            if (path.back() != '/')
+                path += "/";
+#endif
+            // Expand %ESPATH%.
+            path = Utils::String::replace(path, "%ESPATH%",
+                                          Utils::FileSystem::getExePath());
+
+            // Skip duplicates of already-added paths (including the main one).
+            bool dup {false};
+            for (const auto& p : result) {
+                if (p == path) {
+                    dup = true;
+                    break;
+                }
+            }
+            if (!dup)
+                result.emplace_back(path);
+        }
+        if (end == additional.size())
+            break;
+        start = end + 1;
+    }
+    return result;
+#endif
+}
+// === LEGACY PATCH END ===
+
 const std::string FileData::getMediaDirectory()
 {
 #if defined(__IOS__)
@@ -345,6 +403,26 @@ const std::string FileData::getMediafilePath(const std::string& subdirectory) co
     const std::string tempPath {getMediaDirectory() + mSystemName + "/" + subdirectory +
                                 subFolders + "/" + getDisplayName()};
 
+    // Legacy mode fallback: also check <ROM system>/media/<ES-style type>/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        static const std::map<std::string, std::string> kESStyleMap {
+            {"screenshots",  "images"},
+            {"covers",       "thumbnails"},
+            {"marquees",     "marquees"},
+            {"fanart",       "fanart"},
+            {"miximages",    "miximages"},
+            {"titlescreens", "titlescreens"},
+        };
+        const std::string esSubdir {kESStyleMap.count(subdirectory) ?
+                                    kESStyleMap.at(subdirectory) : subdirectory};
+        const std::string legacyPath {mEnvData->mStartPath + "/media/" +
+                                      esSubdir + subFolders + "/" + getDisplayName()};
+        for (auto& extension : sImageExtensions) {
+            if (Utils::FileSystem::exists(legacyPath + extension))
+                return legacyPath + extension;
+        }
+    }
+
     // Look for an image file in the media directory.
     for (auto& extension : sImageExtensions) {
         const std::string mediaPath {tempPath + extension};
@@ -357,6 +435,17 @@ const std::string FileData::getMediafilePath(const std::string& subdirectory) co
 
 const std::string FileData::getImagePath() const
 {
+    // Legacy mode: use path from gamelist.xml <image> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdImage {metadata.get("image")};
+        if (!mdImage.empty() && Utils::FileSystem::exists(mdImage))
+            return mdImage;
+        // Fallback to <thumbnail> tag
+        const std::string& mdThumbnail {metadata.get("thumbnail")};
+        if (!mdThumbnail.empty() && Utils::FileSystem::exists(mdThumbnail))
+            return mdThumbnail;
+    }
+
     // Look for a mix image (a combination of screenshot, 2D/3D box and marquee).
     std::string image {getMediafilePath("miximages")};
 
@@ -391,18 +480,39 @@ const std::string FileData::getBackCoverPath() const
 
 const std::string FileData::getCoverPath() const
 {
+    // Legacy mode: use path from gamelist.xml <thumbnail> tag if set (used as box art)
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdThumbnail {metadata.get("thumbnail")};
+        if (!mdThumbnail.empty() && Utils::FileSystem::exists(mdThumbnail))
+            return mdThumbnail;
+    }
+
     // Return path to the box cover image.
     return getMediafilePath("covers");
 }
 
 const std::string FileData::getFanArtPath() const
 {
+    // Legacy mode: use path from gamelist.xml <fanart> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdFanart {metadata.get("fanart")};
+        if (!mdFanart.empty() && Utils::FileSystem::exists(mdFanart))
+            return mdFanart;
+    }
+
     // Return path to the fan art image.
     return getMediafilePath("fanart");
 }
 
 const std::string FileData::getMarqueePath() const
 {
+    // Legacy mode: use path from gamelist.xml <marquee> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdMarquee {metadata.get("marquee")};
+        if (!mdMarquee.empty() && Utils::FileSystem::exists(mdMarquee))
+            return mdMarquee;
+    }
+
     // Return path to the marquee image.
     return getMediafilePath("marquees");
 }
@@ -421,6 +531,13 @@ const std::string FileData::getMiximagePath() const
 
 const std::string FileData::getScreenshotPath() const
 {
+    // Legacy mode: use path from gamelist.xml <image> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdImage {metadata.get("image")};
+        if (!mdImage.empty() && Utils::FileSystem::exists(mdImage))
+            return mdImage;
+    }
+
     // Return path to the screenshot image.
     return getMediafilePath("screenshots");
 }
@@ -439,6 +556,13 @@ const std::string FileData::getCustomImagePath() const
 
 const std::string FileData::getVideoPath() const
 {
+    // Legacy mode: use path from gamelist.xml <video> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdVideo {metadata.get("video")};
+        if (!mdVideo.empty() && Utils::FileSystem::exists(mdVideo))
+            return mdVideo;
+    }
+
     std::string subFolders;
 
     // Extract possible subfolders from the path.
@@ -448,6 +572,16 @@ const std::string FileData::getVideoPath() const
 
     const std::string tempPath {getMediaDirectory() + mSystemName + "/videos" + subFolders + "/" +
                                 getDisplayName()};
+
+    // Legacy mode fallback: also check <ROM system>/media/videos/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string legacyPath {mEnvData->mStartPath + "/media/videos" +
+                                      subFolders + "/" + getDisplayName()};
+        for (auto& extension : sVideoExtensions) {
+            if (Utils::FileSystem::exists(legacyPath + extension))
+                return legacyPath + extension;
+        }
+    }
 
     // Look for media in the media directory.
     for (auto& extension : sVideoExtensions) {
@@ -461,6 +595,13 @@ const std::string FileData::getVideoPath() const
 
 const std::string FileData::getManualPath() const
 {
+    // Legacy mode: use path from gamelist.xml <manual> tag if set
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string& mdManual {metadata.get("manual")};
+        if (!mdManual.empty() && Utils::FileSystem::exists(mdManual))
+            return mdManual;
+    }
+
     const std::vector<std::string> extList {".pdf"};
     std::string subFolders;
 
@@ -471,6 +612,16 @@ const std::string FileData::getManualPath() const
 
     const std::string tempPath {getMediaDirectory() + mSystemName + "/manuals" + subFolders + "/" +
                                 getDisplayName()};
+
+    // Legacy mode fallback: also check <ROM system>/media/manuals/<game>
+    if (Settings::getInstance()->getBool("LegacyGamelistFileLocation")) {
+        const std::string legacyPath {mEnvData->mStartPath + "/media/manuals" +
+                                      subFolders + "/" + getDisplayName()};
+        for (size_t i {0}; i < extList.size(); ++i) {
+            if (Utils::FileSystem::exists(legacyPath + extList[i]))
+                return legacyPath + extList[i];
+        }
+    }
 
     // Look for manuals in the media directory.
     for (size_t i {0}; i < extList.size(); ++i) {

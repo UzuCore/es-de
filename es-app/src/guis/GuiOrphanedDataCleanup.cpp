@@ -13,6 +13,9 @@
 #include "utils/LocalizationUtil.h"
 #include "utils/PlatformUtil.h"
 #include "views/ViewController.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 #include <SDL2/SDL.h>
 #include <pugixml.hpp>
@@ -367,8 +370,15 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
         }
 
         std::vector<std::string> cleanupFiles;
-        const std::string systemMediaDir {mMediaDirectory + system->getName()};
-        for (auto& mediaType : mMediaTypes) {
+        // === LEGACY PATCH: removed 'const' so Legacy mode can override below. ===
+        std::string systemMediaDir {mMediaDirectory + system->getName()};
+        // === LEGACY PATCH BEGIN ===
+        std::vector<std::string> legacyMediaTypes;
+        const bool legacyMode {Legacy::resolveOrphanedCleanupDirs(
+            system->getRootFolder()->getPath(), systemMediaDir, legacyMediaTypes)};
+        const std::vector<std::string>& mediaTypesEff {legacyMode ? legacyMediaTypes : mMediaTypes};
+        // === LEGACY PATCH END ===
+        for (auto& mediaType : mediaTypesEff) {
             const std::string mediaTypeDir {systemMediaDir + "/" + mediaType};
             const Utils::FileSystem::StringList& dirContent {
                 Utils::FileSystem::getDirContent(mediaTypeDir, true)};
@@ -411,7 +421,12 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             std::strftime(&dateString[0], 20, "%Y-%m-%d_%H%M%S", localtime_r(&currentTime, &tm));
 #endif
             dateString.erase(dateString.find('\0'));
-            const std::string targetDirectory {mMediaDirectory + "CLEANUP/" + dateString + "/"};
+            // === LEGACY PATCH BEGIN ===
+            const std::string cleanupBaseDir {
+                legacyMode ? *Legacy::resolveCleanupBaseDir(system->getRootFolder()->getPath())
+                           : mMediaDirectory};
+            // === LEGACY PATCH END ===
+            const std::string targetDirectory {cleanupBaseDir + "CLEANUP/" + dateString + "/"};
 #if defined(_WIN64)
             LOG(LogInfo) << "Moving orphaned files to \""
                          << Utils::String::replace(targetDirectory, "/", "\\") + system->getName()
@@ -424,7 +439,8 @@ void GuiOrphanedDataCleanup::cleanupMediaFiles()
             for (auto& file : cleanupFiles) {
                 const std::string fileDirectory {
                     targetDirectory +
-                    Utils::FileSystem::getParent(file.substr(mMediaDirectory.length()))};
+                    // === LEGACY PATCH: use cleanupBaseDir (= mMediaDirectory in non-Legacy mode). ===
+                    Utils::FileSystem::getParent(file.substr(cleanupBaseDir.length()))};
                 const std::string fileName {Utils::FileSystem::getFileName(file)};
                 if (!Utils::FileSystem::isDirectory(fileDirectory) &&
                     !Utils::FileSystem::createDirectory(fileDirectory)) {

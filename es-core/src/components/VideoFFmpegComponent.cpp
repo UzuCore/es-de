@@ -493,9 +493,9 @@ bool VideoFFmpegComponent::setupVideoFilters()
         .append("/")
         .append(std::to_string(mVideoStream->time_base.den))
         .append(":sar=")
-        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.num))
+        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.num == 0 ? 1 : mVideoCodecContext->sample_aspect_ratio.num))
         .append("/")
-        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.den));
+        .append(std::to_string(mVideoCodecContext->sample_aspect_ratio.den == 0 ? 1 : mVideoCodecContext->sample_aspect_ratio.den));
 
     returnValue = avfilter_graph_create_filter(&mVBufferSrcContext, bufferSrc, "in",
                                                filterArguments.c_str(), nullptr, mVFilterGraph);
@@ -629,7 +629,11 @@ bool VideoFFmpegComponent::setupAudioFilters()
     (LIBAVUTIL_VERSION_MAJOR >= 57 && LIBAVUTIL_VERSION_MINOR >= 28)
     // FFmpeg 5.1 and above.
     AVChannelLayout chLayout {};
-    av_channel_layout_from_mask(&chLayout, mAudioCodecContext->ch_layout.u.mask);
+    // Use codecpar channel info as mAudioCodecContext ch_layout may not be properly
+    // initialized with ffmpeg-kit Android builds.
+    int nbChannels = mAudioStream->codecpar->ch_layout.nb_channels;
+    if (nbChannels <= 0) nbChannels = 2;
+    av_channel_layout_default(&chLayout, nbChannels);
     av_channel_layout_describe(&chLayout, &channelLayout[0], sizeof(channelLayout));
     av_channel_layout_uninit(&chLayout);
 #else
@@ -637,15 +641,25 @@ bool VideoFFmpegComponent::setupAudioFilters()
                                  mAudioCodecContext->CHANNELS, mAudioCodecContext->channel_layout);
 #endif
 
+    // Fallback values if codec context has invalid/uninitialized values.
+    int sampleRate = mAudioCodecContext->sample_rate > 0 ?
+        mAudioCodecContext->sample_rate : 44100;
+    // Get sample format from codecpar as mAudioCodecContext may not be initialized yet
+    AVSampleFormat sampleFmt = static_cast<AVSampleFormat>(mAudioStream->codecpar->format);
+    if (sampleFmt == AV_SAMPLE_FMT_NONE || sampleFmt < 0)
+        sampleFmt = static_cast<AVSampleFormat>(mAudioCodecContext->sample_fmt);
+    if (sampleFmt == AV_SAMPLE_FMT_NONE || sampleFmt < 0)
+        sampleFmt = AV_SAMPLE_FMT_FLTP;
+
     std::string filterArguments;
     filterArguments.append("time_base=")
         .append(std::to_string(mAudioStream->time_base.num))
         .append("/")
         .append(std::to_string(mAudioStream->time_base.den))
         .append(":sample_rate=")
-        .append(std::to_string(mAudioCodecContext->sample_rate))
+        .append(std::to_string(sampleRate))
         .append(":sample_fmt=")
-        .append(av_get_sample_fmt_name(mAudioCodecContext->sample_fmt))
+        .append(av_get_sample_fmt_name(sampleFmt))
         .append(":channel_layout=")
         .append(channelLayout);
 
@@ -948,7 +962,8 @@ void VideoFFmpegComponent::outputFrames()
     // Check if we should start counting the time (i.e. start playing the video).
     // The audio stream controls when the playback and time counting starts, assuming
     // there is an audio track.
-    if (!mAudioCodecContext || (mAudioCodecContext && !mAudioFrameQueue.empty())) {
+    if (!mAudioCodecContext || !mAudioFrameQueue.empty() ||
+        mVideoFrameQueue.size() >= static_cast<size_t>(mVideoTargetQueueSize)) {
         if (!mStartTimeAccumulation) {
             std::unique_lock<std::mutex> audioLock {mAudioMutex};
             mTimeReference = std::chrono::high_resolution_clock::now();
@@ -1635,8 +1650,14 @@ void VideoFFmpegComponent::startVideoStream()
 
         // Set some reasonable target queue sizes (buffers).
         mVideoTargetQueueSize = static_cast<int>(av_q2d(mVideoStream->avg_frame_rate) / 2.0l);
-        if (mAudioStreamIndex >= 0)
+        // Fallback if avg_frame_rate is 0.
+        if (mVideoTargetQueueSize <= 0)
+            mVideoTargetQueueSize = 15;
+        if (mAudioStreamIndex >= 0) {
             mAudioTargetQueueSize = mAudioStream->codecpar->CHANNELS * 15;
+            if (mAudioTargetQueueSize <= 0)
+                mAudioTargetQueueSize = 30;
+        }
         else
             mAudioTargetQueueSize = 30;
 

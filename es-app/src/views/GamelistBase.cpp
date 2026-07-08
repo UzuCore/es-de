@@ -19,6 +19,9 @@
 #include "guis/GuiGamelistOptions.h"
 #include "utils/LocalizationUtil.h"
 #include "views/ViewController.h"
+// === LEGACY PATCH BEGIN ===
+#include "legacy/LegacyPaths.h"
+// === LEGACY PATCH END ===
 
 GamelistBase::GamelistBase(FileData* root)
     : mRoot {root}
@@ -644,6 +647,10 @@ void GamelistBase::remove(FileData* game, bool deleteFile)
 void GamelistBase::removeMedia(FileData* game)
 {
     std::string systemMediaDir {FileData::getMediaDirectory() + game->getSystem()->getName()};
+    // === LEGACY PATCH BEGIN ===
+    if (auto v = Legacy::resolveRemoveMediaDir(game->getSystem()->getRootFolder()->getPath()))
+        systemMediaDir = *v;
+    // === LEGACY PATCH END ===
     std::string mediaType;
     std::string path;
 
@@ -754,6 +761,12 @@ void GamelistBase::removeMedia(FileData* game)
             break;
         removeEmptyDirFunc(systemMediaDir, mediaType, path);
     }
+
+    // === LEGACY PATCH BEGIN ===
+    // In Legacy mode, also sweep any leftover media files (e.g., 3dboxes/backcovers/
+    // miximages/titlescreens) under <ROM>/<system>/media/ whose stem matches the game.
+    Legacy::scanAndRemoveLeftoverMedia(systemMediaDir, game->getPath());
+    // === LEGACY PATCH END ===
 }
 
 void GamelistBase::populateList(const std::vector<FileData*>& files, FileData* firstEntry)
