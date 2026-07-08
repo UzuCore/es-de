@@ -43,6 +43,12 @@ Then you can use dnf to install all the required packages:
 sudo dnf install gcc-c++ clang-tools-extra cmake gettext harfbuzz-devel libicu-devel libasan rpm-build SDL2-devel ffmpeg-devel libavcodec-devel libavfilter-devel freeimage-devel freetype-devel libgit2-devel curl-devel pugixml-devel alsa-lib-devel bluez-libs-devel mesa-libGL-devel poppler-cpp-devel
 ```
 
+Sometimes FFmpeg refuses to install, and in this case you may need to run the following as well:
+```
+sudo dnf remove ffmpeg-free
+sudo dnf install --allowerasing ffmpeg-devel
+```
+
 ### Arch/Manjaro
 
 Use pacman to install all the required packages:
@@ -2411,6 +2417,8 @@ Just make sure to not place the portable installation on a network share that us
 There are numerous locations throughout ES-DE where custom scripts can be executed if the option to do so has been enabled in the settings. You'll find the option _Enable custom event scripts_ on the Main menu under _Other settings_. By default this setting is deactivated so make sure to enable it to use this feature.
 
 The approach is quite straightforward, ES-DE will look for any files inside a script directory that corresponds to the event that is triggered and will then attempt to execute all these files (regardless of their file extensions, except on Windows where only .bat files can be used). If you want to have the scripts executed in a certain order you can name them accordingly as they will be sorted and executed in lexicographic order. The sorting is case-sensitive on Linux and Android and case-insensitive on macOS and Windows. ES-DE will wait for each script to finish its execution before moving on to the next one, so the application will suspend briefly when whatever the script is doing is executing. If you want to avoid this you can setup a wrapper script that executes another script outside the ES-DE scripts directory as a background process. Refer to your operating system documentation on how to accomplish this.
+
+Note that on Android there are some limitations for what can be done in scripts due to the security model of the operating system, for example you're not able to run the _am_ command from a script as the Android app sandboxing prevents that.
 
 On Windows PowerShell scripts can't be executed directly but they can be run via .bat wrapper script where you explicitly call powershell.exe with the -command flag. Just be aware that by default the execution of PowerShell scripts is disabled on Windows. Further details about PowerShell is beyond the scope of this document.
 

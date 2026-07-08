@@ -1322,6 +1322,11 @@
             <entry>supermodel</entry>
         </rule>
         <rule type="staticpath">
+            <entry>~/Applications/Supermodel*.AppImage</entry>
+            <entry>~/AppImages/Supermodel*.AppImage</entry>
+            <entry>~/.local/share/applications/Supermodel*.AppImage</entry>
+            <entry>~/.local/bin/Supermodel*.AppImage</entry>
+            <entry>~/bin/Supermodel*.AppImage</entry>
             <entry>~/Applications/Supermodel/supermodel</entry>
             <entry>~/.local/share/applications/Supermodel/supermodel</entry>
             <entry>~/.local/bin/Supermodel/supermodel</entry>

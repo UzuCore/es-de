@@ -9,6 +9,7 @@
 ### Detailed list of changes
 
 * Added translations for Czech (cs_CZ)
+* Added a "Y" button shortcut to the game importer selection screen
 * Added a SplashScreenProgressBarColor option that can be manually set in es_settings.xml to customize the splash screen progress bar color
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * Added "itemLinearScale" and "itemLinearSpacing" properties to the carousel element
@@ -18,10 +19,22 @@
 * Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
+* (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
+* (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
 * Added the .a0, .b0 and .rom file extensions to the vic20 system
-* (Windows) Updated OpenSSL to 4.0.0 and curl to 8.19.0
+* Added the .dsi and .ids file extensions to the nds system
+* (Android) Updated the build environment
+* (Android) Updated a number of Java and Kotlin dependencies
+* (Android) Updated libiconv to 1.19, gettext/libintl to 1.0, ICU to 78.3, libpng to 1.6.58 and libjpeg-turbo to 3.1.4.1
+* (Android) Updated LibTIFF to 4.7.1, OpenJPEG to 2.5.4, HarfBuzz to 14.2.1, FreeType to 2.14.3 and Poppler to 26.06.0
+* (Android) Updated OpenSSL to 4.0.0, curl to 8.20.0 and libgit2 to 1.9.4
+* (macOS) Updated libiconv to 1.19, gettext/libintl to 1.0, ICU to 78.3, libpng to 1.6.58 and libjpeg-turbo to 3.1.4.1
+* (macOS) Updated LibTIFF to 4.7.1, OpenJPEG to 2.5.4, HarfBuzz to 14.2.1, FreeType to 2.14.3 and Poppler to 26.06.0
+* (macOS) Updated libgit2 to 1.9.4, dav1d to 1.5.3 and FFmpeg to 8.1.1
+* (Windows) Updated gettext/libintl to 0.26, ICU to 78.3, OpenSSL to 4.0.0, curl to 8.20.0 and GLEW to 2.3.1
+* (Windows) Updated HarfBuzz to 14.2.1, FreeType to 2.14.3, libgit2 to 1.9.4, Poppler to 26.02.0 and FFmpeg to 8.1.1
 
 ### Bug fixes
 
