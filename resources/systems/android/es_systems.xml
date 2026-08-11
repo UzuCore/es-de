@@ -1488,7 +1488,7 @@
         <name>ports</name>
         <fullname>Ports</fullname>
         <path>%ROMPATH%/ports</path>
-        <extension>>.app .APP .idtech .IDTECH .exe .EXE .game .GAME .phd .PHD .port .psx .PSX</extension>
+        <extension>.app .APP .idtech .IDTECH .exe .EXE .game .GAME .phd .PHD .port .psx .PSX</extension>
         <command label="ECWolf (Wolfenstein 3D)">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/ecwolf_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="CannonBall (OutRun)">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/cannonball_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="Craft (Minecraft)">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/craft_libretro_android.so</command>
