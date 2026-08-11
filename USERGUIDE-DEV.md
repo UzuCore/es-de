@@ -1222,6 +1222,7 @@ Below are the import rules that are part of the bundled configuration.
 | Android          | emulators                    | Emulators                   | Android Package   |
 | Android          | epic                         | Epic Games Store            | Android Package   |
 | Android          | n64                          | Nintendo 64                 | Android Package   |
+| Android          | ports                        | Ports                       | Android Package   |
 | Linux            | desktop                      | Desktop Applications        | Desktop Shortcut  |
 | Linux            | emulators                    | Emulators                   | Desktop Shortcut  |
 | Linux            | epic                         | Epic Games Store            | Desktop Shortcut  |
@@ -1237,6 +1238,7 @@ Below are the import rules that are part of the bundled configuration.
 | Windows          | epic                         | Epic Games Store            | Epic URL File     |
 | Windows          | steam                        | Valve Steam                 | Steam URL File    |
 | Windows          | windows                      | Microsoft Windows           | Shortcut File     |
+| Windows          | xbox                         | Microsoft Xbox              | Shortcut File     |
 
 ### Single game file installation
 

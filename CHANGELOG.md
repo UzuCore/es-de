@@ -46,6 +46,9 @@
 * (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
 * (Android) Added D.Smile standalone as an alternative emulator for the vsmile system
 * (Android) Added XenDroid standalone as an alternative emulator for the xbox360 system
+* (Android) Added "Native port" as an alternative emulator for the ports system
+* (Android) Added the .app file extension to the ports system
+* (Android) Added import rules for the ports system
 * (Android) Added GameNative Amazon standalone as an alternative emulator for the windows system
 * (Android) Added the .amazon file extension to the windows system
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
