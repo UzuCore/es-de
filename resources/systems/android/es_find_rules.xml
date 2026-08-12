@@ -595,6 +595,12 @@
             <entry>org.vita3k.emulator.ikhoeyZX/org.vita3k.emulator.Emulator</entry>
         </rule>
     </emulator>
+    <emulator name="WATERMELONDS">
+        <!-- Nintendo DS and DSi emulator WatermelonDS -->
+        <rule type="androidpackage">
+            <entry>me.magnum.melondualds/me.magnum.melonds.ui.emulator.EmulatorActivity</entry>
+        </rule>
+    </emulator>
     <emulator name="WINLATOR-CMOD">
         <!-- Microsoft Windows emulator Winlator Cmod -->
         <rule type="androidpackage">
