@@ -524,6 +524,12 @@
             <entry>org.scummvm.scummvm/org.scummvm.scummvm.SplashActivity</entry>
         </rule>
     </emulator>
+    <emulator name="SEEDLESSDS">
+        <!-- Nintendo DS and DSi emulator SeedlessDS -->
+        <rule type="androidpackage">
+            <entry>com.seedlessds.app/.LaunchGame</entry>
+        </rule>
+    </emulator>
     <emulator name="SKYEMU">
         <!-- Nintendo Game Boy, Game Boy Color, Game Boy Advance and DS emulator SkyEmu -->
         <rule type="androidpackage">
