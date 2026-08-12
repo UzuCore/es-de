@@ -542,10 +542,6 @@ This emulator can be installed from the Play store.
 
 https://play.google.com/store/apps/details?id=me.magnum.melonds
 
-There is also support for the following fork (MelonDualDS).
-
-https://github.com/SapphireRhodonite/melonDS-android/releases
-
 ### M64Plus FZ
 
 This emulator can be installed from the Google Play store. The Pro version is recommended to avoid annoying ads.
@@ -668,6 +664,12 @@ ScummVM can be installed from the Play store. There are also daily builds availa
 https://play.google.com/store/apps/details?id=org.scummvm.scummvm\
 https://buildbot.scummvm.org/#/dailybuilds
 
+### SeedlessDS
+
+This emulator can be downloaded from their GitHub site.
+
+https://github.com/SapphireRhodonite/SeedlessDS/releases
+
 ### SkyEmu
 
 This emulator can be downloaded from their GitHub site.
@@ -729,6 +731,12 @@ Two separate Vita3K releases are supported by ES-DE and they share the same emul
 
 https://github.com/Vita3K/Vita3K/releases \
 https://github.com/ikhoeyZX/Vita3K-Android/releases
+
+### WatermelonDS
+
+This emulator can be downloaded from their GitHub site.
+
+https://github.com/SapphireRhodonite/WatermelonDS/releases
 
 ### Winlator
 
@@ -965,10 +973,10 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | electron              | Acorn Electron                                 | MAME4droid Current [Tape] **(Standalone)** | MAME4droid Current [Diskette DFS] **(Standalone)**,<br>MAME4droid Current [Diskette ADFS] **(Standalone)** | Yes          | Single archive, or single tape or diskette image file |
 | emulators             | Emulators                                      | _Native apps_                     |                                   | No           | Use the built-in game importer       |
 | epic                  | Epic Games Store                               | _Native apps_                     | GameNative **(Standalone)**       | No           | Use the built-in game importer for native games |
-| famicom               | Nintendo Family Computer                       | Mesen                             | Nestopia UE,<br>FCEUmm,<br>QuickNES,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | No           | Single archive or ROM file           |
+| famicom               | Nintendo Family Computer                       | Mesen                             | Nestopia UE,<br>FCEUmm,<br>QuickNES,<br>RustyNES,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | No           | Single archive or ROM file           |
 | fba                   | FinalBurn Alpha                                | FB Alpha 2012                     | FB Alpha 2012 Neo Geo,<br>FB Alpha 2012 CPS-1,<br>FB Alpha 2012 CPS-2,<br>FB Alpha 2012 CPS-3 | Yes          |                                |
 | fbneo                 | FinalBurn Neo                                  | FinalBurn Neo                     |                                   | Yes          |                                      |
-| fds                   | Nintendo Famicom Disk System                   | Mesen                             | Nestopia UE,<br>FCEUmm,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | Yes          | Single archive or ROM file |
+| fds                   | Nintendo Famicom Disk System                   | Mesen                             | Nestopia UE,<br>FCEUmm,<br>RustyNES,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | Yes          | Single archive or ROM file |
 | flash                 | Adobe Flash                                    | Ruffle **(Standalone)**           | SWF Player **(Standalone)**       | No           | Single .swf file                     |
 | fm7                   | Fujitsu FM-7                                   | MAME4droid Current [FM-7 Diskette] **(Standalone)** | MAME4droid Current [FM-7 Tape] **(Standalone)**,<br>MAME4droid Current [FM-7 Software list] **(Standalone)**,<br>MAME4droid Current [FM77AV Diskette] **(Standalone)**,<br>MAME4droid Current [FM77AV Tape] **(Standalone)**,<br>MAME4droid Current [FM77AV Software list] **(Standalone)** | Yes          | For tape files you need to manually start the cassette player from the MAME menu after the "load" command, as well as entering the "run" command after loading is complete |
 | fmtowns               | Fujitsu FM Towns                               | MAME4droid Current **(Standalone)**  |                                   | Yes          | See the specific _Fujitsu FM Towns_ section in the user guide |
@@ -1018,11 +1026,11 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | n3ds                  | Nintendo 3DS                                   | Azahar                            | Azahar **(Standalone)**,<br>AzaharPlus **(Standalone)**,<br>Citra,<br>Citra **(Standalone)**,<br>Citra Canary **(Standalone)**,<br>Citra MMJ **(Standalone)**,<br>Mandarine **(Standalone)**,<br>Lime3DS **(Standalone)**,<br>Panda3DS **(Standalone)**  | No           | Single ROM file       |
 | n64                   | Nintendo 64                                    | Mupen64Plus-Next                  | M64Plus FZ **(Standalone)**,<br>Mupen64Plus AE **(Standalone)**,<br>ParaLLEl N64,<br> _Native port_ | No           | Single archive or ROM file, for recompilations see the specific _Nintendo 64 Recompilations_ section in the user guide |
 | n64dd                 | Nintendo 64DD                                  | Mupen64Plus-Next                  | M64Plus FZ **(Standalone)**,<br>Mupen64Plus AE **(Standalone)**,<br>ParaLLEl N64 | Yes          |                                      |
-| nds                   | Nintendo DS                                    | melonDS DS                        | melonDS,<br>melonDS **(Standalone)**,<br>melonDS Nightly **(Standalone)**,<br>DeSmuME,<br>DeSmuME 2015,<br>NooDS,<br>NooDS **(Standalone)**,<br>DraStic **(Standalone)**,<br>SkyEmu,<br>SkyEmu **(Standalone)** | No           | Single archive or ROM file |
+| nds                   | Nintendo DS                                    | melonDS DS                        | melonDS,<br>melonDS **(Standalone)**,<br>melonDS Nightly **(Standalone)**,<br>WatermelonDS **(Standalone)**,<br>SeedlessDS **(Standalone)**,<br>DeSmuME,<br>DeSmuME 2015,<br>NooDS,<br>NooDS **(Standalone)**,<br>DraStic **(Standalone)**,<br>SkyEmu,<br>SkyEmu **(Standalone)** | No           | Single archive or ROM file |
 | neogeo                | SNK Neo Geo                                    | FinalBurn Neo                     | Geolith,<br>NEO.emu **(Standalone)**,<br>MAME - Current,<br>MAME4droid Current **(Standalone)**,<br>MAME4droid **(Standalone)** | Yes          | See the specific _Arcade and Neo Geo_ section in the user guide |
 | neogeocd              | SNK Neo Geo CD                                 | NeoCD                             | MAME4droid Current **(Standalone)**  | Yes          | .chd (NeoCD and MAME4droid Current only) or .cue file |
 | neogeocdjp            | SNK Neo Geo CD [Japan]                         | NeoCD                             | MAME4droid Current **(Standalone)**  | Yes          | .chd (NeoCD and MAME4droid Current only) or .cue file |
-| nes                   | Nintendo Entertainment System                  | Mesen                             | Nestopia UE,<br>FCEUmm,<br>QuickNES,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | No           | Single archive or ROM file           |
+| nes                   | Nintendo Entertainment System                  | Mesen                             | Nestopia UE,<br>FCEUmm,<br>QuickNES,<br>RustyNES,<br>NES.emu **(Standalone)**,<br>iNES **(Standalone)**,<br>Nesoid **(Standalone)** | No           | Single archive or ROM file           |
 | ngage                 | Nokia N-Gage                                   | EKA2L1 **(Standalone)**           |                                   | Yes          | See the specific _Symbian and Nokia N-Gage_ section in the User guide |
 | ngp                   | SNK Neo Geo Pocket                             | Beetle NeoPop                     | RACE,<br>NGP.emu **(Standalone)** | No           | Single archive or ROM file           |
 | ngpc                  | SNK Neo Geo Pocket Color                       | Beetle NeoPop                     | RACE,<br>NGP.emu **(Standalone)** | No           | Single archive or ROM file           |

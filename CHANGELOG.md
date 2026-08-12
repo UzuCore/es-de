@@ -19,7 +19,9 @@
 * Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
 * Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added support for "customCollectionNameGrouped" and "customCollectionNameGames" values to the text element metadata property
+* Added the PCEE2 RetroArch core as the default emulator for the ps2 system on Linux and Windows
 * Added the AppleWin RetroArch core as the default emulator for the apple2 system
+* Added the RustyNES RetroArch core as an alternative emulator for the famicom, fds and nes systems
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added the Tia RetroArch core as an alternative emulator for the atari2600 system
 * Added the MAME - Current RetroArch core as an alternative emulator for the neogeo system
@@ -33,6 +35,8 @@
 * Added GroovyMAME standalone as an alternative emulator for the arcade and mame systems on Linux and Windows
 * Added veesem standalone as an alternative emulator for the vsmile system on Linux and Windows
 * Added the Virtual Jaguar RetroArch core as the default emulator for the atarijaguarcd system on Linux and Windows
+* Removed the --autoload flag from Amiberry standalone for the amiga, amiga1200 and amiga600 systems on Linux and macOS
+* Added an %INJECT% variable for Amiberry standalone for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems on Linux and macOS
 * (Android) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
 * (Android) Added NetherSX2 standalone as the default emulator for the ps2 system
 * (Android) Added NetherSX2-Turnip and NetherSX2-Turnip Classic standalone as alternative emulators for the ps2 system
@@ -44,6 +48,8 @@
 * (Android) Added MAME4droid Current [Software list] standalone as an alternative emulator for the apple2gs system
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
+* (Android) Added WatermelonDS standalone as an alternative emulator for the nds system
+* (Android) Added SeedlessDS standalone as an alternative emulator for the nds system
 * (Android) Added D.Smile standalone as an alternative emulator for the vsmile system
 * (Android) Added XenDroid standalone as an alternative emulator for the xbox360 system
 * (Android) Added "Native port" as an alternative emulator for the ports system
@@ -58,8 +64,10 @@
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
 * (Linux) Changed the AppImage find rule entries for PCSX2 to avoid collisions with PCSX2x6
+* (Linux) Added support for the Flatpak release of Amiberry
 * (macOS) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
 * (macOS) Added ARMSX2 standalone as an alternative emulator for the ps2 system
+* (Windows) Added Amiberry standalone as an alternative emulator for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems
 * (Windows) Added an additional find rule entry for PCSX2
 * (Windows) Added "Shortcut or script" as an alternative emulator for the xbox system
 * (Windows) Added the .lnk file extension to the xbox system
