@@ -95,6 +95,19 @@
             <entry>%ESPATH%\..\Emulators\Altirra\Altirra.exe</entry>
         </rule>
     </emulator>
+    <emulator name="AMIBERRY">
+        <!-- Commodore Amiga emulator Amiberry -->
+        <rule type="winregistryvalue">
+            <entry>SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\amiberry_is1\InstallLocation|Amiberry.exe</entry>
+        </rule>
+        <rule type="systempath">
+            <entry>Amiberry.exe</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>%ESPATH%\Emulators\amiberry\Amiberry.exe</entry>
+            <entry>%ESPATH%\..\Emulators\amiberry\Amiberry.exe</entry>
+        </rule>
+    </emulator>
     <emulator name="APPLEWIN">
         <!-- Apple II emulator AppleWin -->
         <rule type="systempath">
