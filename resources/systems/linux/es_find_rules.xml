@@ -111,6 +111,8 @@
             <entry>~/.local/share/applications/amiberry/amiberry</entry>
             <entry>~/.local/bin/amiberry/amiberry</entry>
             <entry>~/bin/amiberry/amiberry</entry>
+            <entry>/var/lib/flatpak/exports/bin/com.blitterstudio.amiberry</entry>
+            <entry>~/.local/share/flatpak/exports/bin/com.blitterstudio.amiberry</entry>
         </rule>
     </emulator>
     <emulator name="ARES">
