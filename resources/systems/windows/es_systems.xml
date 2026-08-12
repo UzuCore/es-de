@@ -675,6 +675,7 @@
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
         <command label="QuickNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\quicknes_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
@@ -716,6 +717,7 @@
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom Disk System" %ROM%</command>
         <platform>fds</platform>
@@ -1450,6 +1452,7 @@
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
         <command label="QuickNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\quicknes_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
