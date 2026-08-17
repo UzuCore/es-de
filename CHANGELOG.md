@@ -24,6 +24,7 @@
 * Added the RustyNES RetroArch core as an alternative emulator for the famicom, fds and nes systems
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added the Tia RetroArch core as an alternative emulator for the atari2600 system
+* Added the Geolith RetroArch core as an alternative emulator for the neogeocd and neogeocdjp systems
 * Added the MAME - Current RetroArch core as an alternative emulator for the neogeo system
 * Added the HBMAME RetroArch core as an alternative emulator for the arcade and mame systems
 * Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows

@@ -16,6 +16,9 @@ https://www.youtube.com/@ES-DE_Frontend
 Discord:\
 https://discord.gg/42jqqNcHf9
 
+Reddit:\
+https://www.reddit.com/r/ESDE_Frontend
+
 The goal of this project is to create a high quality frontend that is easy to use, requires minimal setup and configuration, looks nice, and is available across a wide range of operating systems.
 
 It comes preconfigured for use with a large selection of emulators, game engines, game managers and gaming services and it can also run locally installed games and applications. It's fully customizable, so you can easily expand it with support for additional systems and applications.
