@@ -45,6 +45,7 @@
 * (Android) Added a find rule entry for the new package name for ARMSX2 Refresh
 * (Android) Added ARMSX1 standalone as an alternative emulator for the psx system
 * (Android) Added ARMSX3 standalone as an alternative emulator for the ps3 system
+* (Android) Added EmuCoreC standalone as an alternative emulator for the ps3 system
 * (Android) Added Starboard standalone as an alternative emulator for the ports system
 * (Android) Added MAME4droid Current [Software list] standalone as an alternative emulator for the apple2gs system
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
