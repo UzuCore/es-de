@@ -167,6 +167,12 @@
             <entry>com.github.eka2l1/.emu.EmulatorActivity</entry>
         </rule>
     </emulator>
+    <emulator name="EMUCOREC">
+        <!-- Sony PlayStation 3 emulator EmuCoreC -->
+        <rule type="androidpackage">
+            <entry>com.sbro.emucorec/.core.ps3.Emulator</entry>
+        </rule>
+    </emulator>
     <emulator name="EMUCOREV">
         <!-- Sony PlayStation Vita emulator EmuCoreV -->
         <rule type="androidpackage">

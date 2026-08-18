@@ -1534,6 +1534,7 @@
         <command label="aPS3e Directory (Standalone)">%EMULATOR_APS3E% %ACTION%=aenu.intent.action.APS3E %EXTRA_game_dir%=%ROM%</command>
         <command label="aPS3e ISO (Standalone)">%EMULATOR_APS3E% %ACTION%=aenu.intent.action.APS3E %EXTRA_iso_uri%=%ROMSAF%</command>
         <command label="ARMSX3 (Standalone)">%EMULATOR_ARMSX3% %EXTRA_path%=%ROM%</command>
+        <command label="EmuCoreC (Standalone)">%EMULATOR_EMUCOREC% %EXTRA_gamePath%=%ROM%</command>
         <platform>ps3</platform>
         <theme>ps3</theme>
     </system>
