@@ -9,6 +9,7 @@
 #include "PDFViewer.h"
 
 #include "Log.h"
+#include "Scripting.h"
 #include "Sound.h"
 #include "utils/FileSystemUtil.h"
 #include "utils/LocalizationUtil.h"
@@ -47,6 +48,7 @@ PDFViewer::PDFViewer()
     , mKeyRepeatUpDown {0}
     , mKeyRepeatZoom {0}
     , mKeyRepeatTimer {0}
+    , mLaunchedMediaViewer {false}
     , mHelpInfoPosition {HelpInfoPosition::TOP}
 {
     Window::getInstance()->setPDFViewer(this);
@@ -55,6 +57,7 @@ PDFViewer::PDFViewer()
 bool PDFViewer::startPDFViewer(FileData* game)
 {
     ViewController::getInstance()->pauseViewVideos();
+    mLaunchedMediaViewer = false;
 
 #if !defined(__ANDROID__) && !defined(__IOS__)
 #if defined(_WIN64)
@@ -70,6 +73,7 @@ bool PDFViewer::startPDFViewer(FileData* game)
         LOG(LogError) << "Couldn't find PDF conversion binary es-pdf-convert";
 #endif
         NavigationSounds::getInstance().playThemeNavigationSound(SCROLLSOUND);
+        Scripting::fireEvent("mediaviewer-stop");
         ViewController::getInstance()->startViewVideos();
         return false;
     }
@@ -81,6 +85,7 @@ bool PDFViewer::startPDFViewer(FileData* game)
     if (!Utils::FileSystem::exists(mManualPath)) {
         LOG(LogError) << "No PDF manual found for game \"" << mGame->getName() << "\"";
         NavigationSounds::getInstance().playThemeNavigationSound(SCROLLSOUND);
+        Scripting::fireEvent("mediaviewer-stop");
         ViewController::getInstance()->startViewVideos();
         return false;
     }
@@ -117,6 +122,7 @@ bool PDFViewer::startPDFViewer(FileData* game)
 
     if (!getDocumentInfo()) {
         LOG(LogError) << "PDFViewer: Couldn't load file \"" << mManualPath << "\"";
+        Scripting::fireEvent("mediaviewer-stop");
         ViewController::getInstance()->startViewVideos();
         return false;
     }
@@ -126,6 +132,7 @@ bool PDFViewer::startPDFViewer(FileData* game)
     for (int i {1}; i <= mPageCount; ++i) {
         if (mPages.find(i) == mPages.end()) {
             LOG(LogError) << "Couldn't read information for page " << i << ", invalid PDF file?";
+            Scripting::fireEvent("mediaviewer-stop");
             ViewController::getInstance()->startViewVideos();
             return false;
         }
@@ -207,6 +214,9 @@ bool PDFViewer::startPDFViewer(FileData* game)
 
 void PDFViewer::stopPDFViewer()
 {
+    if (!mLaunchedMediaViewer)
+        Scripting::fireEvent("mediaviewer-stop");
+
     NavigationSounds::getInstance().playThemeNavigationSound(SCROLLSOUND);
     ViewController::getInstance()->startViewVideos();
 
@@ -216,8 +226,9 @@ void PDFViewer::stopPDFViewer()
 
 void PDFViewer::launchMediaViewer()
 {
+    mLaunchedMediaViewer = true;
     Window::getInstance()->stopPDFViewer();
-    Window::getInstance()->startMediaViewer(mGame);
+    Window::getInstance()->startMediaViewer(mGame, true);
 }
 
 bool PDFViewer::getDocumentInfo()
