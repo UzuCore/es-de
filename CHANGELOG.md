@@ -56,6 +56,7 @@
 * (Android) Added SeedlessDS standalone as an alternative emulator for the nds system
 * (Android) Added D.Smile standalone as an alternative emulator for the vsmile system
 * (Android) Added XenDroid standalone as an alternative emulator for the xbox360 system
+* (Android) Added Xenra standalone as an alternative emulator for the xbox system
 * (Android) Added "Native port" as an alternative emulator for the ports system
 * (Android) Added the .app file extension to the ports system
 * (Android) Added import rules for the ports system
