@@ -643,6 +643,13 @@
             <entry>xendroid.compose/.EmulatorHostActivity</entry>
         </rule>
     </emulator>
+    <emulator name="XENRA">
+        <!-- Microsoft Xbox and Xbox 360 emulator Xenra -->
+        <rule type="androidpackage">
+            <entry>Ali.Xanite.green/Ali.Xanite.LauncherActivity</entry>
+            <entry>Ali.Xanite/Ali.Xanite.LauncherActivity</entry>
+        </rule>
+    </emulator>
     <emulator name="YABASANSHIRO-2">
         <!-- Sega Saturn emulator Yaba Sanshiro 2 -->
         <rule type="androidpackage">
