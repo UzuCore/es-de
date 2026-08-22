@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ES-DE Frontend\n"
 "Report-Msgid-Bugs-To: info@es-de.org\n"
-"POT-Creation-Date: 2026-08-07 10:36+0200\n"
+"POT-Creation-Date: 2026-08-22 15:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <info@es-de.org>\n"
@@ -1164,6 +1164,9 @@ msgid "VIDEO HARDWARE DECODING (EXPERIMENTAL)"
 msgstr ""
 
 msgid "UPSCALE VIDEO FRAME RATE TO 60 FPS"
+msgstr ""
+
+msgid "QUERY INSTALLED RETROARCH CORES (EXPERIMENTAL)"
 msgstr ""
 
 msgid "ENABLE ALTERNATIVE EMULATORS PER GAME"
