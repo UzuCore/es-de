@@ -9,17 +9,18 @@
 ### Detailed list of changes
 
 * (Android) Added per-system and per-game configuration for launching games on the other screen on dual-screen devices
+* (Android) Added experimental support for querying on game launch whether the RetroArch core is installed (needs to be enabled via menu option)
 * Added support for scraping videos using TheGamesDB
 * Added a "Run browsing events as non-blocking" menu option to greatly reduce latency for browsing event scripts
 * Added translations for Czech (cs_CZ)
 * Added a "Y" button shortcut to the game importer selection screen
 * Added a SplashScreenProgressBarColor option that can be manually set in es_settings.xml to customize the splash screen progress bar color
 * Added mediaviewer-start and mediaviewer-end custom events
-* Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * Added "itemLinearScale" and "itemLinearSpacing" properties to the carousel element
 * Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
 * Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added support for "customCollectionNameGrouped" and "customCollectionNameGames" values to the text element metadata property
+* Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * Added the PCEE2 RetroArch core as the default emulator for the ps2 system on Linux and Windows
 * Added the AppleWin RetroArch core as the default emulator for the apple2 system
 * Added the RustyNES RetroArch core as an alternative emulator for the famicom, fds and nes systems

@@ -4453,6 +4453,10 @@ Enabling this option makes ES-DE continue to run while a game is launched. This 
 
 With this option enabled, videos with lower frame rates than 60 FPS, such as 24 and 30 will get upscaled to 60 FPS. This results in slightly smoother playback for some videos. There is a small performance hit from this option, so on weaker machines it may be necessary to keep it disabled for fluent video playback.
 
+**Query installed RetroArch cores** _(Android)_
+
+This makes ES-DE query RetroArch for whether the selected core has been installed prior to launching a game, and if it's reported as not installed then game launching will be aborted and an error popup notification will be displayed. Note that this is not entirely reliable as it depends on the RetroArch app being able to respond to queries from ES-DE, which it will not be able to do if it's been forced stopped for instance. If RetroArch doesn't respond to the query, then ES-DE will time out after 600 milliseconds of waiting, and it will launch the game anyway. Also note that on desktop operating systems ES-DE will always check for installed cores, although that does not depend on RetroArch already running as it instead checks the filesystem for the presence of the actual core files.
+
 **Enable alternative emulators per game**
 
 If enabled, you will be able to select alternative emulators per game using the metadata editor, which will be used when launching the game. If disabled, the corresponding entry in the metadata editor will be hidden, the alternative emulator badges will not be displayed and it will not be possible to filter the gamelist based on these values. As well, the game will be launched using the default emulator, or using the system-wide alternative emulator if this has been configured for the game system. It's only recommended to disable this option for testing purposes.
