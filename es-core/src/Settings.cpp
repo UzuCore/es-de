@@ -300,6 +300,9 @@ void Settings::setDefaults()
 #else
     mBoolMap["VideoUpscaleFrameRate"] = {false, false};
 #endif
+#if defined(__ANDROID__)
+    mBoolMap["RetroArchCoreQueryExperimental"] = {false, false};
+#endif
     mBoolMap["AlternativeEmulatorPerGame"] = {true, true};
     mBoolMap["ShowHiddenFiles"] = {true, true};
     mBoolMap["ShowHiddenGames"] = {true, true};

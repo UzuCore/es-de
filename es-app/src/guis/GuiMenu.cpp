@@ -1983,6 +1983,22 @@ void GuiMenu::openOtherOptions()
         }
     });
 
+#if defined(__ANDROID__)
+    //  RetroArch core query, checks on game launch whether the core is installed.
+    auto retroArchCoreQuery = std::make_shared<SwitchComponent>();
+    retroArchCoreQuery->setState(
+        Settings::getInstance()->getBool("RetroArchCoreQueryExperimental"));
+    s->addWithLabel(_("QUERY INSTALLED RETROARCH CORES (EXPERIMENTAL)"), retroArchCoreQuery);
+    s->addSaveFunc([retroArchCoreQuery, s] {
+        if (retroArchCoreQuery->getState() !=
+            Settings::getInstance()->getBool("RetroArchCoreQueryExperimental")) {
+            Settings::getInstance()->setBool("RetroArchCoreQueryExperimental",
+                                             retroArchCoreQuery->getState());
+            s->setNeedsSaving();
+        }
+    });
+#endif
+
     // Whether to enable alternative emulators per game (the option to disable this is intended
     // primarily for testing purposes).
     auto alternativeEmulatorPerGame = std::make_shared<SwitchComponent>();
