@@ -2259,7 +2259,7 @@ void FileData::launchGame()
                 return;
             }
             else if (returnValue == -1) {
-                LOG(LogWarning) << "Timing out attempting to query RetroArch, proceeding with game "
+                LOG(LogWarning) << "Timed out attempting to query RetroArch, proceeding with game "
                                    "launch anyway";
             }
             else if (returnValue == -2) {
