@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ES-DE Frontend\n"
 "Report-Msgid-Bugs-To: info@es-de.org\n"
-"POT-Creation-Date: 2026-08-22 15:29+0200\n"
+"POT-Creation-Date: 2026-08-24 18:28+0200\n"
 "PO-Revision-Date: 2026-08-22 15:30+0200\n"
 "Last-Translator: Northwestern Software <info@es-de.org>\n"
 "Language-Team: Svenska <info@es-de.org>\n"
@@ -1211,6 +1211,9 @@ msgstr "UPPSKALNING AV VIDEOBILDFREKVENS TILL 60 BILDER/S"
 
 msgid "QUERY INSTALLED RETROARCH CORES (EXPERIMENTAL)"
 msgstr "FRÅGA RETROARCH OM INSTALLERADE KÄRNOR (EXPER.)"
+
+msgid "USE RETROARCH IN SAF MODE (NOT RECOMMENDED)"
+msgstr "KÖR RETROARCH I SAF-LÄGE (EJ REKOMMENDERAT)"
 
 msgid "ENABLE ALTERNATIVE EMULATORS PER GAME"
 msgstr "AKTIVERA ALTERNATIVA EMULATORER PER SPEL"
