@@ -302,6 +302,7 @@ void Settings::setDefaults()
 #endif
 #if defined(__ANDROID__)
     mBoolMap["RetroArchCoreQueryExperimental"] = {false, false};
+    mBoolMap["RetroArchSAFMode"] = {false, false};
 #endif
     mBoolMap["AlternativeEmulatorPerGame"] = {true, true};
     mBoolMap["ShowHiddenFiles"] = {true, true};

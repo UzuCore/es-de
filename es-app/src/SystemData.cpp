@@ -1344,7 +1344,15 @@ std::vector<std::string> SystemData::getConfigPath()
     }
 
 #if defined(__ANDROID__)
-    path = ResourceManager::getInstance().getResourcePath(":/systems/android/es_systems.xml", true);
+    if (Settings::getInstance()->getBool("RetroArchSAFMode")) {
+        LOG(LogInfo) << "Using RetroArch in SAF mode, loading SAF-specific configuration file...";
+        path = ResourceManager::getInstance().getResourcePath(
+            ":/systems/android/es_systems_saf.xml", true);
+    }
+    else {
+        path = ResourceManager::getInstance().getResourcePath(":/systems/android/es_systems.xml",
+                                                              true);
+    }
 #elif defined(LINUX_AARCH64)
     path =
         ResourceManager::getInstance().getResourcePath(":/systems/linuxarm/es_systems.xml", true);

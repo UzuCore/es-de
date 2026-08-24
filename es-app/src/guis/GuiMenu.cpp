@@ -1997,6 +1997,20 @@ void GuiMenu::openOtherOptions()
             s->setNeedsSaving();
         }
     });
+
+    //  Use RetroArch in SAF mode.
+    auto retroArchSAFMode = std::make_shared<SwitchComponent>();
+    retroArchSAFMode->setState(Settings::getInstance()->getBool("RetroArchSAFMode"));
+    s->addWithLabel(_("USE RETROARCH IN SAF MODE (NOT RECOMMENDED)"), retroArchSAFMode);
+    s->addSaveFunc([this, retroArchSAFMode, s] {
+        if (retroArchSAFMode->getState() != Settings::getInstance()->getBool("RetroArchSAFMode")) {
+            Settings::getInstance()->setBool("RetroArchSAFMode", retroArchSAFMode->getState());
+            s->setNeedsSaving();
+            s->setNeedsCloseMenu([this] { delete this; });
+            s->setNeedsRescanROMDirectory();
+        }
+    });
+
 #endif
 
     // Whether to enable alternative emulators per game (the option to disable this is intended
