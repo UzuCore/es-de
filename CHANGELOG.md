@@ -9,7 +9,8 @@
 ### Detailed list of changes
 
 * (Android) Added per-system and per-game configuration for launching games on the other screen on dual-screen devices
-* (Android) Added experimental support for querying on game launch whether the RetroArch core is installed (needs to be enabled via menu option)
+* (Android) Added experimental support for querying on game launch whether the RetroArch core is installed (needs to be enabled via a menu option)
+* (Android) Added the menu option "Use RetroArch in SAF mode (not recommended)" as well as the corresponding SAF-specific systems configuration file
 * Added support for scraping videos using TheGamesDB
 * Added a "Run browsing events as non-blocking" menu option to greatly reduce latency for browsing event scripts
 * Added translations for Czech (cs_CZ)

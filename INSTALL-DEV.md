@@ -1838,8 +1838,10 @@ https://developer.android.com/reference/android/content/Intent
 
 There is a command line tool in Android named _am_ which implements the _Intent_ API and can be used to test emulator launching, but this is not intended to be used by other applications and therefore ES-DE implements direct (albeit partial) support for the Intent API. Testing the modern FileProvider interface using the _am_ utility is unfortunately not really possible as access permission is provided by the calling process, i.e. ES-DE.
 
-The es_find_rules.xml and es_systems.xml files are kept in an Android-internal directory and can't be accessed directly, but you can find them at the following location:\
+The es_find_rules.xml, es_systems.xml and es_systems_saf.xml files are kept in an Android-internal directory and can't be accessed directly, but you can find them at the following location:\
 https://gitlab.com/es-de/emulationstation-de/-/tree/master/resources/systems/android
+
+The purpose of the es_systems_saf.xml file is only to support launching of games in SAF mode via RetroArch. Apart from that it's identical to the regular es_systems.xml file. It's of no additional relevance or importance so it won't be covered further in this document.
 
 **es_find_rules.xml**
 

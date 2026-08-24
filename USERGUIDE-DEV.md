@@ -4453,9 +4453,13 @@ Enabling this option makes ES-DE continue to run while a game is launched. This 
 
 With this option enabled, videos with lower frame rates than 60 FPS, such as 24 and 30 will get upscaled to 60 FPS. This results in slightly smoother playback for some videos. There is a small performance hit from this option, so on weaker machines it may be necessary to keep it disabled for fluent video playback.
 
-**Query installed RetroArch cores** _(Android)_
+**Query installed RetroArch cores** _(Android only)_
 
 This makes ES-DE query RetroArch for whether the selected core has been installed prior to launching a game, and if it's reported as not installed then game launching will be aborted and an error popup notification will be displayed. Note that this is not entirely reliable as it depends on the RetroArch app being able to respond to queries from ES-DE, which it will not be able to do if it's been forced stopped for instance. If RetroArch doesn't respond to the query, then ES-DE will time out after 600 milliseconds of waiting, and it will launch the game anyway. Also note that on desktop operating systems ES-DE will always check for installed cores, although that does not depend on RetroArch already running as it instead checks the filesystem for the presence of the actual core files.
+
+**Use RetroArch in SAF mode (not recommended)** _(Android only)_
+
+If using the Google Play release of RetroArch on modern Android devices, then you are forced to use the Storage Access Framework to launch games as Google have strict storage access restrictions in place for any apps they approve for their store. This leads to a crippled setup however and you'll need to give access to every single game system directory from inside RetroArch in order for game launching to work. So for instance you'll need to give separate access to ROMs/amiga, ROMs/pcengine, ROMs/ps2 and so on via the SAF directory picker. You can't just give access to the ROMs directory as that won't work. There are other issues with the Play release, such as all your RetroArch data getting deleted if you uninstall the app. It's a bad idea to use this release of RetroArch, just use the one from their website instead, which has proper storage permissions and works as expected. If you still insist on using the Play store release, or if you want to use the SAF for some other reason, like for keeping your games on external storage devices which require SAF URIs, then you can enable this setting. It will make ES-DE use a separate systems configuration file name es_systems_saf.xml where every RetroArch entry has been changed to use SAF URIs instead of the regular ROM path when launching games.
 
 **Enable alternative emulators per game**
 
