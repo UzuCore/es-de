@@ -63,6 +63,12 @@
             <entry>io.github.azaharplus.android/org.citra.citra_emu.activities.EmulationActivity</entry>
         </rule>
     </emulator>
+    <emulator name="BACHATAS4">
+        <!-- Sony PlayStation 4 emulator BachataS4 -->
+        <rule type="androidpackage">
+            <entry>com.bachatas4.android/.DirectLaunchActivity</entry>
+        </rule>
+    </emulator>
     <emulator name="C64-EMU">
         <!-- Commodore 8-bit computer emulator C64.emu -->
         <rule type="androidpackage">
