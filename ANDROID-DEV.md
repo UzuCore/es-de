@@ -292,6 +292,12 @@ This emulator can be downloaded from their GitHub site. Make sure to get the APK
 
 https://github.com/AzaharPlus/AzaharPlus/releases
 
+### BachataS4
+
+This emulator can be downloaded from their GitHub site.
+
+https://github.com/JICA98/Bachata-S4/releases
+
 ### Cemu
 
 This emulator can be downloaded from the following GitHub site. Note that this repository is not from the official Cemu project, we consider Cemu as experimental on Android for the time being.
@@ -1063,7 +1069,7 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | ports                 | Ports                                          | ECWolf (Wolfenstein 3D)           | CannonBall (OutRun),<br>Craft (Minecraft),<br>Mr.Boom (Bomberman),<br>NXEngine (Cave Story),<br>drs (Cave Story),<br>OpenLara (Tomb Raider),<br>Super Bros War,<br>Starboard **(Standalone)**,<br>idTech4A++ **(Standalone)**,<br> _Native port_ | Yes for ECWolf |                                      |
 | ps2                   | Sony PlayStation 2                             | NetherSX2 **(Standalone)**        | NetherSX2-Turnip **(Standalone)**,<br>NetherSX2-Turnip Classic **(Standalone)**,<br>AetherSX2 **(Standalone)**,<br>ARMSX2 **(Standalone)**,<br>EmuCoreX **(Standalone)**,<br>Play! **(Standalone)**            | Yes except for Play! |                                      |
 | ps3                   | Sony PlayStation 3                             | aPS3e Game Serial **(Standalone)** | aPS3e Directory **(Standalone)**,<br>aPS3e ISO **(Standalone)**,<br>ARMSX3 **(Standalone)**,<br>EmuCoreC **(Standalone)** | Yes          | See the specific _Sony PlayStation 3_ section in the user guide |
-| ps4                   | Sony PlayStation 4                             | _Placeholder_                     |                                   |              |                                      |
+| ps4                   | Sony PlayStation 4                             | BachataS4 **(Standalone)**        |                                   | No           | See the specific _Sony PlayStation 4_ section in the User guide |
 | psp                   | Sony PlayStation Portable                      | PPSSPP                            | PPSSPP **(Standalone)**           | No           | Single disc image file               |
 | psvita                | Sony PlayStation Vita                          | Vita3K **(Standalone)**           | EmuCoreV **(Standalone)**         | Yes          | See the specific _Sony PlayStation Vita_ section in the User guide |
 | psx                   | Sony PlayStation                               | Beetle PSX                        | Beetle PSX HW,<br>PCSX ReARMed,<br>SwanStation,<br>DuckStation **(Standalone)**,<br>ARMSX1 **(Standalone)**,<br>ePSXe **(Standalone)**,<br>FPseNG **(Standalone)**,<br>FPse **(Standalone)** | Yes          | .chd file for single-disc games, .m3u playlist for multi-disc games |
@@ -1122,7 +1128,7 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | x1                    | Sharp X1                                       | X Millennium                      | MAME4droid Current [Diskette] **(Standalone)**,<br>MAME4droid Current [Tape] **(Standalone)** | Yes for MAME4droid Current | Single archive or diskette/tape file |
 | x68000                | Sharp X68000                                   | PX68k                             | MAME4droid Current **(Standalone)**  | Yes          |                                      |
 | xbox                  | Microsoft Xbox                                 | X1 BOX **(Standalone)**           | hakuX **(Standalone)**,<br>Xenra **(Standalone)** | Yes          | Single .iso or .xiso file            |
-| xbox360               | Microsoft Xbox 360                             | aX360e **(Standalone)**           | XenDroid **(Standalone)**         | No           | See the specific _Microsoft Xbox 360_ section in the user guide |
+| xbox360               | Microsoft Xbox 360                             | aX360e **(Standalone)**           | XenDroid **(Standalone)**,<br>Xenra **(Standalone)** | No           | See the specific _Microsoft Xbox 360_ section in the user guide |
 | xboxone               | Microsoft Xbox One                             | _Placeholder_                     |                                   |              |                                      |
 | zmachine              | Infocom Z-machine                              | MojoZork                          |                                   | No           |                                      |
 | zx81                  | Sinclair ZX81                                  | EightyOne                         |                                   | No           |                                      |

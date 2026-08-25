@@ -2424,7 +2424,7 @@ If you perform the setup as described above you'll have a single entry per game 
 
 This system is emulated using [xenia](https://xenia.jp/) on desktop operating systems ([XeniOS](https://github.com/xenios-jp/XeniOS) on macOS), and although there are a lot of topics to consider for this emulator such as how to handle multi-disc games, DLCs etc. this section will only cover the basics on how to run single-disc ISO images and XBLA games. For the remaining details there are many resources available online.
 
-On Android you can use the aX360e or XenDroid emulators, the game setup is identical to xenia for both of these.
+On Android you can use the aX360e, XenDroid or Xenra emulators, the game setup is identical to xenia for all of these.
 
 **General**
 
@@ -3146,7 +3146,9 @@ Here's an example of what a game entry could look like:
 
 ### Sony PlayStation 4
 
-There are three ways to add PS4 games to ES-DE, by using shortcuts, by adding game serial files and by running the eboot.bin files directly. Running eboot.bin files is not really recommended though and it's better to go for one of the other alternatives.
+There are three ways to add PS4 games to ES-DE on desktop operating systems, by using shortcuts, by adding game serial files and by running the eboot.bin files directly. Running eboot.bin files is not really recommended though and it's better to go for one of the other alternatives.
+
+On Android only game serial files are supported, using the BachataS4 emulator.
 
 The drawback to using shortcuts is that they're not portable, if you change the location of shadPS4, you need to manually update the shortcut files as well.
 
@@ -3158,7 +3160,7 @@ _On macOS you need to configure shadPS4 to run in fullscreen mode or otherwise w
 
 **Method 1, shortcuts**
 
-_Note that this option is not currently available on macOS due to shadPS4 not exporting proper shortcut files on this operating system at the time of writing._
+_Note that this option is not currently available on macOS due to shadPS4 not exporting proper shortcut files on this operating system at the time of writing. It's also not supported on Android._
 
 First install your games inside shadPS4, then right click on each entry and select _Create Shortcut_. On Windows this will create shortcuts with the .lnk extension and on Linux they will have the .desktop extension.
 
@@ -3187,16 +3189,18 @@ Regardless of how you've installed shadPS4, make sure to always test the shortcu
 
 **Method 2, game serial**
 
-First install your games inside shadPS4, then create an empty file in `~/ROMs/ps4` and name it as the game name followed by the .ps4 file extension, such as the following:
+First install your games inside shadPS4 or BachataS4, then create an empty file in `~/ROMs/ps4` and name it as the game name followed by the .ps4 file extension, such as the following:
 ```
 ~/ROMs/ps4/Sonic Mania.ps4
 ```
 
-Then add the game serial to this file. This ID can be found inside the shadPS4 GUI, in the _Serial_ column. For example the game _Sonic Mania_ has a serial that is CUSA07010. So simply add the string CUSA07010 to the `Sonic Mania.ps4` file using a text editor or similar and the setup for this game is complete.
+Then add the game serial to this file. This ID can be found inside the shadPS4 GUI, in the _Serial_ column or in BachataS4 by long pressing on a game entry and selecting _Options_. For example the game _Sonic Mania_ has a serial that is CUSA07010. So simply add the string CUSA07010 to the `Sonic Mania.ps4` file using a text editor or similar and the setup for this game is complete.
 
-Be aware that you need to change to the alternative emulator entry _shadPS4 Game Serial (Standalone)_ or _shadPS4 [GUI] Game Serial (Standalone)_ for this to work.
+Be aware that you need to change to the alternative emulator entry _shadPS4 Game Serial (Standalone)_ or _shadPS4 [GUI] Game Serial (Standalone)_ for this to work. On Android there is only one emulator entry for BachataS4 so nothing needs to be done there.
 
 **Method 3, eboot.bin**
+
+_This method is only available on desktop operating systems_
 
 This method which is not really recommended requires that you install the games directly to the `~/ROMs/ps4` directory and browse to the eboot.bin file for each game to launch it. You can optionally use the _Folder link_ functionality to launch the games directly from the main gamelist view, as explained elsewhere in this guide.
 
