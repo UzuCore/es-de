@@ -3266,7 +3266,9 @@ On macOS the shortcuts come with the .app extension and are actually directories
 
 **Android**
 
-The setup on Android is a bit different than on desktop operating systems as you will need a text file for each game you want to launch. These files must have the .steam extension and they must simply include the Steam game ID. Here's an example for the game _Broforce_ when using the _steam_ system and you have your ROMs directory on internal storage:
+If you're using _WinNative_ then the setup is straightforward as this emulator can export .desktop shortcut files which will end up in the /sdcard/WinNative/Shorcuts directory. Just copy these files to the `ROMs/steam` directory and select the emulator entry _WinNative (Standalone)_ to launch the games.
+
+If instead using _GameNative_ or _GameHub Lite_ then the setup on Android is a bit different than on desktop operating systems as you will need a text file for each game you want to launch. These files must have the .steam extension and they must simply include the Steam game ID. Here's an example for the game _Broforce_ when using the _steam_ system and you have your ROMs directory on internal storage:
 
 ```
 /storage/emulated/0/ROMs/steam/Broforce.steam

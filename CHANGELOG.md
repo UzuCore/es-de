@@ -42,6 +42,7 @@
 * Removed the --autoload flag from Amiberry standalone for the amiga, amiga1200 and amiga600 systems on Linux and macOS
 * Added an %INJECT% variable for Amiberry standalone for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems on Linux and macOS
 * (Android) Added support for the Sony PlayStation 4 (ps4) system using the BachataS4 emulator
+* (Android) Added WinNative standalone as an alternative emulator for the epic, pcarcade, steam, type-x and windows systems
 * (Android) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
 * (Android) Added NetherSX2 standalone as the default emulator for the ps2 system
 * (Android) Added NetherSX2-Turnip and NetherSX2-Turnip Classic standalone as alternative emulators for the ps2 system
@@ -60,6 +61,7 @@
 * (Android) Added XenDroid standalone as an alternative emulator for the xbox360 system
 * (Android) Added Xenra standalone as an alternative emulator for the xbox and xbox360 systems
 * (Android) Added "Native port" as an alternative emulator for the ports system
+* (Android) Added the .desktop file extension to the epic and steam systems
 * (Android) Added the .app file extension to the ports system
 * (Android) Added import rules for the ports system
 * (Android) Added GameNative Amazon standalone as an alternative emulator for the windows system
