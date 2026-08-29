@@ -235,6 +235,7 @@
         <command label="Tia">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tia_libretro.so %ROM%</command>
         <command label="Gopher2600 (Standalone)">%EMULATOR_GOPHER2600% %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Atari 2600" %ROM%</command>
+        <command label="Missingno (Standalone)">%EMULATOR_MISSINGNO% %ROM%</command>
         <platform>atari2600</platform>
         <theme>atari2600</theme>
     </system>
@@ -850,6 +851,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Missingno (Standalone)">%EMULATOR_MISSINGNO% %ROM%</command>
         <platform>gb</platform>
         <theme>gb</theme>
     </system>
@@ -899,6 +901,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Color" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Missingno (Standalone)">%EMULATOR_MISSINGNO% %ROM%</command>
         <platform>gbc</platform>
         <theme>gbc</theme>
     </system>

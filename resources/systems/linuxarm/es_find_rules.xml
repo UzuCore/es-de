@@ -411,6 +411,13 @@
             <entry>~/.local/share/flatpak/exports/bin/io.mgba.mGBA</entry>
         </rule>
     </emulator>
+    <emulator name="MISSINGNO">
+        <!-- Nintendo Game Boy, Game Boy Color and Atari 2600 emulator Missingno -->
+        <rule type="staticpath">
+            <entry>/var/lib/flatpak/exports/bin/net.andyofniall.missingno</entry>
+            <entry>~/.local/share/flatpak/exports/bin/net.andyofniall.missingno</entry>
+        </rule>
+    </emulator>
     <emulator name="MUPEN64PLUS">
         <!-- Nintendo 64 emulator Mupen64Plus -->
         <rule type="systempath">
