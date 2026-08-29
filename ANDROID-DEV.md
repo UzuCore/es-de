@@ -767,7 +767,7 @@ This emulator can be downloaded from their GitHub site.
 
 https://github.com/WinNative-Emu/WinNative/releases
 
-It's beyond the scope of this document to describe how to install games in WinNative, but once it's done you can generate .desktop shortcut files from inside WinNative which will end up in the /sdcard/WinNative/Shorcuts directory. You can then copy these to the `ROMs/epic`, `ROMs/pcarcade`, `ROMs/steam`, `ROMs/type-x` or `ROMs/windows` folders and launch them from ES-DE using the _WinNative (Standalone)_ emulator entry.
+It's beyond the scope of this document to describe how to install games in WinNative, but once it's done you can generate .desktop shortcut files from inside the emulator which will end up in the /sdcard/WinNative/Shorcuts directory. You can then copy these to the `ROMs/epic`, `ROMs/pcarcade`, `ROMs/steam`, `ROMs/type-x` or `ROMs/windows` folders and launch them from ES-DE using the _WinNative (Standalone)_ emulator entry.
 
 ### X1 BOX
 

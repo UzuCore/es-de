@@ -30,6 +30,7 @@
 * Added the Geolith RetroArch core as an alternative emulator for the neogeocd and neogeocdjp systems
 * Added the MAME - Current RetroArch core as an alternative emulator for the neogeo system
 * Added the HBMAME RetroArch core as an alternative emulator for the arcade and mame systems
+* Added Emulicious standalone as an alternative emulator for the gamegear, gb, gbc, mark3, mastersystem, msx, msx1 and msx2 systems on Linux and Windows
 * Added SUPER ZSNES standalone as an alternative emulator for the sfc, snes and snesna systems on Linux, macOS and Windows
 * Added PCSX2x6 standalone as an alternative emulator for the arcade, consolearcade and mame systems on Linux, macOS and Windows
 * Added Hypseus [Singe ZLUA] standalone as an alternative emulator for the daphne and laserdisc systems on Linux, macOS and Windows
@@ -69,11 +70,13 @@
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
 * (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
+* (Linux) Added Missingno standalone as an alternative emulator for the atari2600, gb and gbc systems
 * (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
 * (Linux) Changed the AppImage find rule entries for PCSX2 to avoid collisions with PCSX2x6
 * (Linux) Added support for the Flatpak release of Amiberry
+* (Linux) Added support for the Flatpak release of BigPEmu
 * (macOS) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
 * (macOS) Added ARMSX2 standalone as an alternative emulator for the ps2 system
 * (Windows) Added Amiberry standalone as an alternative emulator for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems
