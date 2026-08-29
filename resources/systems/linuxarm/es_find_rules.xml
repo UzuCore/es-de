@@ -110,6 +110,8 @@
             <entry>~/.local/share/applications/bigpemu/bigpemu</entry>
             <entry>~/.local/bin/bigpemu/bigpemu</entry>
             <entry>~/bin/bigpemu/bigpemu</entry>
+            <entry>/var/lib/flatpak/exports/bin/com.richwhitehouse.BigPEmu</entry>
+            <entry>~/.local/share/flatpak/exports/bin/com.richwhitehouse.BigPEmu</entry>
         </rule>
     </emulator>
     <emulator name="BSNES">
