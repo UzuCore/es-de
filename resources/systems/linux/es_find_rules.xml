@@ -471,19 +471,6 @@
             <entry>~/bin/EKA2L1/eka2l1_qt.exe</entry>
         </rule>
     </emulator>
-    <emulator name="UMU">
-        <!-- Microsoft Windows compatibility layer UMU -->
-        <rule type="systempath">
-            <entry>umu-run</entry>
-        </rule>
-        <rule type="staticpath">
-            <entry>~/Applications/umu/umu-run</entry>
-            <entry>~/.local/share/applications/umu/umu-run</entry>
-            <entry>~/.local/bin/umu/umu-run</entry>
-            <entry>~/bin/umu/umu-run</entry>
-            <entry>~/.var/app/io.github.Faugus.faugus-launcher/data/faugus-launcher/umu-run</entry>
-        </rule>
-    </emulator>
     <emulator name="FINALBURN-NEO">
         <!-- Arcade emulator FinalBurn Neo -->
         <rule type="systempath">
@@ -1428,6 +1415,19 @@
             <entry>~/.local/share/applications/tsugaru/Tsugaru_CUI</entry>
             <entry>~/.local/bin/tsugaru/Tsugaru_CUI</entry>
             <entry>~/bin/tsugaru/Tsugaru_CUI</entry>
+        </rule>
+    </emulator>
+    <emulator name="UMU">
+        <!-- Microsoft Windows compatibility layer UMU -->
+        <rule type="systempath">
+            <entry>umu-run</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>~/Applications/umu/umu-run</entry>
+            <entry>~/.local/share/applications/umu/umu-run</entry>
+            <entry>~/.local/bin/umu/umu-run</entry>
+            <entry>~/bin/umu/umu-run</entry>
+            <entry>~/.var/app/io.github.Faugus.faugus-launcher/data/faugus-launcher/umu-run</entry>
         </rule>
     </emulator>
     <emulator name="VBA-M">
