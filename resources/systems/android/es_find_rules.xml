@@ -637,6 +637,15 @@
             <entry>com.cmodded.winlator/com.winlator.XServerDisplayActivity</entry>
         </rule>
     </emulator>
+    <emulator name="WINNATIVE">
+        <!-- Microsoft Windows emulator WinNative -->
+        <rule type="androidpackage">
+            <entry>com.winnative.cmod/com.winlator.cmod.runtime.display.XServerDisplayActivity</entry>
+            <entry>com.antutu.ABenchMark/com.winlator.cmod.runtime.display.XServerDisplayActivity</entry>
+            <entry>com.ludashi.benchmark/com.winlator.cmod.runtime.display.XServerDisplayActivity</entry>
+            <entry>com.tencent.ig/com.winlator.cmod.runtime.display.XServerDisplayActivity</entry>
+        </rule>
+    </emulator>
     <emulator name="X1-BOX">
         <!-- Microsoft Xbox emulator X1 BOX -->
         <rule type="androidpackage">
