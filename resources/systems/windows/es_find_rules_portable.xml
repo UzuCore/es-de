@@ -260,6 +260,13 @@
             <entry>%ESPATH%\..\Emulators\EKA2L1\eka2l1_qt.exe</entry>
         </rule>
     </emulator>
+    <emulator name="EMULICIOUS">
+        <!-- Multi-system emulator Emulicious -->
+        <rule type="staticpath">
+            <entry>%ESPATH%\Emulators\Emulicious\Emulicious.exe</entry>
+            <entry>%ESPATH%\..\Emulators\Emulicious\Emulicious.exe</entry>
+        </rule>
+    </emulator>
     <emulator name="FINALBURN-NEO">
         <!-- Arcade emulator FinalBurn Neo -->
         <rule type="staticpath">

@@ -471,6 +471,13 @@
             <entry>~/bin/EKA2L1/eka2l1_qt.exe</entry>
         </rule>
     </emulator>
+    <emulator name="EMULICIOUS">
+        <!-- Multi-system emulator Emulicious -->
+        <rule type="staticpath">
+            <entry>/var/lib/flatpak/exports/bin/net.emulicious.Emulicious</entry>
+            <entry>~/.local/share/flatpak/exports/bin/net.emulicious.Emulicious</entry>
+        </rule>
+    </emulator>
     <emulator name="FINALBURN-NEO">
         <!-- Arcade emulator FinalBurn Neo -->
         <rule type="systempath">

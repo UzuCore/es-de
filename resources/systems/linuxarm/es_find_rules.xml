@@ -253,6 +253,13 @@
             <entry>~/bin/Eden*.AppImage</entry>
         </rule>
     </emulator>
+    <emulator name="EMULICIOUS">
+        <!-- Multi-system emulator Emulicious -->
+        <rule type="staticpath">
+            <entry>/var/lib/flatpak/exports/bin/net.emulicious.Emulicious</entry>
+            <entry>~/.local/share/flatpak/exports/bin/net.emulicious.Emulicious</entry>
+        </rule>
+    </emulator>
     <emulator name="FLYCAST">
         <!-- Sega Dreamcast emulator Flycast -->
         <rule type="systempath">

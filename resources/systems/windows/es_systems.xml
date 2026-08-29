@@ -819,6 +819,7 @@
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Gear" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gamegear</platform>
         <theme>gamegear</theme>
     </system>
@@ -847,6 +848,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gb</platform>
         <theme>gb</theme>
     </system>
@@ -896,6 +898,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Color" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gbc</platform>
         <theme>gbc</theme>
     </system>
@@ -1105,6 +1108,7 @@
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Master System" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>mastersystem</platform>
         <theme>mark3</theme>
     </system>
@@ -1122,6 +1126,7 @@
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Master System" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>mastersystem</platform>
         <theme>mastersystem</theme>
     </system>
@@ -1250,6 +1255,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx</platform>
         <theme>msx</theme>
     </system>
@@ -1263,6 +1269,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx</platform>
         <theme>msx1</theme>
     </system>
@@ -1276,6 +1283,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine Panasonic_FS-A1WSX %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX2" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx2</platform>
         <theme>msx2</theme>
     </system>
