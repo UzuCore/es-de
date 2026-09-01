@@ -95,6 +95,7 @@
 * Added .m4v as a supported video file extension
 * Added forward compatibility for reading the alternativeEmulator element from the gameList root element of the gamelist.xml files
 * Added forward compatibility for reading es_settings.xml files with a "settings" root element
+* Added forward compatibility for reading the MAME resource files with "mamebioses", "mamedevices" and "mamenames" root elements
 * The scraper will no longer download media with unsupported file extensions
 * Made multiple improvements to the PDF viewer (optimizations, fixed memory leaks etc.)
 * The UTF8-CPP dependency is now only built on Android
@@ -108,6 +109,8 @@
 * (macOS) Updated libgit2 to 1.9.4, dav1d to 1.5.3 and FFmpeg to 8.1.1
 * (Windows) Updated gettext/libintl to 0.26, ICU to 78.3, OpenSSL to 4.0.1, curl to 8.20.0 and GLEW to 2.3.1
 * (Windows) Updated HarfBuzz to 14.2.1, FreeType to 2.14.3, libgit2 to 1.9.4, Poppler to 26.02.0 and FFmpeg to 8.1.1
+* Updated the MAME index files to include ROMs up to MAME version 0.289
+* Bundled the August 2026 release of the Mozilla TLS/SSL certificates
 
 ### Bug fixes
 

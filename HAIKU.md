@@ -14,7 +14,7 @@ Table of contents:
 
 * There is no 3D acceleration as the operating system does not support that
 
-* ES-DE may crash or behave strange when used on Haiku Nightly (i.e. it's due to operating system issues, make sure to run R1/beta5 which should work fine)
+* ES-DE may crash or behave strange when used on Haiku Nightly (i.e. it's due to operating system issues, make sure to run R1/beta6 which should work fine)
 
 ## Emulator problems
 

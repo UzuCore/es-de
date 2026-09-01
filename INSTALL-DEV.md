@@ -465,7 +465,7 @@ Both _appimagetool_ and _linuxdeploy_ are required for the build process but the
 
 ## Building on Haiku
 
-It's recommended to run R1/beta5 as the nightly Haiku builds can be quite unstable.
+It's recommended to run R1/beta6 as the nightly Haiku builds can be quite unstable.
 
 If running Haiku in KVM/Qemu, make sure to use SATA storage intead of VirtIO storage as you may otherwise experience stability issues and filesystem corruption.
 
@@ -473,7 +473,7 @@ If running Haiku in KVM/Qemu, make sure to use SATA storage intead of VirtIO sto
 
 Use pkgman to install the required dependencies:
 ```
-pkgman install cmake gettext curl_devel harfbuzz_devel freeimage_devel pugixml_devel libsdl2_devel libgit2_devel freetype_devel ffmpeg6_devel poppler24_devel
+pkgman install cmake gettext curl_devel harfbuzz_devel freeimage_devel pugixml_devel libsdl2_devel libgit2_1.9_devel freetype_devel ffmpeg6_devel poppler24_devel
 ```
 
 To clone the ES-DE source repository, run the following:
