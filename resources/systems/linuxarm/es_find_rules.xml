@@ -470,6 +470,16 @@
             <entry>~/bin/pico-8/pico8</entry>
         </rule>
     </emulator>
+    <emulator name="PLAY!">
+        <!-- Sony PlayStation 2 emulator Play! -->
+        <rule type="systempath">
+            <entry>org.purei.Play</entry>
+        </rule>
+        <rule type="staticpath">
+            <entry>/var/lib/flatpak/exports/bin/org.purei.Play</entry>
+            <entry>~/.local/share/flatpak/exports/bin/org.purei.Play</entry>
+        </rule>
+    </emulator>
     <emulator name="PPSSPP">
         <!-- Sony PlayStation Portable emulator PPSSPP -->
         <rule type="systempath">
