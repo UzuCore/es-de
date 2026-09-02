@@ -24,6 +24,8 @@
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * Added the PCEE2 RetroArch core as the default emulator for the ps2 system on Linux and Windows
 * Added the AppleWin RetroArch core as the default emulator for the apple2 system
+* Added the BlastEm RetroArch core as an alternative emulator for the gamegear, mark3, mastersystem, megacd and megacdjp systems on Linux, macOS and Windows
+* Added the BlastEm RetroArch core as an alternative emulator for the sega32x, sega32xjp, sega32xna, segacd and sg-1000 systems on Linux, macOS and Windows
 * Added the RustyNES RetroArch core as an alternative emulator for the famicom, fds and nes systems
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added the Tia RetroArch core as an alternative emulator for the atari2600 system
@@ -68,8 +70,12 @@
 * (Android) Added GameNative Amazon standalone as an alternative emulator for the windows system
 * (Android) Added the .amazon file extension to the windows system
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
+* (Linux ARM) Added Play! standalone as an alternative emulator for the ps2 system
+* (Linux ARM) Added Play! Arcade standalone as an alternative emulator for the arcade and mame systems
+* (Linux ARM) Added Play! Arcade standalone and Play! Disc standalone as alternative emulators for the consolearcade system
 * (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
+* (Linux ARM) Addeed the .arcadedef file extension to the arcade and mame systems
 * (Linux) Added Missingno standalone as an alternative emulator for the atari2600, gb and gbc systems
 * (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
@@ -94,7 +100,7 @@
 * (Linux) Fixed an AppImage build issue caused by a URL change on GitLab
 * Added .m4v as a supported video file extension
 * Added forward compatibility for reading the alternativeEmulator element from the gameList root element of the gamelist.xml files
-* Added forward compatibility for reading es_settings.xml files with a "settings" root element
+* Added forward compatibility for reading the es_settings.xml file with a "settings" root element
 * Added forward compatibility for reading the MAME resource files with "mamebioses", "mamedevices" and "mamenames" root elements
 * The scraper will no longer download media with unsupported file extensions
 * Made multiple improvements to the PDF viewer (optimizations, fixed memory leaks etc.)
