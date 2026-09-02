@@ -284,6 +284,8 @@
         <command label="Handy">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/handy_libretro.so %ROM%</command>
         <command label="Beetle Lynx">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_lynx_libretro.so %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module lynx %ROM%</command>
+        <command label="Gearlynx">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearlynx_libretro.so %ROM%</command>
+        <command label="Holani">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/holani_libretro.so %ROM%</command>
         <platform>atarilynx</platform>
         <theme>atarilynx</theme>
     </system>
