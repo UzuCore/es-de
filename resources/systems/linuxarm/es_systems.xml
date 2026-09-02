@@ -553,6 +553,7 @@
         <extension>.bat .BAT .com .COM .conf .CONF .cue .CUE .dosz .DOSZ .exe .EXE .img .IMG .iso .ISO .7z .7Z .zip .ZIP</extension>
         <command label="DOSBox-Pure">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
         <command label="DOSBox Pure Unleashed (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-PURE-UNLEASHED% %ROM%</command>
+        <command label="DOSBox-Core">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_core_libretro.so %ROM%</command>
         <command label="DOSBox-SVN">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_svn_libretro.so %ROM%</command>
         <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% %ROM%</command>
         <command label="DOSBox Staging (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-STAGING% %ROM%</command>
@@ -1428,6 +1429,7 @@
         <extension>.bat .BAT .com .COM .conf .CONF .cue .CUE .dosz .DOSZ .exe .EXE .img .IMG .iso .ISO .7z .7Z .zip .ZIP</extension>
         <command label="DOSBox-Pure">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%</command>
         <command label="DOSBox Pure Unleashed (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-PURE-UNLEASHED% %ROM%</command>
+        <command label="DOSBox-Core">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_core_libretro.so %ROM%</command>
         <command label="DOSBox-SVN">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_svn_libretro.so %ROM%</command>
         <command label="DOSBox-X (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-X% %ROM%</command>
         <command label="DOSBox Staging (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_DOSBOX-STAGING% %ROM%</command>
