@@ -159,6 +159,7 @@
         <command label="Geolith">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/geolith_libretro.so %ROM%</command>
         <command label="Flycast">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
         <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+        <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dice_libretro.so %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SUPERMODEL% -log-output=%GAMEDIR%/Config/Supermodel.log %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
         <platform>arcade</platform>
@@ -972,6 +973,7 @@
         <command label="Geolith">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/geolith_libretro.so %ROM%</command>
         <command label="Flycast">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/flycast_libretro.so %ROM%</command>
         <command label="Flycast (Standalone)">%EMULATOR_FLYCAST% %ROM%</command>
+        <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dice_libretro.so %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%GAMEDIR% %EMULATOR_SUPERMODEL% -log-output=%GAMEDIR%/Config/Supermodel.log %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Shortcut or script">%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%</command>
         <platform>arcade</platform>
