@@ -71,7 +71,6 @@
 * (Android) Added the .amazon file extension to the windows system
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
 * (Linux ARM) Added Play! standalone as an alternative emulator for the ps2 system
-* (Linux ARM) Added Play! Arcade standalone as an alternative emulator for the arcade and mame systems
 * (Linux ARM) Added Play! Arcade standalone and Play! Disc standalone as alternative emulators for the consolearcade system
 * (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
