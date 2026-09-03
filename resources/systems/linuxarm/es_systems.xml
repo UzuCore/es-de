@@ -1831,9 +1831,10 @@
         <fullname>Nintendo Super Game Boy</fullname>
         <path>%ROMPATH%/sgb</path>
         <extension>.gb .GB .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP</extension>
+        <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%</command>
+        <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen --gameBoy.useSgb2=true %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mgba_libretro.so %ROM%</command>
         <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
-        <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen --gameBoy.useSgb2=true %ROM%</command>
         <platform>sgb</platform>
         <theme>sgb</theme>
     </system>
