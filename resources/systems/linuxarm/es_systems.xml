@@ -1571,6 +1571,7 @@
         <command label="Mr.Boom (Bomberman)">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mrboom_libretro.so %INJECT%=nothing</command>
         <command label="NXEngine (Cave Story)">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/nxengine_libretro.so %ROM%</command>
         <command label="OpenLara (Tomb Raider)">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/openlara_libretro.so %ROM%</command>
+        <command label="Super Bros War">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/superbroswar_libretro.so %ROM%</command>
         <platform>pc, pcwindows</platform>
         <theme>ports</theme>
     </system>
