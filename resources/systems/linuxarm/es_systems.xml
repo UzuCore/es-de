@@ -2086,8 +2086,8 @@
         <name>uzebox</name>
         <fullname>Uzebox Open Source Console</fullname>
         <path>%ROMPATH%/uzebox</path>
-        <extension>.7z .7Z .zip .ZIP</extension>
-        <command>PLACEHOLDER %ROM%</command>
+        <extension>.uze .UZE .7z .7Z .zip .ZIP</extension>
+        <command label="Uzem">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/uzem_libretro.so %ROM%</command>
         <platform>uzebox</platform>
         <theme>uzebox</theme>
     </system>
