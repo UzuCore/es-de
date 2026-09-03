@@ -370,8 +370,8 @@
         <name>chailove</name>
         <fullname>ChaiLove Game Engine</fullname>
         <path>%ROMPATH%/chailove</path>
-        <extension>.7z .7Z .zip .ZIP</extension>
-        <command>PLACEHOLDER %ROM%</command>
+        <extension>.chai .CHAI .chailove .CHAILOVE .7z .7Z .zip .ZIP</extension>
+        <command label="ChaiLove">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/chailove_libretro.so %ROM%</command>
         <platform>love</platform>
         <theme>chailove</theme>
     </system>
