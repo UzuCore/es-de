@@ -175,6 +175,7 @@
         <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dice_libretro.dll %ROM%</command>
         <command label="Model 2 Emulator (Standalone)">%RUNINBACKGROUND% %STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
         <command label="Model 2 Emulator [Suspend ES-DE] (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
+        <command label="Supermodel">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\supermodel_libretro.dll %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Supermodel Dojo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL-DOJO% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Linux Loader (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_LINUX-LOADER% %INJECT%=%BASENAME%\%BASENAME%.commands</command>
@@ -1081,6 +1082,7 @@
         <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dice_libretro.dll %ROM%</command>
         <command label="Model 2 Emulator (Standalone)">%RUNINBACKGROUND% %STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
         <command label="Model 2 Emulator [Suspend ES-DE] (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
+        <command label="Supermodel">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\supermodel_libretro.dll %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Supermodel Dojo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL-DOJO% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Linux Loader (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_LINUX-LOADER% %INJECT%=%BASENAME%\%BASENAME%.commands</command>
