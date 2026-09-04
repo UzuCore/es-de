@@ -40,6 +40,7 @@
         <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
         <command label="PUAE">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae2021_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/amiberry_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <platform>amiga</platform>
         <theme>amiga</theme>
     </system>
@@ -50,6 +51,7 @@
         <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
         <command label="PUAE">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae2021_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/amiberry_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <platform>amiga</platform>
         <theme>amiga1200</theme>
     </system>
@@ -60,6 +62,7 @@
         <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
         <command label="PUAE">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae2021_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/amiberry_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <platform>amiga</platform>
         <theme>amiga600</theme>
     </system>
@@ -70,6 +73,7 @@
         <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
         <command label="PUAE">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae2021_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/amiberry_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <platform>amigacd32</platform>
         <theme>amigacd32</theme>
     </system>
@@ -339,6 +343,7 @@
         <extension>.adf .ADF .adz .ADZ .ccd .CCD .chd .CHD .cue .CUE .dms .DMS .fdi .FDI .hdf .HDF .hdz .HDZ .ipf .IPF .iso .ISO .lha .LHA .m3u .M3U .mds .MDS .nrg .NRG .rp9 .RP9 .uae .UAE .7z .7Z .zip .ZIP</extension>
         <command label="PUAE">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/puae2021_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/amiberry_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <platform>cdtv</platform>
         <theme>cdtv</theme>
     </system>
