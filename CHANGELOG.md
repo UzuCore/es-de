@@ -42,6 +42,9 @@
 * Added GroovyMAME standalone as an alternative emulator for the arcade and mame systems on Linux and Windows
 * Added veesem standalone as an alternative emulator for the vsmile system on Linux and Windows
 * Added the Virtual Jaguar RetroArch core as the default emulator for the atarijaguarcd system on Linux and Windows
+* Added the Supermodel RetroArch core as the default emulator for the model3 system
+* Added the Supermodel RetroArch core as an alternative emulator for the arcade and mame systems
+* Added the Amiberry RetroArch core as an alternative emulator for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems
 * Removed the --autoload flag from Amiberry standalone for the amiga, amiga1200 and amiga600 systems on Linux and macOS
 * Added an %INJECT% variable for Amiberry standalone for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems on Linux and macOS
 * (Android) Added support for the Sony PlayStation 4 (ps4) system using the BachataS4 emulator
@@ -55,6 +58,7 @@
 * (Android) Added ARMSX3 standalone as an alternative emulator for the ps3 system
 * (Android) Added EmuCoreC standalone as an alternative emulator for the ps3 system
 * (Android) Added Starboard standalone as an alternative emulator for the ports system
+* (Android) Added SUPER3 standalone as an alternative emulator for the arcade and mame systems
 * (Android) Added MAME4droid Current [Software list] standalone as an alternative emulator for the apple2gs system
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
 * (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
@@ -70,6 +74,7 @@
 * (Android) Added GameNative Amazon standalone as an alternative emulator for the windows system
 * (Android) Added the .amazon file extension to the windows system
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
+* (Android) Added find rule entries for the Ludashi fork of Winlator to Winlator Cmod
 * (Linux ARM) Added Play! standalone as an alternative emulator for the ps2 system
 * (Linux ARM) Added Play! Arcade standalone and Play! Disc standalone as alternative emulators for the consolearcade system
 * (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
