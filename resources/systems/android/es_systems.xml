@@ -1538,6 +1538,7 @@
         <path>%ROMPATH%/ps2</path>
         <extension>.bin .BIN .chd .CHD .ciso .CISO .cso .CSO .dump .DUMP .elf .ELF .gz .GZ .m3u .M3U .mdf .MDF .img .IMG .iso .ISO .isz .ISZ .ngr .NRG</extension>
         <command label="PCEE2">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/pcee2_libretro_android.so %EXTRA_ROM%=%ROM%</command>
+        <command label="LRPS2">%EMULATOR_RETROARCH% %EXTRA_CONFIGFILE%=%EXTERNALDATA%/Android/data/%ANDROIDPACKAGE%/files/retroarch.cfg %EXTRA_LIBRETRO%=%INTERNALDATA%/%ANDROIDPACKAGE%/cores/pcsx2_libretro_android.so %EXTRA_ROM%=%ROM%</command>
         <command label="NetherSX2 (Standalone)">%EMULATOR_NETHERSX2% %ACTIVITY_CLEAR_TASK% %ACTIVITY_CLEAR_TOP% %ACTION%=android.intent.action.MAIN %EXTRA_bootPath%=%ROMSAF%</command>
         <command label="NetherSX2-Turnip (Standalone)">%EMULATOR_NETHERSX2-TURNIP% %ACTIVITY_CLEAR_TASK% %ACTIVITY_CLEAR_TOP% %ACTION%=android.intent.action.MAIN %EXTRA_bootPath%=%ROMSAF%</command>
         <command label="NetherSX2-Turnip Classic (Standalone)">%EMULATOR_NETHERSX2-TURNIP-CLASSIC% %ACTIVITY_CLEAR_TASK% %ACTIVITY_CLEAR_TOP% %ACTION%=android.intent.action.MAIN %EXTRA_bootPath%=%ROMSAF%</command>
