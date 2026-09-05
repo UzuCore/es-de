@@ -1597,6 +1597,7 @@
         <fullname>Sony PlayStation 2</fullname>
         <path>%ROMPATH%/ps2</path>
         <extension>.bin .BIN .chd .CHD .ciso .CISO .cso .CSO .dump .DUMP .elf .ELF .gz .GZ .m3u .M3U .mdf .MDF .img .IMG .iso .ISO .isz .ISZ .ngr .NRG .zso .ZSO</extension>
+        <command label="PCEE2">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/pcee2_libretro.dylib %ROM%</command>
         <command label="PCSX2 (Standalone)">%EMULATOR_PCSX2% -batch %ROM%</command>
         <command label="PCSX2 Legacy (Standalone)">%EMULATOR_PCSX2% --nogui %ROM%</command>
         <command label="AetherSX2 (Standalone)">%EMULATOR_AETHERSX2% -batch %ROM%</command>
