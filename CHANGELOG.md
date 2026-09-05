@@ -22,11 +22,16 @@
 * Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added support for "customCollectionNameGrouped" and "customCollectionNameGames" values to the text element metadata property
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
-* Added the PCEE2 RetroArch core as the default emulator for the ps2 system on Linux and Windows
+* Added the PCEE2 RetroArch core as the default emulator for the ps2 system
 * Added the AppleWin RetroArch core as the default emulator for the apple2 system
-* Added the BlastEm RetroArch core as an alternative emulator for the gamegear, mark3, mastersystem, megacd and megacdjp systems on Linux, macOS and Windows
-* Added the BlastEm RetroArch core as an alternative emulator for the sega32x, sega32xjp, sega32xna, segacd and sg-1000 systems on Linux, macOS and Windows
+* Added the Cemu RetroArch core as an alternative emulator for the wiiu system
+* Added the MesenCE RetroArch core as an alternative emulator for the famicom, fds, gamegear, gb, gba, gbc, mark3, mastersystem and nes systems
+* Added the MesenCE RetroArch core as an alternative emulator for the pcengine, pcenginecd, satellaview, sfc, sgb, snes and snesna system
+* Added the MesenCE RetroArch core as an alternative emulator for the supergrafx, tg16, tg-cd, wonderswan and wonderswancolor systems
+* Added the Hatari 2014 RetroArch core as an alternative emulator for the atarist system
 * Added the RustyNES RetroArch core as an alternative emulator for the famicom, fds and nes systems
+* Added the BlastEm RetroArch core as an alternative emulator for the gamegear, mark3, mastersystem, megacd and megacdjp systems
+* Added the BlastEm RetroArch core as an alternative emulator for the sega32x, sega32xjp, sega32xna, segacd and sg-1000 systems
 * Added the IroGB RetroArch core as an alternative emulator for the gb and gbc systems
 * Added the Tia RetroArch core as an alternative emulator for the atari2600 system
 * Added the Geolith RetroArch core as an alternative emulator for the neogeocd and neogeocdjp systems
@@ -50,8 +55,8 @@
 * (Android) Added support for the Sony PlayStation 4 (ps4) system using the BachataS4 emulator
 * (Android) Added WinNative standalone as an alternative emulator for the epic, pcarcade, steam, type-x and windows systems
 * (Android) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
-* (Android) Added NetherSX2 standalone as the default emulator for the ps2 system
-* (Android) Added NetherSX2-Turnip and NetherSX2-Turnip Classic standalone as alternative emulators for the ps2 system
+* (Android) Added the LRPS2 RetroArch core as an alternative emulator for the ps2 system
+* (Android) Added NetherSX2, NetherSX2-Turnip and NetherSX2-Turnip Classic standalone as alternative emulators for the ps2 system
 * (Android) Added a find rule entry for the new package name for ARMSX2 Refresh
 * (Android) Added a find rule entry for the new package name for ARMSX2 Refresh
 * (Android) Added ARMSX1 standalone as an alternative emulator for the psx system
@@ -61,6 +66,8 @@
 * (Android) Added SUPER3 standalone as an alternative emulator for the arcade and mame systems
 * (Android) Added MAME4droid Current [Software list] standalone as an alternative emulator for the apple2gs system
 * (Android) Added EmuCoreX standalone as an alternative emulator for the ps2 system
+* (Android) Added the BlastEm RetroArch core as an alternative emulator for the genesis, megadrive and megadrivejp systems
+* (Android) Added the Citra 2018 RetroArch core as an alternative emulator for the n3ds system
 * (Android) Added EmuCoreV standalone as an alternative emulator for the psvita system
 * (Android) Added WatermelonDS standalone as an alternative emulator for the nds system
 * (Android) Added SeedlessDS standalone as an alternative emulator for the nds system
@@ -80,14 +87,18 @@
 * (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
 * (Linux ARM) Addeed the .arcadedef file extension to the arcade and mame systems
+* (Linux) Added the FS-UAE RetroArch core as an alternative emulator for the amiga, amiga1200 and amiga600 systems
 * (Linux) Added Missingno standalone as an alternative emulator for the atari2600, gb and gbc systems
 * (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
 * (Linux) Added support for parsing the Path key in .desktop shortcut files
 * (Linux) Added ~/AppImages/ as an additional search path for all AppImages
 * (Linux) Changed the AppImage find rule entries for PCSX2 to avoid collisions with PCSX2x6
+* (Linux) Added support for the Flatpak release of Eden
 * (Linux) Added support for the Flatpak release of Amiberry
 * (Linux) Added support for the Flatpak release of BigPEmu
 * (macOS) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
+* (macOS) Added the LRPS2 RetroArch core as an alternative emulator for the ps2 system
+* (macOS) Added the Citra and Citra 2018 RetroArch cores as alternative emulators for the n3ds system
 * (macOS) Added ARMSX2 standalone as an alternative emulator for the ps2 system
 * (Windows) Added Amiberry standalone as an alternative emulator for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems
 * (Windows) Added an additional find rule entry for PCSX2
@@ -121,6 +132,7 @@
 * (Windows) Updated HarfBuzz to 14.2.1, FreeType to 2.14.3, libgit2 to 1.9.4, Poppler to 26.02.0 and FFmpeg to 8.1.1
 * Updated the MAME index files to include ROMs up to MAME version 0.289
 * Bundled the August 2026 release of the Mozilla TLS/SSL certificates
+* Translation updates for all languages
 
 ### Bug fixes
 
