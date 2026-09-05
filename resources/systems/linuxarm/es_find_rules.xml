@@ -251,6 +251,8 @@
             <entry>~/.local/share/applications/Eden*.AppImage</entry>
             <entry>~/.local/bin/Eden*.AppImage</entry>
             <entry>~/bin/Eden*.AppImage</entry>
+            <entry>/var/lib/flatpak/exports/bin/dev.eden_emu.eden</entry>
+            <entry>~/.local/share/flatpak/exports/bin/dev.eden_emu.eden</entry>
         </rule>
     </emulator>
     <emulator name="EMULICIOUS">
