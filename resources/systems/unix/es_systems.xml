@@ -2254,6 +2254,7 @@
         <path>%ROMPATH%/wiiu</path>
         <extension>.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX</extension>
         <command label="Cemu (Standalone)">%EMULATOR_CEMU% -g %ROM%</command>
+        <command label="Cemu">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/cemu_libretro.so %ROM%</command>
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>
