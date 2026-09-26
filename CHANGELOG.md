@@ -6,6 +6,20 @@
 
 ### Release overview
 
+This release improves the use of dual-screen Android devices by introducing per-system and per-game settings for which screen to launch games on. There's a new submenu in the Other settings menu to toggle this per system, and additionally the metadata editor can be used to set this per game.
+
+There's also a new option for running browsing custom events as non-blocking which in practice means that there will be much less stuttering and latency when navigating systems and gamelists when for example using the ES-DE Companion App on Android. This could however cause issues in some very rare cases like file locking problems on Windows or race conditions under certain circumstances, so disabling "Run browsing events as non-blocking" in the Other settings menu reverts to the old behavior.
+
+Also on Android is now the ability to query RetroArch for installed cores, which means it prevents RetroArch from being launched if the core is not installed. This eliminates the dreaded RetroArch black screen when attempting to run a core that has not been installed. As the feature is currently experimental it needs to be enabled via "Query installed RetroArch cores (Experimental)" in the Other settings menu. It will be enabled by default in the future if it proves to not cause any adverse side effects on specific devices (i.e. it needs mass testing first). Also note that this requires a recent build of RetroArch to function correctly.
+
+Another Android-specific feature is that ES-DE now supports the recent Google Play store release of RetroArch, which relies on the Storage Access Framework (SAF) as it's missing proper storage access due to Play store policies. We strongly recommend to not use this release and instead download a build from the RetroArch website, but if you still want to use it you can enable the new menu option "Use RetroArch in SAF mode (Not recommended)" in the Other settings menu to make game launching work. Enabling this option while not using RetroArch in SAF mode will however completely break game launching as the launch commands are different.
+
+As for cross-platform changes there are a couple of new theme engine features, which will open up new creative possibilities for theme creators. There is also support for scraping videos from TheGamesDB and Czech translations have been added.
+
+In addition to the above there's support for an absurd amount of new emulators across all operating systems, and on Android two new systems have been enabled, "Sony PlayStation 4 (ps4)" and "Atari Jaguar CD (atarijaguarcd)".
+
+Under the hood there have been a number of modernizations by upgrading to newer dependency libraries, and some bugs have been fixed too. See below for all details.
+
 ### Detailed list of changes
 
 * (Android) Added per-system and per-game configuration for launching games on the other screen on dual-screen devices
