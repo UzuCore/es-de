@@ -3,60 +3,60 @@
     "website": "https://es-de.org/",
     "repository": "https://gitlab.com/es-de/",
     "stable": {
-        "version": "3.4.1",
-        "release": "51",
-        "date": "2026-04-10",
+        "version": "3.5.0",
+        "release": "52",
+        "date": "2026-09-30",
         "androidVersionName": "3.4.1-58",
         "androidVersionCode": "58",
         "androidDate": "2026-04-10",
         "packages": [
             {
                 "name": "WindowsPortable",
-                "filename": "ES-DE_3.4.1-x64_Portable.zip",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288156909/download",
-                "md5": "81381d9a2a003071c3eff200685febbb",
+                "filename": "ES-DE_3.5.0-x64_Portable.zip",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718057/download",
+                "md5": "c13a725b973c1b6b2234a0c414dc4d4e",
                 "message": ""
             },
             {
                 "name": "WindowsInstaller",
-                "filename": "ES-DE_3.4.1-x64.exe",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288156889/download",
-                "md5": "b2efdfc3da7e802e9a77345d329ef5f8",
+                "filename": "ES-DE_3.5.0-x64.exe",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717909/download",
+                "md5": "2193de4c8cf94538735339091fb18506",
                 "message": ""
             },
             {
                 "name": "macOSApple",
-                "filename": "ES-DE_3.4.1-arm64.dmg",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288889626/download",
-                "md5": "e57ba5b3d7d3aa324db9f28e0550cd26",
+                "filename": "ES-DE_3.5.0-arm64.dmg",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717468/download",
+                "md5": "27eb426bd9dc868134cf8265c761f002",
                 "message": ""
             },
             {
                 "name": "macOSIntel",
-                "filename": "ES-DE_3.4.1-x64.dmg",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288889701/download",
-                "md5": "b3b98dc63317839a50b4af857a4e35be",
+                "filename": "ES-DE_3.5.0-x64.dmg",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717755/download",
+                "md5": "37e82e7911ac1b38acdf6afb9647555a",
                 "message": ""
             },
             {
                 "name": "LinuxAppImage",
                 "filename": "ES-DE_x64.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288156961/download",
-                "md5": "ea7ea80def78acf08724c100755e4a69",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718352/download",
+                "md5": "f1b13e453d62ca1842c1253e20e37a0a",
                 "message": ""
             },
             {
                 "name": "LinuxAArch64AppImage",
                 "filename": "ES-DE_aarch64.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/326321114/download",
-                "md5": "9e459692ebd86dc5f0524f4c2bbad3b3",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718204/download",
+                "md5": "540f1aa13c34779a48cc66fc56df0966",
                 "message": ""
             },
             {
                 "name": "LinuxSteamDeckAppImage",
                 "filename": "ES-DE_x64_SteamDeck.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/288156987/download",
-                "md5": "b0e32c5d9906072559e7c52febe9fb18",
+                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718506/download",
+                "md5": "df7f42c46a8109256cfbb5941783e896",
                 "message": ""
             }
         ]
