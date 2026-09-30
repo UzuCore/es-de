@@ -1,22 +1,22 @@
 # ES-DE Frontend - Changelog
 
-## Version 3.5.0 / 3.5.0-65 (in development)
+## Version 3.5.0 / 3.5.0-65
 
-**Release date:** TBD
+**Release date:** 2026-09-30
 
 ### Release overview
 
 This release improves the use of dual-screen Android devices by introducing per-system and per-game settings for which screen to launch games on. There's a new submenu in the Other settings menu to toggle this per system, and additionally the metadata editor can be used to set this per game.
 
-There's also a new option for running browsing custom events as non-blocking which in practice means that there will be much less stuttering and latency when navigating systems and gamelists when for example using the ES-DE Companion App on Android. This could however cause issues in some very rare cases like file locking problems on Windows or race conditions under certain circumstances, so disabling "Run browsing events as non-blocking" in the Other settings menu reverts to the old behavior.
+There's also a new option for running browsing custom events as non-blocking which in practice means that there will be much less stuttering and latency when navigating systems and gamelists when for example using the ES-DE Companion App on Android. This could however cause issues in some rare cases like file locking problems on Windows or race conditions under certain circumstances, so disabling "Run browsing events as non-blocking" in the Other settings menu reverts to the old sequential behavior.
 
-Also on Android is now the ability to query RetroArch for installed cores, which means it prevents RetroArch from being launched if the core is not installed. This eliminates the dreaded RetroArch black screen when attempting to run a core that has not been installed. As the feature is currently experimental it needs to be enabled via "Query installed RetroArch cores (Experimental)" in the Other settings menu. It will be enabled by default in the future if it proves to not cause any adverse side effects on specific devices (i.e. it needs mass testing first). Also note that this requires a recent build of RetroArch to function correctly.
+Also on Android is now the ability to query RetroArch for installed cores, which means it prevents RetroArch from being launched if the core is not installed. This eliminates the dreaded RetroArch black screen when attempting to run a core that has not been installed. As the feature is currently experimental it needs to be enabled via "Query installed RetroArch cores (Experimental)" in the Other settings menu. It will be enabled by default in the future if it proves to not cause any adverse side effects on specific devices (i.e. it needs mass testing first).
 
-Another Android-specific feature is that ES-DE now supports the recent Google Play store release of RetroArch, which relies on the Storage Access Framework (SAF) as it's missing proper storage access due to Play store policies. We strongly recommend to not use this release and instead download a build from the RetroArch website, but if you still want to use it you can enable the new menu option "Use RetroArch in SAF mode (Not recommended)" in the Other settings menu to make game launching work. Enabling this option while not using RetroArch in SAF mode will however completely break game launching as the launch commands are different.
+Another Android-specific feature is that ES-DE now supports the recent Google Play store release of RetroArch, which relies on the Storage Access Framework (SAF) as it's missing proper storage access permissions due to Play store policies. We strongly recommend to not use this release and instead download a build from the RetroArch website, but if you still want to use it you can enable the new menu option "Use RetroArch in SAF mode (Not recommended)" in the Other settings menu to make game launching work. Enabling this option while not using RetroArch in SAF mode will however completely break game launching as the launch commands are different.
 
 As for cross-platform changes there are a couple of new theme engine features, which will open up new creative possibilities for theme creators. There is also support for scraping videos from TheGamesDB and Czech translations have been added.
 
-In addition to the above there's support for an absurd amount of new emulators across all operating systems, and on Android two new systems have been enabled, "Sony PlayStation 4 (ps4)" and "Atari Jaguar CD (atarijaguarcd)".
+In addition to the above there's support for a huge amount of new emulators across all operating systems, and on Android two new systems have been enabled, "Sony PlayStation 4 (ps4)" and "Atari Jaguar CD (atarijaguarcd)". For Linux on ARM two new systems have also been enabled, those being "Sony PlayStation Vita (psvita)" and "Nintendo Wii U (wiiu)".
 
 Under the hood there have been a number of modernizations by upgrading to newer dependency libraries, and some bugs have been fixed too. See below for all details.
 
@@ -24,7 +24,7 @@ Under the hood there have been a number of modernizations by upgrading to newer 
 
 * (Android) Added per-system and per-game configuration for launching games on the other screen on dual-screen devices
 * (Android) Added experimental support for querying on game launch whether the RetroArch core is installed (needs to be enabled via a menu option)
-* (Android) Added the menu option "Use RetroArch in SAF mode (not recommended)" as well as the corresponding SAF-specific systems configuration file
+* (Android) Added the menu option "Use RetroArch in SAF mode (Not recommended)" as well as the corresponding SAF-specific systems configuration file
 * Added support for scraping videos using TheGamesDB
 * Added a "Run browsing events as non-blocking" menu option to greatly reduce latency for browsing event scripts
 * Added translations for Czech (cs_CZ)
@@ -35,6 +35,7 @@ Under the hood there have been a number of modernizations by upgrading to newer 
 * Added a "scaleFactor" property to the image element to allow for lower-resolution SVG rasterization
 * Added a "scaleFactor" property to the animation element to allow for lower-resolution Lottie animation rasterization
 * Added support for "customCollectionNameGrouped" and "customCollectionNameGames" values to the text element metadata property
+* (Linux) Added support for parsing the Path key in .desktop shortcut files
 * Changed the ScreenScraper platform ID for the j2me system to scrape J2ME instead of Android
 * Added the PCEE2 RetroArch core as the default emulator for the ps2 system
 * Added the AppleWin RetroArch core as the default emulator for the apple2 system
@@ -68,8 +69,8 @@ Under the hood there have been a number of modernizations by upgrading to newer 
 * Removed the --autoload flag from Amiberry standalone for the amiga, amiga1200 and amiga600 systems on Linux and macOS
 * Added an %INJECT% variable for Amiberry standalone for the amiga, amiga1200, amiga600, amigacd32 and cdtv systems on Linux and macOS
 * (Android) Added support for the Sony PlayStation 4 (ps4) system using the BachataS4 emulator
-* (Android) Added WinNative standalone as an alternative emulator for the epic, pcarcade, steam, type-x and windows systems
 * (Android) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
+* (Android) Added WinNative standalone as an alternative emulator for the epic, pcarcade, steam, type-x and windows systems
 * (Android) Added the LRPS2 RetroArch core as an alternative emulator for the ps2 system
 * (Android) Added NetherSX2, NetherSX2-Turnip and NetherSX2-Turnip Classic standalone as alternative emulators for the ps2 system
 * (Android) Added find rule entries for the new package names for ARMSX2 Refresh (Play store and GitHub releases)
@@ -90,31 +91,30 @@ Under the hood there have been a number of modernizations by upgrading to newer 
 * (Android) Added Xenra standalone as an alternative emulator for the xbox and xbox360 systems
 * (Android) Added "Native port" as an alternative emulator for the ports system
 * (Android) Added the .desktop file extension to the epic and steam systems
-* (Android) Added the .app file extension to the ports system
+* (Android) Added the .app and .port file extensions to the ports system
 * (Android) Added import rules for the ports system
 * (Android) Added GameNative Amazon standalone as an alternative emulator for the windows system
 * (Android) Added the .amazon file extension to the windows system
 * (Android) Added a find rule entry for yet another package name for GameHub Lite
 * (Android) Added find rule entries for the Ludashi fork of Winlator to Winlator Cmod
+* (Linux) Added ~/AppImages/ as an additional search path for all AppImages
+* (Linux) Added the FS-UAE RetroArch core as an alternative emulator for the amiga, amiga1200 and amiga600 systems
+* (Linux) Added Missingno standalone as an alternative emulator for the atari2600, gb and gbc systems
+* (Linux) Added sm2-emu standalone as an alternative emulator for the arcade, mame and model2 systems
+* (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
+* (Linux) Changed the AppImage find rule entries for PCSX2 to avoid collisions with PCSX2x6
+* (Linux) Added support for the Flatpak release of Eden
+* (Linux) Added support for the Flatpak release of Amiberry
+* (Linux) Added support for the Flatpak release of BigPEmu
 * (Linux ARM) Added support for the Sony PlayStation Vita (psvita) system using the Vita3K emulator
 * (Linux ARM) Added support for the Nintendo Wii U (wiiu) system using the Cemu emulator
 * (Linux ARM) Added ARMSX2 standalone as an alternative emulator for the ps2 system
 * (Linux ARM) Added BlastEm standalone as an alternative emulator for the genesis, megadrive and megadrivejp systems
 * (Linux ARM) Added Play! standalone as an alternative emulator for the ps2 system
 * (Linux ARM) Added Play! Arcade standalone and Play! Disc standalone as alternative emulators for the consolearcade system
-* (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (Linux ARM) Added support for the pkgforge-dev AppImage release of Dolphin
-* (Linux ARM) Addeed the .arcadedef file extension to the arcade and mame systems
-* (Linux) Added the FS-UAE RetroArch core as an alternative emulator for the amiga, amiga1200 and amiga600 systems
-* (Linux) Added Missingno standalone as an alternative emulator for the atari2600, gb and gbc systems
-* (Linux) Added sm2-emu standalone as an alternative emulator for the arcade, mame and model2 systems
-* (Linux) Added support for the pkgforge-dev AppImage release of Supermodel
-* (Linux) Added support for parsing the Path key in .desktop shortcut files
-* (Linux) Added ~/AppImages/ as an additional search path for all AppImages
-* (Linux) Changed the AppImage find rule entries for PCSX2 to avoid collisions with PCSX2x6
-* (Linux) Added support for the Flatpak release of Eden
-* (Linux) Added support for the Flatpak release of Amiberry
-* (Linux) Added support for the Flatpak release of BigPEmu
+* (Linux ARM) Added the .arcadedef file extension to the arcade and mame systems
+* (Linux ARM) Removed all RetroArch cores that are not built by the RetroArch project
 * (macOS) Added support for the Atari Jaguar CD (atarijaguarcd) system using the Virtual Jaguar RetroArch core
 * (macOS) Added the LRPS2 RetroArch core as an alternative emulator for the ps2 system
 * (macOS) Added the Citra and Citra 2018 RetroArch cores as alternative emulators for the n3ds system
@@ -127,7 +127,6 @@ Under the hood there have been a number of modernizations by upgrading to newer 
 * (Windows) Added the .lnk file extension to the xbox system
 * (Windows) Added import rules for the xbox system
 * (Windows) Added the .lindbergh file extension to the arcade, mame and pcarcade systems
-* (Android) Added the .port file extension to the ports system
 * Added the .acgame file extension to the consolearcade system on Linux, macOS and Windows
 * Added the .acgame and .arcadedef file extensions to the arcade and mame systems on Linux, macOS and Windows
 * Added the .a0, .b0 and .rom file extensions to the vic20 system

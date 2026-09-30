@@ -1045,7 +1045,7 @@ The following manually downloaded emulators are supported when using the bundled
 | dos/pc/windows3x/windows9x                    | DOSBox Pure Unleashed | DOSBoxPure/DOSBoxPure                        |
 | flash                                         | Ruffle                | ruffle/ruffle                                |
 | n64                                           | Gopher64              | gopher64/gopher64-linux-aarch64              |
-| pico8                                         | PICO-8                | pico-8/pico8                                 |
+| pico8                                         | PICO-8                | pico-8/pico8_64                              |
 | psvita                                        | Vita3K                | Vita3K/Vita3K                                |
 | saturn/saturnjp                               | Ymir                  | ymir/ymir-sdl3                               |
 | scummvm                                       | DREAMM                | dreamm/dreamm                                |
@@ -1943,7 +1943,7 @@ The setup for this emulator is quite similar to Play! described above. While the
 ~/ROMs/consolearcade/Namco System 246/Bloody Roar 3.acgame
 ```
 
-The run these games the .acgame file is launched from ES-DE, just make sure to set the emulator to _PCSX2x6 (Standalone)_ for all .acgame files, which can be done on a per-file basis from the metadata editor.
+To run these games the .acgame file is launched from ES-DE, just make sure to set the emulator to _PCSX2x6 (Standalone)_ for all .acgame files, which can be done on a per-file basis from the metadata editor.
 
 **Other emulators**
 
@@ -2878,7 +2878,7 @@ To run the games you simply execute their .pak file, which can be placed in the 
 
 ### PICO-8
 
-PICO-8 Fantasy Console is a game engine developed by [Lexaloffle Games](https://www.lexaloffle.com/pico-8.php) that you need to buy a license to use. Doing so will provide you with download links to releases for Linux, macOS and Windows. Make sure to use the 64-bit release as the 32-bit release reportedly has some technical issues. For Linux on ARM64/AArch64 you need to download the Raspberry Pi build even if you're not using a Raspberry Pi computer. On macOS and Windows the installation is straightforward, but on Linux you need to place PICO-8 in a location recognized by ES-DE. See the [Using manually downloaded emulators on Linux](USERGUIDE-DEV.md#using-manually-downloaded-emulators-on-linux) section of this guide for more details.
+PICO-8 Fantasy Console is a game engine developed by [Lexaloffle Games](https://www.lexaloffle.com/pico-8.php) that you need to buy a license for to use. Doing so will provide you with download links to releases for Linux, macOS and Windows. Make sure to use the 64-bit release as the 32-bit release reportedly has some technical issues. For Linux on ARM64/AArch64 you need to download the Raspberry Pi build even if you're not using a Raspberry Pi computer. On macOS and Windows the installation is straightforward, but on Linux you need to place PICO-8 in a location recognized by ES-DE. See the [Using manually downloaded emulators on Linux](USERGUIDE-DEV.md#using-manually-downloaded-emulators-on-linux) section of this guide for more details.
 
 On Android it's recommended to use the [unofficial PICO-8 wrapper](https://github.com/Macs75/pico8-android) together with the official Raspberry Pi build of PICO-8. Alternatively you could use the Fake-08 RetroArch core, although this needs to be manually downloaded. How that is done is covered briefly in the [ANDROID.md](ANDROID.md#fake-08) document.
 
@@ -4470,7 +4470,7 @@ This makes ES-DE query RetroArch for whether the selected core has been installe
 
 **Use RetroArch in SAF mode (not recommended)** _(Android only)_
 
-If using the Google Play release of RetroArch on modern Android devices, then you are forced to use the Storage Access Framework to launch games as Google have strict storage access restrictions in place for any apps they approve for their store. This leads to a crippled setup however and you'll need to give access to every single game system directory from inside RetroArch in order for game launching to work. So for instance you'll need to give separate access to ROMs/amiga, ROMs/pcengine, ROMs/ps2 and so on via the SAF directory picker. You can't just give access to the ROMs directory as that won't work. There are other issues with the Play release, such as all your RetroArch data getting deleted if you uninstall the app. It's a bad idea to use this release of RetroArch, just use the one from their website instead, which has proper storage permissions and works as expected. If you still insist on using the Play store release, or if you want to use the SAF for some other reason, like for keeping your games on external storage devices which require SAF URIs, then you can enable this setting. It will make ES-DE use a separate systems configuration file name es_systems_saf.xml where every RetroArch entry has been changed to use SAF URIs instead of the regular ROM path when launching games.
+If using the Google Play store release of RetroArch on modern Android devices, then you are forced to use the Storage Access Framework to launch games as Google have strict storage access restrictions in place for any apps they approve for their store. This leads to a crippled setup however and you'll need to give access to every single game system directory from inside RetroArch in order for game launching to work. So for instance you'll need to give separate access to ROMs/amiga, ROMs/pcengine, ROMs/ps2 and so on via the SAF directory picker. You can't just give access to the ROMs directory as that won't work. There are other issues with the Play release, such as all your RetroArch data getting deleted if you uninstall the app. It's a bad idea to use this release of RetroArch, just use the one from their website instead, which has proper storage permissions and works as expected. If you still insist on using the Play store release, or if you want to use the SAF for some other reason, like for keeping your games on external storage devices which require SAF URIs, then you can enable this setting. It will make ES-DE use a separate systems configuration file name es_systems_saf.xml where every RetroArch entry has been changed to use SAF URIs instead of the regular ROM path when launching games.
 
 **Enable alternative emulators per game**
 
