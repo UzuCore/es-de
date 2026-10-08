@@ -50,7 +50,8 @@ namespace
     // === LEGACY PATCH END ===
     {"playcount",          MD_INT,              "0",               false,     "TIMES PLAYED",                "ENTER NUMBER OF TIMES PLAYED",     false},
     {"playtime",           MD_INT,              "0",               false,     "PLAY TIME",                   "ENTER PLAY TIME",                  false},
-    {"controller",         MD_CONTROLLER,       "",                false,     "CONTROLLER",                  "SELECT CONTROLLER",                true},
+    {"screen",             MD_SCREEN,           "",                false,     "LAUNCH ON SCREEN",            "LAUNCH ON WHICH SCREEN",           false},
+    {"controller",         MD_CONTROLLER,       "",                false,     "CONTROLLER",                  "SELECT CONTROLLER",                false},
     {"altemulator",        MD_ALT_EMULATOR,     "",                false,     "ALTERNATIVE EMULATOR",        "SELECT ALTERNATIVE EMULATOR",      false},
     {"lastplayed",         MD_TIME,             "0",               true,      "LAST PLAYED",                 "ENTER LAST PLAYED DATE",           false}
     };
@@ -80,7 +81,7 @@ namespace
     {"fanart",        MD_PATH,             "",                false,     "FANART",                        "ENTER PATH TO FANART",             true},
     {"manual",        MD_PATH,             "",                false,     "MANUAL",                        "ENTER PATH TO MANUAL",             true},
     // === LEGACY PATCH END ===
-    {"controller",    MD_CONTROLLER,       "",                false,     "CONTROLLER",                    "SELECT CONTROLLER",                true},
+    {"controller",    MD_CONTROLLER,       "",                false,     "CONTROLLER",                    "SELECT CONTROLLER",                false},
     {"folderlink",    MD_FOLDER_LINK,      "",                false,     "FOLDER LINK",                   "SELECT FOLDER LINK",               false},
     {"lastplayed",    MD_TIME,             "0",               true,      "LAST PLAYED",                   "ENTER LAST PLAYED DATE",           false}
     };
@@ -111,7 +112,7 @@ MetaDataList::MetaDataList(MetaDataListType type)
     : mType(type)
     , mWasChanged(false)
 {
-    const std::vector<MetaDataDecl>& mdd = getMDD();
+    const std::vector<MetaDataDecl>& mdd {getMDD()};
     for (auto it = mdd.cbegin(); it != mdd.cend(); ++it)
         set(it->key, it->defaultValue);
 }
@@ -122,13 +123,13 @@ MetaDataList MetaDataList::createFromXML(MetaDataListType type,
 {
     MetaDataList mdl(type);
 
-    const std::vector<MetaDataDecl>& mdd = mdl.getMDD();
+    const std::vector<MetaDataDecl>& mdd {mdl.getMDD()};
 
     for (auto it = mdd.cbegin(); it != mdd.cend(); ++it) {
-        pugi::xml_node md = node.child(it->key.c_str());
+        pugi::xml_node md {node.child(it->key.c_str())};
         if (md && !md.text().empty()) {
             // If it's a path, resolve relative paths.
-            std::string value = md.text().get();
+            std::string value {md.text().get()};
             if (it->type == MD_PATH)
                 value = Utils::FileSystem::resolveRelativePath(value, relativeTo, true);
             mdl.set(it->key, value);
@@ -144,7 +145,7 @@ void MetaDataList::appendToXML(pugi::xml_node& parent,
                                bool ignoreDefaults,
                                const std::string& relativeTo) const
 {
-    const std::vector<MetaDataDecl>& mdd = getMDD();
+    const std::vector<MetaDataDecl>& mdd {getMDD()};
 
     for (auto it = mdd.cbegin(); it != mdd.cend(); ++it) {
         auto mapIter = mMap.find(it->key);
@@ -155,7 +156,7 @@ void MetaDataList::appendToXML(pugi::xml_node& parent,
                 continue;
 
             // Try and make paths relative if we can.
-            std::string value = mapIter->second;
+            std::string value {mapIter->second};
             if (it->type == MD_PATH)
                 value = Utils::FileSystem::createRelativePath(value, relativeTo, true);
 
@@ -241,6 +242,8 @@ void gettextMessageCatalogEntries()
     _p("metadata", "SELECT CONTROLLER");
     _p("metadata", "ALTERNATIVE EMULATOR");
     _p("metadata", "SELECT ALTERNATIVE EMULATOR");
+    _p("metadata", "LAUNCH ON SCREEN");
+    _p("metadata", "LAUNCH ON WHICH SCREEN");
     _p("metadata", "FOLDER LINK");
     _p("metadata", "SELECT FOLDER LINK");
     _p("metadata", "LAST PLAYED");

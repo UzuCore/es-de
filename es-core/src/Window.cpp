@@ -1004,10 +1004,10 @@ bool Window::stopScreensaver()
     return false;
 }
 
-void Window::startMediaViewer(FileData* game)
+void Window::startMediaViewer(FileData* game, bool fromPDFViewer)
 {
     if (mMediaViewer) {
-        if (mMediaViewer->startMediaViewer(game)) {
+        if (mMediaViewer->startMediaViewer(game, fromPDFViewer)) {
             setAllowTextScrolling(false);
             setAllowFileAnimation(false);
 

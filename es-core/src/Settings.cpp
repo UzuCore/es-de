@@ -304,6 +304,10 @@ void Settings::setDefaults()
 #else
     mBoolMap["VideoUpscaleFrameRate"] = {false, false};
 #endif
+#if defined(__ANDROID__)
+    mBoolMap["RetroArchCoreQueryExperimental"] = {false, false};
+    mBoolMap["RetroArchSAFMode"] = {false, false};
+#endif
     mBoolMap["AlternativeEmulatorPerGame"] = {true, true};
     // === LEGACY PATCH BEGIN === (gamelist.xml 의 hidden 태그를 기본 적용)
     // ShowHiddenFiles 는 원래 기본값 그대로 두어 OS 레벨 숨김 체크(stat) 부담을
@@ -318,6 +322,7 @@ void Settings::setDefaults()
 #if !defined(__IOS__)
     mBoolMap["CustomEventScripts"] = {false, false};
     mBoolMap["CustomEventScriptsBrowsing"] = {false, false};
+    mBoolMap["CustomEventScriptsBrowsingNonBlocking"] = {true, true};
 #endif
     // === LEGACY PATCH BEGIN === (gamelist.xml 기반 게임 표시를 기본 ON)
     // 기존 기본값은 {false, false} 였으나, ROM 디렉토리 스캔 없이 gamelist.xml 만으로
@@ -480,24 +485,36 @@ void Settings::loadFile()
         return;
     }
 
-    for (pugi::xml_node node = doc.child("bool"); node; node = node.next_sibling("bool")) {
-        const std::string name {node.attribute("name").as_string()};
-        // Always force this setting to true, ignore any value from es_settings.xml
-        if (name == "LegacyGamelistFileLocation")
-            continue;
-        setBool(name, node.attribute("value").as_bool());
-    }
-    for (pugi::xml_node node = doc.child("int"); node; node = node.next_sibling("int"))
-        setInt(node.attribute("name").as_string(), node.attribute("value").as_int());
-    for (pugi::xml_node node = doc.child("float"); node; node = node.next_sibling("float"))
-        setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
-    for (pugi::xml_node node = doc.child("string"); node; node = node.next_sibling("string")) {
-        const std::string name {node.attribute("name").as_string()};
-        // Always force Korean, ignore any saved language setting
-        if (name == "ApplicationLanguage")
-            continue;
-        setString(name, node.attribute("value").as_string());
-    }
+    // Load both the forward-compatible nested settings format and legacy flat settings.
+    const pugi::xml_node& root {doc.child("settings")};
+    auto loadSettings = [this](pugi::xml_node parent) {
+        for (pugi::xml_node node {parent.child("bool")}; node;
+             node = node.next_sibling("bool")) {
+            const std::string name {node.attribute("name").as_string()};
+            // Keep the fork-specific settings fixed regardless of saved values.
+            if (name == "LegacyGamelistFileLocation")
+                continue;
+            setBool(name, node.attribute("value").as_bool());
+        }
+        for (pugi::xml_node node {parent.child("int")}; node;
+             node = node.next_sibling("int"))
+            setInt(node.attribute("name").as_string(), node.attribute("value").as_int());
+        for (pugi::xml_node node {parent.child("float")}; node;
+             node = node.next_sibling("float"))
+            setFloat(node.attribute("name").as_string(), node.attribute("value").as_float());
+        for (pugi::xml_node node {parent.child("string")}; node;
+             node = node.next_sibling("string")) {
+            const std::string name {node.attribute("name").as_string()};
+            // The fork forces Korean and ignores saved language settings.
+            if (name == "ApplicationLanguage")
+                continue;
+            setString(name, node.attribute("value").as_string());
+        }
+    };
+
+    if (root != nullptr)
+        loadSettings(root);
+    loadSettings(doc);
 }
 
 // Macro to create the get and set functions for the various data types.

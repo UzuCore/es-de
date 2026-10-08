@@ -40,6 +40,8 @@
         <command label="PUAE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae_libretro.dll %ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae2021_libretro.dll %ROM%</command>
         <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\amiberry_libretro.dll %ROM%</command>
+        <command label="Amiberry (Standalone)">%EMULATOR_AMIBERRY% %INJECT%=%BASENAME%.commands %ROM%</command>
         <platform>amiga</platform>
         <theme>amiga</theme>
     </system>
@@ -51,6 +53,8 @@
         <command label="PUAE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae_libretro.dll %ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae2021_libretro.dll %ROM%</command>
         <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\amiberry_libretro.dll %ROM%</command>
+        <command label="Amiberry (Standalone)">%EMULATOR_AMIBERRY% %INJECT%=%BASENAME%.commands %ROM%</command>
         <platform>amiga</platform>
         <theme>amiga1200</theme>
     </system>
@@ -62,6 +66,8 @@
         <command label="PUAE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae_libretro.dll %ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae2021_libretro.dll %ROM%</command>
         <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% %ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\amiberry_libretro.dll %ROM%</command>
+        <command label="Amiberry (Standalone)">%EMULATOR_AMIBERRY% %INJECT%=%BASENAME%.commands %ROM%</command>
         <platform>amiga</platform>
         <theme>amiga600</theme>
     </system>
@@ -73,6 +79,8 @@
         <command label="PUAE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae_libretro.dll %ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae2021_libretro.dll %ROM%</command>
         <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% --config:amiga-model=CD32 %ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\amiberry_libretro.dll %ROM%</command>
+        <command label="Amiberry (Standalone)">%EMULATOR_AMIBERRY% %INJECT%=%BASENAME%.commands --model CD32 --autoload %ROM%</command>
         <platform>amigacd32</platform>
         <theme>amigacd32</theme>
     </system>
@@ -121,6 +129,7 @@
         <fullname>Apple II</fullname>
         <path>%ROMPATH%\apple2</path>
         <extension>.do .DO .dsk .DSK .nib .NIB .po .PO .7z .7Z .zip .ZIP</extension>
+        <command label="AppleWin">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\applewin_libretro.dll %ROM%</command>
         <command label="AppleWin (Standalone)">%EMULATOR_APPLEWIN% -f -d1 %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module apple2 %ROM%</command>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll "apple2e -rompath \"%GAMEDIRRAW%;%ROMPATH%\apple2\" -gameio joy -flop1 \"%GAMEDIRRAW%\%FILENAME%\""</command>
@@ -146,13 +155,15 @@
         <name>arcade</name>
         <fullname>Arcade</fullname>
         <path>%ROMPATH%\arcade</path>
-        <extension>.bat .BAT .cmd .CMD .gam .GAM .lnk .LNK .neo .NEO .7z .7Z .zip .ZIP</extension>
+        <extension>.acgame .arcadedef .bat .BAT .cmd .CMD .gam .GAM .lindbergh .lnk .LNK .neo .NEO .7z .7Z .zip .ZIP</extension>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME 2010">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2010_libretro.dll %ROM%</command>
         <command label="MAME 2003-Plus">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2003_plus_libretro.dll %ROM%</command>
         <command label="MAME 2003">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2003_libretro.dll %ROM%</command>
         <command label="MAME 2000">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2000_libretro.dll %ROM%</command>
+        <command label="HBMAME">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\hbmame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\arcade %BASENAME%</command>
+        <command label="GroovyMAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_GROOVYMAME% -rompath %GAMEDIR%\;%ROMPATH%\arcade %BASENAME%</command>
         <command label="FinalBurn Neo">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fbneo_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_FINALBURN-NEO% %BASENAME%</command>
         <command label="FB Alpha 2012">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fbalpha2012_libretro.dll %ROM%</command>
@@ -164,9 +175,14 @@
         <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dice_libretro.dll %ROM%</command>
         <command label="Model 2 Emulator (Standalone)">%RUNINBACKGROUND% %STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
         <command label="Model 2 Emulator [Suspend ES-DE] (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
+        <command label="Supermodel">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\supermodel_libretro.dll %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Supermodel Dojo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL-DOJO% %INJECT%=%BASENAME%.commands %ROM%</command>
+        <command label="Linux Loader (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_LINUX-LOADER% %INJECT%=%BASENAME%\%BASENAME%.commands</command>
+        <command label="PCSX2x6 (Standalone)">%EMULATOR_PCSX2X6% -batch %ROM%</command>
+        <command label="Play! Arcade (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_PLAY!% --fullscreen --arcade %GAMEDIR%\%BASENAME%</command>
         <command label="MFME (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_MFME% %ROM%</command>
+        <command label="ArcadeDuck (Standalone)">%EMULATOR_ARCADEDUCK% %ROM%</command>
         <command label="Shortcut or script">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
         <platform>arcade</platform>
         <theme>arcade</theme>
@@ -224,6 +240,7 @@
         <command label="Stella 2014">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\stella2014_libretro.dll %ROM%</command>
         <command label="Stella 2023">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\stella2023_libretro.dll %ROM%</command>
         <command label="Stella (Standalone)">%EMULATOR_STELLA% %ROM%</command>
+        <command label="Tia">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\tia_libretro.dll %ROM%</command>
         <command label="Gopher2600 (Standalone)">%EMULATOR_GOPHER2600% %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Atari 2600" %ROM%</command>
         <platform>atari2600</platform>
@@ -280,6 +297,7 @@
         <fullname>Atari Jaguar CD</fullname>
         <path>%ROMPATH%\atarijaguarcd</path>
         <extension>.abs .ABS .bigpimg .BIGPIMG .bin .BIN .cdi .CDI .cof .COF .cue .CUE .j64 .J64 .jag .JAG .prg .PRG .rom .ROM</extension>
+        <command label="Virtual Jaguar">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\virtualjaguar_libretro.dll %ROM%</command>
         <command label="BigPEmu (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_BIGPEMU% %ROM%</command>
         <platform>atarijaguarcd</platform>
         <theme>atarijaguarcd</theme>
@@ -303,6 +321,7 @@
         <path>%ROMPATH%\atarist</path>
         <extension>.st .ST .msa .MSA .stx .STX .dim .DIM .ipf .IPF .m3u .M3U .7z .7Z .zip .ZIP</extension>
         <command label="Hatari">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\hatari_libretro.dll %ROM%</command>
+        <command label="Hatari 2014">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\hatari2014_libretro.dll %ROM%</command>
         <command label="Hatari (Standalone)">%EMULATOR_HATARI% %ROM%</command>
         <platform>atarist</platform>
         <theme>atarist</theme>
@@ -374,6 +393,8 @@
         <command label="PUAE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae_libretro.dll %ROM%</command>
         <command label="PUAE 2021">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\puae2021_libretro.dll %ROM%</command>
         <command label="FS-UAE (Standalone)">%EMULATOR_FS-UAE% --config:amiga-model=CDTV %ROM%</command>
+        <command label="Amiberry">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\amiberry_libretro.dll %ROM%</command>
+        <command label="Amiberry (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_AMIBERRY% %INJECT%=%BASENAME%.commands --model CDTV --autoload %ROM%</command>
         <platform>cdtv</platform>
         <theme>cdtv</theme>
     </system>
@@ -417,6 +438,8 @@
         <command label="blueMSX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bluemsx_libretro.dll %ROM%</command>
         <command label="Gearcoleco">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\gearcoleco_libretro.dll %ROM%</command>
         <command label="JollyCV">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\jollycv_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% %ROM%</command>
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine ColecoVision_SGM %INJECT%=%BASENAME%.commands -cart %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "ColecoVision" %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
@@ -428,7 +451,7 @@
         <name>consolearcade</name>
         <fullname>Console Arcade Systems</fullname>
         <path>%ROMPATH%\consolearcade</path>
-        <extension>.arcadedef .bat .BAT .iso .ISO .lnk .LNK .ps3 .PS3 .xbe .XBE .7z .7Z .zip .ZIP</extension>
+        <extension>.acgame .arcadedef .bat .BAT .iso .ISO .lnk .LNK .ps3 .PS3 .xbe .XBE .7z .7Z .zip .ZIP</extension>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\consolearcade %BASENAME%</command>
         <command label="Flycast">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\flycast_libretro.dll %ROM%</command>
@@ -436,6 +459,7 @@
         <command label="Flycast Dojo (Standalone)">%EMULATOR_FLYCAST-DOJO% %ROM%</command>
         <command label="Kronos">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\kronos_libretro.dll %ROM%</command>
         <command label="Mednafen [Sega Saturn] (Standalone)">%EMULATOR_MEDNAFEN% -force_module ss %ROM%</command>
+        <command label="PCSX2x6 (Standalone)">%EMULATOR_PCSX2X6% -batch %ROM%</command>
         <command label="Play! Arcade (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_PLAY!% --fullscreen --arcade %GAMEDIR%\%BASENAME%</command>
         <command label="Play! Disc (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_PLAY!% --fullscreen --disc %ROM%</command>
         <command label="RPCS3 Shortcut (Standalone)">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
@@ -446,6 +470,7 @@
         <command label="Triforce (Standalone)">%EMULATOR_TRIFORCE% -b -e %ROM%</command>
         <command label="xemu (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_XEMU% -dvd_path %ROM%</command>
         <command label="Cxbx-Reloaded (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_CXBX-RELOADED% %ROM%</command>
+        <command label="ArcadeDuck (Standalone)">%EMULATOR_ARCADEDUCK% %ROM%</command>
         <command label="Shortcut or script">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
         <platform>arcade</platform>
         <theme>consolearcade</theme>
@@ -542,6 +567,7 @@
         <extension>.daphne .dirksimple .mmi .MMI .ogv .OGV .singe .7z .7Z .zip .ZIP</extension>
         <command label="Hypseus [Daphne] (Standalone)">%EMULATOR_HYPSEUS-SINGE% %BASENAME% vldp -framefile %GAMEDIR%\%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
         <command label="Hypseus [Singe] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -framefile %GAMEDIR%\%BASENAME%.txt -script %GAMEDIR%\%BASENAME%.singe %INJECT%=%BASENAME%.commands</command>
+        <command label="Hypseus [Singe ZLUA] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -zlua %GAMEDIR%/%BASENAME%.zip -framefile %GAMEDIR%/%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\daphne %BASENAME%</command>
         <command label="DirkSimple">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dirksimple_libretro.dll %ROM%</command>
@@ -662,9 +688,11 @@
         <extension>.3dsen .3DSEN .fds .FDS .nes .NES .unf .UNF .unif .UNIF .7z .7Z .zip .ZIP</extension>
         <command label="Mesen">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
         <command label="QuickNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\quicknes_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
@@ -704,8 +732,10 @@
         <extension>.nes .NES .fds .FDS .unf .UNF .UNIF .UNIF .7z .7Z .zip .ZIP</extension>
         <command label="Mesen">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom Disk System" %ROM%</command>
         <platform>fds</platform>
@@ -798,10 +828,14 @@
         <command label="Gearsystem">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\gearsystem_libretro.dll %ROM%</command>
         <command label="SMS Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\smsplus_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m gg %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gg %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Gear" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gamegear</platform>
         <theme>gamegear</theme>
     </system>
@@ -820,6 +854,7 @@
         <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\irogb_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bsnes_libretro.dll %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mgba_libretro.dll %ROM%</command>
         <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
@@ -830,6 +865,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gb</platform>
         <theme>gb</theme>
     </system>
@@ -851,6 +887,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gba %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Advance" %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <platform>gba</platform>
         <theme>gba</theme>
     </system>
@@ -869,6 +906,7 @@
         <command label="IroGB">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\irogb_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="bsnes">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bsnes_libretro.dll %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mgba_libretro.dll %ROM%</command>
         <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
@@ -879,6 +917,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module gb %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Game Boy Color" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>gbc</platform>
         <theme>gbc</theme>
     </system>
@@ -970,6 +1009,7 @@
         <extension>.daphne .dirksimple .mmi .MMI .ogv .OGV .singe .7z .7Z .zip .ZIP</extension>
         <command label="Hypseus [Daphne] (Standalone)">%EMULATOR_HYPSEUS-SINGE% %BASENAME% vldp -framefile %GAMEDIR%\%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
         <command label="Hypseus [Singe] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -framefile %GAMEDIR%\%BASENAME%.txt -script %GAMEDIR%\%BASENAME%.singe %INJECT%=%BASENAME%.commands</command>
+        <command label="Hypseus [Singe ZLUA] (Standalone)">%EMULATOR_HYPSEUS-SINGE% singe vldp -zlua %GAMEDIR%/%BASENAME%.zip -framefile %GAMEDIR%/%BASENAME%.txt %INJECT%=%BASENAME%.commands</command>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\laserdisc %BASENAME%</command>
         <command label="DirkSimple">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dirksimple_libretro.dll %ROM%</command>
@@ -1035,13 +1075,15 @@
         <name>mame</name>
         <fullname>Multiple Arcade Machine Emulator</fullname>
         <path>%ROMPATH%\mame</path>
-        <extension>.bat .BAT .cmd .CMD .gam .GAM .lnk .LNK .neo .NEO .7z .7Z .zip .ZIP</extension>
+        <extension>.acgame .arcadedef .bat .BAT .cmd .CMD .gam .GAM .lindbergh .lnk .LNK .neo .NEO .7z .7Z .zip .ZIP</extension>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME 2010">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2010_libretro.dll %ROM%</command>
         <command label="MAME 2003-Plus">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2003_plus_libretro.dll %ROM%</command>
         <command label="MAME 2003">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2003_libretro.dll %ROM%</command>
         <command label="MAME 2000">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame2000_libretro.dll %ROM%</command>
+        <command label="HBMAME">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\hbmame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\mame %BASENAME%</command>
+        <command label="GroovyMAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_GROOVYMAME% -rompath %GAMEDIR%\;%ROMPATH%\mame %BASENAME%</command>
         <command label="FinalBurn Neo">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fbneo_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_FINALBURN-NEO% %BASENAME%</command>
         <command label="FB Alpha 2012">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fbalpha2012_libretro.dll %ROM%</command>
@@ -1053,9 +1095,14 @@
         <command label="DICE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\dice_libretro.dll %ROM%</command>
         <command label="Model 2 Emulator (Standalone)">%RUNINBACKGROUND% %STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
         <command label="Model 2 Emulator [Suspend ES-DE] (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_M2EMULATOR% %BASENAME%</command>
+        <command label="Supermodel">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\supermodel_libretro.dll %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Supermodel Dojo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL-DOJO% %INJECT%=%BASENAME%.commands %ROM%</command>
+        <command label="Linux Loader (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_LINUX-LOADER% %INJECT%=%BASENAME%\%BASENAME%.commands</command>
+        <command label="PCSX2x6 (Standalone)">%EMULATOR_PCSX2X6% -batch %ROM%</command>
+        <command label="Play! Arcade (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_PLAY!% --fullscreen --arcade %GAMEDIR%\%BASENAME%</command>
         <command label="MFME (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_MFME% %ROM%</command>
+        <command label="ArcadeDuck (Standalone)">%EMULATOR_ARCADEDUCK% %ROM%</command>
         <command label="Shortcut or script">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
         <platform>arcade</platform>
         <theme>mame</theme>
@@ -1079,10 +1126,14 @@
         <command label="SMS Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\smsplus_libretro.dll %ROM%</command>
         <command label="Gearsystem">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\gearsystem_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m sms %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module sms %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Master System" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>mastersystem</platform>
         <theme>mark3</theme>
     </system>
@@ -1096,10 +1147,14 @@
         <command label="SMS Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\smsplus_libretro.dll %ROM%</command>
         <command label="Gearsystem">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\gearsystem_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m sms %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module sms %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Master System" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>mastersystem</platform>
         <theme>mastersystem</theme>
     </system>
@@ -1111,6 +1166,8 @@
         <command label="Genesis Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_libretro.dll %ROM%</command>
         <command label="Genesis Plus GX Wide">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_wide_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% %ROM%</command>
         <command label="ClownMDEmu">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\clownmdemu_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -1125,6 +1182,8 @@
         <command label="Genesis Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_libretro.dll %ROM%</command>
         <command label="Genesis Plus GX Wide">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_wide_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% %ROM%</command>
         <command label="ClownMDEmu">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\clownmdemu_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -1202,6 +1261,7 @@
         <fullname>Sega Model 3</fullname>
         <path>%ROMPATH%\model3</path>
         <extension>.7z .7Z .zip .ZIP</extension>
+        <command label="Supermodel">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\supermodel_libretro.dll %ROM%</command>
         <command label="Supermodel (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="Supermodel Dojo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_SUPERMODEL-DOJO% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
@@ -1228,6 +1288,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx</platform>
         <theme>msx</theme>
     </system>
@@ -1241,6 +1302,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine National_CF-3300 %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx</platform>
         <theme>msx1</theme>
     </system>
@@ -1254,6 +1316,7 @@
         <command label="openMSX (Standalone)">%EMULATOR_OPENMSX% -machine Panasonic_FS-A1WSX %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="openMSX No Machine (Standalone)">%EMULATOR_OPENMSX% %INJECT%=%BASENAME%.commands %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "MSX2" %ROM%</command>
+        <command label="Emulicious (Standalone)">%EMULATOR_EMULICIOUS% %ROM%</command>
         <platform>msx2</platform>
         <theme>msx2</theme>
     </system>
@@ -1397,6 +1460,7 @@
         <command label="FinalBurn Neo">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fbneo_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_FINALBURN-NEO% %BASENAME%</command>
         <command label="Geolith">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\geolith_libretro.dll %ROM%</command>
+        <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\neogeo %BASENAME%</command>
         <platform>neogeo</platform>
         <theme>neogeo</theme>
@@ -1409,6 +1473,7 @@
         <command label="NeoCD">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\neocd_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo">%EMULATOR_RETROARCH% --subsystem neocd -L %CORE_RETROARCH%\fbneo_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_FINALBURN-NEO% neocdz -cd %ROM%</command>
+        <command label="Geolith">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\geolith_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\neogeocd neocdz -cdrm %ROM%</command>
         <platform>neogeocd</platform>
         <theme>neogeocd</theme>
@@ -1421,6 +1486,7 @@
         <command label="NeoCD">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\neocd_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo">%EMULATOR_RETROARCH% --subsystem neocd -L %CORE_RETROARCH%\fbneo_libretro.dll %ROM%</command>
         <command label="FinalBurn Neo (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_FINALBURN-NEO% neocdz -cd %ROM%</command>
+        <command label="Geolith">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\geolith_libretro.dll %ROM%</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\neogeocdjp neocdz -cdrm %ROM%</command>
         <platform>neogeocd</platform>
         <theme>neogeocdjp</theme>
@@ -1432,9 +1498,11 @@
         <extension>.3dsen .3DSEN .fds .FDS .nes .NES .unf .UNF .unif .UNIF .7z .7Z .zip .ZIP</extension>
         <command label="Mesen">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Nestopia UE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\nestopia_libretro.dll %ROM%</command>
         <command label="FCEUmm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\fceumm_libretro.dll %ROM%</command>
         <command label="QuickNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\quicknes_libretro.dll %ROM%</command>
+        <command label="RustyNES">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\rustynes_libretro.dll %ROM%</command>
         <command label="puNES (Standalone)">%EMULATOR_PUNES% -u yes %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module nes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Famicom" %ROM%</command>
@@ -1557,8 +1625,9 @@
         <name>pcarcade</name>
         <fullname>PC Arcade Systems</fullname>
         <path>%ROMPATH%\pcarcade</path>
-        <extension>.bat .BAT .lnk .LNK</extension>
+        <extension>.bat .BAT .lindbergh .lnk .LNK</extension>
         <command label="Shortcut or script">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
+        <command label="Linux Loader (Standalone)">%STARTDIR%=%GAMEENTRYDIR% %EMULATOR_LINUX-LOADER% %INJECT%=%BASENAME%\%BASENAME%.commands</command>
         <platform>arcade</platform>
         <theme>pcarcade</theme>
     </system>
@@ -1574,6 +1643,7 @@
         <command label="Geargrafx (Standalone)">%EMULATOR_GEARGRAFX% %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine" %ROM%</command>
         <platform>pcengine</platform>
         <theme>pcengine</theme>
@@ -1590,6 +1660,7 @@
         <command label="Geargrafx (Standalone)">%EMULATOR_GEARGRAFX% %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine CD" %ROM%</command>
         <platform>pcenginecd</platform>
         <theme>pcenginecd</theme>
@@ -1656,6 +1727,7 @@
         <fullname>Sony PlayStation 2</fullname>
         <path>%ROMPATH%\ps2</path>
         <extension>.bin .BIN .chd .CHD .ciso .CISO .cso .CSO .dump .DUMP .elf .ELF .gz .GZ .lnk .LNK .m3u .M3U .mdf .MDF .img .IMG .iso .ISO .isz .ISZ .ngr .NRG .zso .ZSO</extension>
+        <command label="PCEE2">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\pcee2_libretro.dll %ROM%</command>
         <command label="LRPS2">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\pcsx2_libretro.dll %ROM%</command>
         <command label="PCSX2">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\pcsx2_libretro.dll %ROM%</command>
         <command label="PCSX2 (Standalone)">%EMULATOR_PCSX2% -batch %ROM%</command>
@@ -1774,6 +1846,7 @@
         <command label="bsnes (Standalone)">%EMULATOR_BSNES% --fullscreen %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <platform>satellaview</platform>
         <theme>satellaview</theme>
@@ -1839,6 +1912,8 @@
         <path>%ROMPATH%\sega32x</path>
         <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .m3u .M3U .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m 32x %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
         <platform>sega32x</platform>
         <theme>sega32x</theme>
@@ -1849,6 +1924,8 @@
         <path>%ROMPATH%\sega32xjp</path>
         <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .m3u .M3U .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m 32x %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
         <platform>sega32x</platform>
         <theme>sega32xjp</theme>
@@ -1859,6 +1936,8 @@
         <path>%ROMPATH%\sega32xna</path>
         <extension>.32x .32X .68k .68K .bin .BIN .chd .CHD .cue .CUE .gen .GEN .iso .ISO .m3u .M3U .md .MD .smd .SMD .sms .SMS .7z .7Z .zip .ZIP</extension>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m 32x %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega 32X" %ROM%</command>
         <platform>sega32x</platform>
         <theme>sega32xna</theme>
@@ -1871,6 +1950,8 @@
         <command label="Genesis Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_libretro.dll %ROM%</command>
         <command label="Genesis Plus GX Wide">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_wide_libretro.dll %ROM%</command>
         <command label="PicoDrive">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\picodrive_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% %ROM%</command>
         <command label="ClownMDEmu">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\clownmdemu_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Mega CD" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -1894,6 +1975,7 @@
         <command label="Beetle Supafaust">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mednafen_supafaust_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -1909,6 +1991,8 @@
         <command label="Genesis Plus GX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_libretro.dll %ROM%</command>
         <command label="Genesis Plus GX Wide">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\genesis_plus_gx_wide_libretro.dll %ROM%</command>
         <command label="Gearsystem">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\gearsystem_libretro.dll %ROM%</command>
+        <command label="BlastEm">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\blastem_libretro.dll %ROM%</command>
+        <command label="BlastEm (Standalone)">%EMULATOR_BLASTEM% -m sg %ROM%</command>
         <command label="blueMSX">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\bluemsx_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "SG-1000" %ROM%</command>
@@ -1922,6 +2006,7 @@
         <extension>.gb .GB .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP</extension>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen --gameBoy.useSgb2=true %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="SameBoy">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\sameboy_libretro.dll %ROM%</command>
         <command label="mGBA">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mgba_libretro.dll %ROM%</command>
         <command label="mGBA (Standalone)">%EMULATOR_MGBA% -f %ROM%</command>
@@ -1945,6 +2030,7 @@
         <command label="Beetle Supafaust">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mednafen_supafaust_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -1969,6 +2055,7 @@
         <command label="Beetle Supafaust">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mednafen_supafaust_libretro.dll %ROM%</command>
         <command label="Mesen-S">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen-s_libretro.dll %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module snes %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "Super Famicom" %ROM%</command>
         <command label="jgenesis (Standalone)">%EMULATOR_JGENESIS% --file-path %ROM%</command>
@@ -2044,6 +2131,7 @@
         <command label="Geargrafx (Standalone)">%EMULATOR_GEARGRAFX% %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "SuperGrafx" %ROM%</command>
         <platform>supergrafx</platform>
         <theme>supergrafx</theme>
@@ -2115,6 +2203,7 @@
         <command label="Geargrafx (Standalone)">%EMULATOR_GEARGRAFX% %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine" %ROM%</command>
         <platform>pcengine</platform>
         <theme>tg16</theme>
@@ -2131,6 +2220,7 @@
         <command label="Geargrafx (Standalone)">%EMULATOR_GEARGRAFX% %ROM%</command>
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module pce %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "PC Engine CD" %ROM%</command>
         <platform>pcenginecd</platform>
         <theme>tg-cd</theme>
@@ -2272,6 +2362,7 @@
         <extension>.bin .BIN .7z .7Z .zip .ZIP</extension>
         <command label="MAME - Current">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mame_libretro.dll "vsmile -rompath \"%GAMEDIRRAW%;%ROMPATH%\vsmile\" -cart \"%ROMRAW%\""</command>
         <command label="MAME (Standalone)">%HIDEWINDOW% %STARTDIR%=%EMUDIR% %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%\vsmile vsmile -cart %ROM%</command>
+        <command label="veesem (Standalone)">%EMULATOR_VEESEM% %INJECT%=%BASENAME%.commands %ROM%</command>
         <platform>vsmile</platform>
         <theme>vsmile</theme>
     </system>
@@ -2301,6 +2392,7 @@
         <path>%ROMPATH%\wiiu</path>
         <extension>.elf .ELF .rpx .RPX .tmd .TMD .wua .WUA .wud .WUD .wuhb .WUHB .wux .WUX</extension>
         <command label="Cemu (Standalone)">%EMULATOR_CEMU% -f -g %ROM%</command>
+        <command label="Cemu">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\cemu_libretro.dll %ROM%</command>
         <platform>wiiu</platform>
         <theme>wiiu</theme>
     </system>
@@ -2351,6 +2443,7 @@
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "WonderSwan" %ROM%</command>
         <command label="ares [Benesse Pocket Challenge V2] (Standalone)">%EMULATOR_ARES% --fullscreen --system "Pocket Challenge V2" %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <platform>wonderswan</platform>
         <theme>wonderswan</theme>
     </system>
@@ -2364,6 +2457,7 @@
         <command label="Mednafen (Standalone)">%EMULATOR_MEDNAFEN% -force_module wswan %ROM%</command>
         <command label="ares (Standalone)">%EMULATOR_ARES% --fullscreen --system "WonderSwan Color" %ROM%</command>
         <command label="Mesen (Standalone)">%EMULATOR_MESEN% --fullscreen %ROM%</command>
+        <command label="MesenCE">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\mesen2_libretro.dll %ROM%</command>
         <platform>wonderswancolor</platform>
         <theme>wonderswancolor</theme>
     </system>
@@ -2394,9 +2488,10 @@
         <name>xbox</name>
         <fullname>Microsoft Xbox</fullname>
         <path>%ROMPATH%\xbox</path>
-        <extension>.iso .ISO .xbe .XBE .xiso .XISO</extension>
+        <extension>.iso .ISO .lnk .LNK .xbe .XBE .xiso .XISO</extension>
         <command label="xemu (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_XEMU% -dvd_path %ROM%</command>
         <command label="Cxbx-Reloaded (Standalone)">%STARTDIR%=%EMUDIR% %EMULATOR_CXBX-RELOADED% %ROM%</command>
+        <command label="Shortcut or script">%HIDEWINDOW% %ESCAPESPECIALS% %EMULATOR_OS-SHELL% /C %ROM%</command>
         <platform>xbox</platform>
         <theme>xbox</theme>
     </system>

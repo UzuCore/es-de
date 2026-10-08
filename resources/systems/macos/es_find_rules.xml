@@ -76,6 +76,13 @@
             <entry>/Applications/BasiliskII.app/Contents/MacOS/BasiliskII</entry>
         </rule>
     </emulator>
+    <emulator name="BLASTEM">
+        <!-- Sega Mega Drive/Genesis emulator BlastEm -->
+        <rule type="staticpath">
+            <entry>/opt/homebrew/bin/blastem</entry>
+            <entry>/usr/local/bin/blastem</entry>
+        </rule>
+    </emulator>
     <emulator name="CEMU">
         <!-- Nintendo Wii U emulator Cemu -->
         <rule type="staticpath">
@@ -305,6 +312,12 @@
         <!-- Sony PlayStation 2 emulator PCSX2 -->
         <rule type="staticpath">
             <entry>/Applications/PCSX2.app/Contents/MacOS/PCSX2</entry>
+        </rule>
+    </emulator>
+    <emulator name="PCSX2X6">
+        <!-- Namco System 246 and 256 emulator PCSX2x6 -->
+        <rule type="staticpath">
+            <entry>/Applications/PCSX2x6.app/Contents/MacOS/PCSX2</entry>
         </rule>
     </emulator>
     <emulator name="PICO-8">

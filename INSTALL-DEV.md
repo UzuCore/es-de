@@ -198,7 +198,7 @@ To enable AddressSanitizer which helps with identifying memory issues like corru
 cmake -DCMAKE_BUILD_TYPE=Debug -DASAN=on .
 make -j8
 ```
-Due to buggy AMD GPU drivers it could be a good idea to use the `LSAN_suppressions` file included in the repository to avoid reports of a lot of irrelevant issue, for example:
+To avoid false positives caused by small memory leaks in some system libraries it could be a good idea to use the `LSAN_suppressions` file included in the repository:
 ```
 LSAN_OPTIONS="suppressions=tools/LSAN_suppressions" ./es-de --debug --resolution 2560 1440
 ```
@@ -465,7 +465,7 @@ Both _appimagetool_ and _linuxdeploy_ are required for the build process but the
 
 ## Building on Haiku
 
-It's recommended to run R1/beta5 as the nightly Haiku builds can be quite unstable.
+It's recommended to run R1/beta6 as the nightly Haiku builds can be quite unstable.
 
 If running Haiku in KVM/Qemu, make sure to use SATA storage intead of VirtIO storage as you may otherwise experience stability issues and filesystem corruption.
 
@@ -473,7 +473,7 @@ If running Haiku in KVM/Qemu, make sure to use SATA storage intead of VirtIO sto
 
 Use pkgman to install the required dependencies:
 ```
-pkgman install cmake gettext curl_devel harfbuzz_devel freeimage_devel pugixml_devel libsdl2_devel libgit2_devel freetype_devel ffmpeg6_devel poppler24_devel
+pkgman install cmake gettext curl_devel harfbuzz_devel freeimage_devel pugixml_devel libsdl2_devel libgit2_1.9_devel freetype_devel ffmpeg6_devel poppler24_devel
 ```
 
 To clone the ES-DE source repository, run the following:
@@ -675,23 +675,27 @@ This will be the directory structure for the installation:
 /Applications/ES-DE.app/Contents/MacOS/ES-DE
 /Applications/ES-DE.app/Contents/MacOS/es-pdf-convert
 /Applications/ES-DE.app/Contents/MacOS/libSDL2-2.0.0.dylib
-/Applications/ES-DE.app/Contents/MacOS/libavcodec.60.dylib
-/Applications/ES-DE.app/Contents/MacOS/libavfilter.9.dylib
-/Applications/ES-DE.app/Contents/MacOS/libavformat.60.dylib
-/Applications/ES-DE.app/Contents/MacOS/libavutil.58.dylib
+/Applications/ES-DE.app/Contents/MacOS/libavcodec.62.dylib
+/Applications/ES-DE.app/Contents/MacOS/libavfilter.11.dylib
+/Applications/ES-DE.app/Contents/MacOS/libavformat.62.dylib
+/Applications/ES-DE.app/Contents/MacOS/libavutil.60.dylib
+/Applications/ES-DE.app/Contents/MacOS/libdav1d.7.dylib
 /Applications/ES-DE.app/Contents/MacOS/libfontconfig.1.dylib
 /Applications/ES-DE.app/Contents/MacOS/libfreetype.6.dylib
-/Applications/ES-DE.app/Contents/MacOS/libgit2.1.6.dylib
+/Applications/ES-DE.app/Contents/MacOS/libgit2.1.9.dylib
+/Applications/ES-DE.app/Contents/MacOS/libharfbuzz.dylib
+/Applications/ES-DE.app/Contents/MacOS/libicudata.78.dylib
+/Applications/ES-DE.app/Contents/MacOS/libicui18n.78.dylib
+/Applications/ES-DE.app/Contents/MacOS/libicuuc.78.dylib
+/Applications/ES-DE.app/Contents/MacOS/libintl.8.dylib
 /Applications/ES-DE.app/Contents/MacOS/libjpeg.62.dylib
 /Applications/ES-DE.app/Contents/MacOS/libopenjp2.7.dylib
-/Applications/ES-DE.app/Contents/MacOS/libpoppler-cpp.0.dylib
-/Applications/ES-DE.app/Contents/MacOS/libpoppler.129.dylib
-/Applications/ES-DE.app/Contents/MacOS/libpostproc.57.dylib
-/Applications/ES-DE.app/Contents/MacOS/libswresample.4.dylib
-/Applications/ES-DE.app/Contents/MacOS/libswscale.7.dylib
+/Applications/ES-DE.app/Contents/MacOS/libpoppler-cpp.3.dylib
+/Applications/ES-DE.app/Contents/MacOS/libpoppler.161.dylib
+/Applications/ES-DE.app/Contents/MacOS/libswresample.6.dylib
+/Applications/ES-DE.app/Contents/MacOS/libswscale.9.dylib
 /Applications/ES-DE.app/Contents/MacOS/libtiff.6.dylib
-/Applications/ES-DE.app/Contents/MacOS/libvorbis.0.4.9.dylib
-/Applications/ES-DE.app/Contents/MacOS/libvorbisenc.2.0.12.dylib
+/Applications/ES-DE.app/Contents/MacOS/libzstd.1.dylib
 /Applications/ES-DE.app/Contents/Resources/ES-DE.icns
 /Applications/ES-DE.app/Contents/Resources/LICENSE
 /Applications/ES-DE.app/Contents/Resources/licenses/*
@@ -1834,8 +1838,10 @@ https://developer.android.com/reference/android/content/Intent
 
 There is a command line tool in Android named _am_ which implements the _Intent_ API and can be used to test emulator launching, but this is not intended to be used by other applications and therefore ES-DE implements direct (albeit partial) support for the Intent API. Testing the modern FileProvider interface using the _am_ utility is unfortunately not really possible as access permission is provided by the calling process, i.e. ES-DE.
 
-The es_find_rules.xml and es_systems.xml files are kept in an Android-internal directory and can't be accessed directly, but you can find them at the following location:\
+The es_find_rules.xml, es_systems.xml and es_systems_saf.xml files are kept in an Android-internal directory and can't be accessed directly, but you can find them at the following location:\
 https://gitlab.com/es-de/emulationstation-de/-/tree/master/resources/systems/android
+
+The purpose of the es_systems_saf.xml file is only to support launching of games in SAF mode via RetroArch. Apart from that it's identical to the regular es_systems.xml file. It's of no additional relevance or importance so it won't be covered further in this document.
 
 **es_find_rules.xml**
 
@@ -2272,6 +2278,7 @@ There are two basic categories of metadata, `game` and `folders` and the metdata
 * `playtime` - integer, the number of seconds that the game has been played
 * `controller` - string, used to display controller badges
 * `altemulator` - string, overrides the emulator/launch command on a per game basis
+* `screen` - string, overrides on which screen to launch the game, can be set to `other` or `primary` (only used on Android)
 * `lastplayed` - statistic, datetime, the last date and time this game was played
 
 For folders, most of the fields are identical although some are removed. In the list below, the fields with identical function compared to the game files described above have been left without a description.
@@ -2418,6 +2425,8 @@ There are numerous locations throughout ES-DE where custom scripts can be execut
 
 The approach is quite straightforward, ES-DE will look for any files inside a script directory that corresponds to the event that is triggered and will then attempt to execute all these files (regardless of their file extensions, except on Windows where only .bat files can be used). If you want to have the scripts executed in a certain order you can name them accordingly as they will be sorted and executed in lexicographic order. The sorting is case-sensitive on Linux and Android and case-insensitive on macOS and Windows. ES-DE will wait for each script to finish its execution before moving on to the next one, so the application will suspend briefly when whatever the script is doing is executing. If you want to avoid this you can setup a wrapper script that executes another script outside the ES-DE scripts directory as a background process. Refer to your operating system documentation on how to accomplish this.
 
+There is an exception to this behavior though, which is for the browsing events _game-select_ and _system-select_ if you have the setting _Run browsing events as non-blocking_ enabled. In this case the scripts will execute in a separate thread and ES-DE will not wait for them to finish before attempting to run the next script. Turning off this menu option will however make these events behave exactly like the other ones.
+
 Note that on Android there are some limitations for what can be done in scripts due to the security model of the operating system, for example you're not able to run the _am_ command from a script as the Android app sandboxing prevents that.
 
 On Windows PowerShell scripts can't be executed directly but they can be run via .bat wrapper script where you explicitly call powershell.exe with the -command flag. Just be aware that by default the execution of PowerShell scripts is disabled on Windows. Further details about PowerShell is beyond the scope of this document.
@@ -2442,6 +2451,8 @@ There are up to four parameters that will be passed to these scripts, as detaile
 | screensaver-start        | _timer_ or _manual_                                                                     | Screensaver started via timer or manually                                                         |
 | screensaver-end          | _cancel_ or _game-jump_ or _game-start_                                                 | Screensaver ended via cancellation, jump to game or start/launch of game                          |
 | screensaver-game-select  | ROM path, game name, system name, system full name                                      | Screensaver selected a new random game                                                            |
+| mediaviewer-start        | ROM path, game name, system name, system full name                                      | Media viewer started by user                                                                      |
+| mediaviewer-end          |                                                                                         | Media viewer stopped by user                                                                      |
 | scraper-start            | Scraper service, _automatic_ or _interactive_, number of systems, total number of games | On starting the multi-scraper in automatic or interactive mode                                    |
 | scraper-end              | Number of scraped games, number of skipped games, _finished_ or _stopped_               | On ending the multi-scraper (scraping finished or manually stopped by the user)                   |
 | game-select              | ROM path, game name, system name, system full name                                      | On browsing games in the gamelist view, requires enabling of the _Browsing custom events_ setting |
@@ -2449,7 +2460,7 @@ There are up to four parameters that will be passed to these scripts, as detaile
 
 ***)** Parameters in _italics_ are literal strings.
 
-Note that the _game-select_ and _system-select_ events require that the _Browsing custom events_ option in the Other settings menu is enabled. Also note that enabling this could lead to a lot of latency in the application as the event is triggered so frequently. So only enable these events if you really need them. And if you do, then make sure to execute scripts that run their activities in the background and immediately return to ES-DE, rather than blocking ES-DE during the script execution.
+Note that the _game-select_ and _system-select_ events require that the _Browsing custom events_ option in the Other settings menu is enabled. Also note that due to these events being triggered so frequently, enabling this could lead to a lot of latency in the application unless the _Run browsing events as non-blocking_ option has been enabled.
 
 For the _game-select_ event, when starting to fast scroll in the gamelist view, an event containing blank parameters will be triggered so that you can detect this state.
 
@@ -2522,19 +2533,17 @@ First create the game start script, let's name it `set_resolution_1080p.sh` with
 
 ```
 #!/bin/sh
-xrandr -s 1920x1080
+kscreen-doctor output.HDMI-A-1.mode.1920x1080@60
 ```
 
 Then create the end script, which we'll name `set_resolution_4K.sh`:
 
 ```
 #!/bin/sh
-xrandr -s 3840x2160
-sleep 0.3
-xdotool search --class es-de windowactivate
+kscreen-doctor output.HDMI-A-1.mode.3840x2160@60
 ```
 
-The last two lines are optional, they're used to set the focus back to ES-DE in case you're running attention-seeking applications such as Kodi which may steal focus after resolution changes. You may need to adjust the sleep time to get this to work reliably though, as the timing may differ between different computers and graphics drivers.
+This is just an example and you will likely need to change the device name from HDMI-A-1 and perhaps also the refresh rate, depending on your setup.
 
 After creating the two scripts, you should have something like this on the filesystem:
 

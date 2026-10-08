@@ -203,10 +203,12 @@ const std::string FileData::getPlayTimeString(const std::string& playTimeSeconds
     int playTimeValue {0};
 
     try {
-        playTimeValue = std::stoi(playTimeSeconds);
+        if (playTimeSeconds != "") {
+            playTimeValue = std::stoi(playTimeSeconds);
 
-        if (playTimeValue < 0)
-            playTimeValue = 0;
+            if (playTimeValue < 0)
+                playTimeValue = 0;
+        }
     }
     catch (...) {
         playTimeValue = 0;
@@ -1124,6 +1126,9 @@ void FileData::launchGame()
     SystemData* gameSystem {nullptr};
     std::string command;
     std::string alternativeEmulator;
+#if defined(__ANDROID__)
+    bool launchOnOtherScreen {false};
+#endif
 
     if (mSystem->isCollection())
         gameSystem = SystemData::getSystemByName(mSystemName);
@@ -1174,6 +1179,41 @@ void FileData::launchGame()
             LOG(LogDebug) << "FileData::launchGame(): Using default emulator";
         }
     }
+
+#if defined(__ANDROID__)
+    if (Settings::getInstance()->getBool("LaunchOnOtherScreen")) {
+        launchOnOtherScreen = gameSystem->getLaunchOnOtherScreen();
+        std::string screenValue {metadata.get("screen")};
+
+        if (screenValue != "" && screenValue != "other" && screenValue != "primary")
+            screenValue = "";
+
+        if (screenValue == "") {
+            if (launchOnOtherScreen) {
+                LOG(LogDebug)
+                    << "FileData::launchGame(): Launching game on other screen as configured "
+                       "for system \""
+                    << gameSystem->getName() << "\"";
+            }
+            else {
+                LOG(LogDebug)
+                    << "FileData::launchGame(): Launching game on primary screen as configured "
+                       "for system \""
+                    << gameSystem->getName() << "\"";
+            }
+        }
+        else if (screenValue == "other") {
+            LOG(LogDebug) << "FileData::launchGame(): Launching on other screen as configured "
+                             "for the specific game";
+            launchOnOtherScreen = true;
+        }
+        else if (screenValue == "primary") {
+            LOG(LogDebug) << "FileData::launchGame(): Launching on primary screen as configured "
+                             "for the specific game";
+            launchOnOtherScreen = false;
+        }
+    }
+#endif
 
     if (command.empty())
         command = mEnvData->mLaunchCommands.front().first;
@@ -2335,6 +2375,63 @@ void FileData::launchGame()
         LOG(LogInfo) << "Extra bool name: " << extra.first;
         LOG(LogInfo) << "Extra bool value: " << extra.second;
     }
+
+    if (Settings::getInstance()->getBool("RetroArchCoreQueryExperimental") &&
+        androidPackage.substr(0, 13) == "com.retroarch") {
+        std::string coreFile;
+
+        for (auto& extra : androidExtrasString) {
+            if (extra.first == "LIBRETRO")
+                coreFile = extra.second;
+        }
+
+        if (coreFile != "") {
+            const size_t pos {coreFile.find_last_of("/")};
+
+            if (pos != std::string::npos && pos != coreFile.length() - 1) {
+                coreFile = coreFile.substr(pos + 1, coreFile.length() - pos);
+                LOG(LogInfo) << "Checking whether the RetroArch core \"" << coreFile
+                             << "\" is installed";
+            }
+            else {
+                coreFile = "";
+            }
+        }
+
+        if (coreFile == "") {
+            LOG(LogWarning) << "Could not check for installed RetroArch core as no core path "
+                               "could be found in launch command";
+        }
+        else {
+            const int returnValue {
+                Utils::Platform::Android::checkRACoreInstalled(androidPackage, coreFile)};
+
+            if (returnValue == 1) {
+                LOG(LogInfo) << "Emulator core is installed, proceeding with game launch";
+            }
+            else if (returnValue == 0) {
+                LOG(LogError) << "Couldn't launch game, emulator core is not installed";
+
+                window->queueInfoPopup(
+                    Utils::String::format(
+                        _("ERROR: COULDN'T FIND EMULATOR CORE FILE '%s'"),
+                        Utils::String::toUpper(Utils::FileSystem::getFileName(coreFile)).c_str()),
+                    6000);
+                window->setAllowTextScrolling(true);
+                window->setAllowFileAnimation(true);
+                return;
+            }
+            else if (returnValue == -1) {
+                LOG(LogWarning) << "Timed out attempting to query RetroArch, proceeding with game "
+                                   "launch anyway";
+            }
+            else if (returnValue == -2) {
+                LOG(LogError) << "Unknown issue triggered an exception when querying RetroArch, "
+                                 "proceeding with game launch anyway";
+            }
+        }
+    }
+
 #else
     LOG(LogInfo) << "Expanded emulator launch command:";
     LOG(LogInfo) << command;
@@ -2364,8 +2461,7 @@ void FileData::launchGame()
     returnValue = Utils::Platform::Android::launchGame(
         androidPackage, androidActivity, androidAction, androidCategory, androidMimeType,
         androidData, mEnvData->mStartPath, romRaw, androidExtrasString, androidExtrasStringArray,
-        androidExtrasInteger, androidExtrasBool, androidActivityFlags,
-        Settings::getInstance()->getBool("LaunchOnOtherScreen"));
+        androidExtrasInteger, androidExtrasBool, androidActivityFlags, launchOnOtherScreen);
 #else
 
 #if defined(DEINIT_ON_LAUNCH)

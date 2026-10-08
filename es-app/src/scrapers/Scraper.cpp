@@ -304,7 +304,32 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
                 ext = it->fileURL.substr(dot, std::string::npos);
         }
 
+        ext = Utils::String::toLower(ext);
         std::string filePath {getSaveAsPath(search, it->subDirectory, ext)};
+
+        bool supportedExtension {true};
+
+        if (it->subDirectory == "manuals") {
+            if (ext != ".pdf")
+                supportedExtension = false;
+        }
+        else if (it->subDirectory == "videos") {
+            if (std::find(FileData::sVideoExtensions.cbegin(), FileData::sVideoExtensions.cend(),
+                          ext) == FileData::sVideoExtensions.cend())
+                supportedExtension = false;
+        }
+        else {
+            if (std::find(FileData::sImageExtensions.cbegin(), FileData::sImageExtensions.cend(),
+                          ext) == FileData::sImageExtensions.cend())
+                supportedExtension = false;
+        }
+
+        if (!supportedExtension) {
+            LOG(LogWarning)
+                << "Scraped media has an unsupported file extension, not saving it to disk: \""
+                << filePath << "\"";
+            continue;
+        }
 
         // === LEGACY PATCH BEGIN ===
         // In Legacy mode, after the file is saved, write a relative-path entry into
@@ -316,7 +341,6 @@ MDResolveHandle::MDResolveHandle(const ScraperSearchResult& result,
             Legacy::updateMetadataRelativePath(game, mdKey, startPath, filePath);
         };
         // === LEGACY PATCH END ===
-
         // If there is an existing media file on disk and the setting to overwrite data
         // has been set to no, then don't proceed with downloading or saving a new file.
         if (it->existingMediaFile != "" &&
