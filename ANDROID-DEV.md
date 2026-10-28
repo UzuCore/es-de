@@ -623,6 +623,12 @@ But note that this is only a wrapper for the actual PICO-8 game engine, so you'l
 
 https://www.lexaloffle.com
 
+### Pixl8
+
+This PICO-8 game engine/emulator can be installed from the Play store.
+
+https://play.google.com/store/apps/details?id=be.codedreams.pixl8
+
 ### Pizza Boy emulators
 
 The Pizza Boy GBA/A, Pizza Boy GBC/C and Pizza Boy SC emulators can be installed from the Play store. There are Basic (free) versions and Pro (paid) versions available.
@@ -1077,7 +1083,7 @@ The **@** symbol indicates that the emulator is _deprecated_ and will be removed
 | pcengine              | NEC PC Engine                                  | Beetle PCE                        | Beetle PCE FAST,<br>Beetle SuperGrafx,<br>Geargrafx,<br>MesenCE,<br>PCE.emu **(Standalone)** | No           | Single archive or ROM file           |
 | pcenginecd            | NEC PC Engine CD                               | Beetle PCE                        | Beetle PCE FAST,<br>Beetle SuperGrafx,<br>Geargrafx,<br>MesenCE,<br>PCE.emu **(Standalone)** | Yes          |                                      |
 | pcfx                  | NEC PC-FX                                      | Beetle PC-FX                      |                                   | Yes          |                                      |
-| pico8                 | PICO-8 Fantasy Console                         | PICO-8 **(Standalone)**           | Fake-08,<br>Retro8,<br>Infinity **(Standalone)** | No           | See the specific _PICO-8_ section in the User guide |
+| pico8                 | PICO-8 Fantasy Console                         | PICO-8 **(Standalone)**           | Fake-08,<br>Retro8,<br>Pixl8 **(Standalone)**,<br>Infinity **(Standalone)** | No           | See the specific _PICO-8_ section in the User guide |
 | plus4                 | Commodore Plus/4                               | VICE xplus4                       |                                   | No           | Single archive or image file for tape, cartridge or single-diskette games, .m3u playlist for multi-diskette games |
 | pokemini              | Nintendo Pokémon Mini                          | PokeMini                          |                                   | No           |                                      |
 | ports                 | Ports                                          | ECWolf (Wolfenstein 3D)           | CannonBall (OutRun),<br>Craft (Minecraft),<br>Mr.Boom (Bomberman),<br>NXEngine (Cave Story),<br>drs (Cave Story),<br>OpenLara (Tomb Raider),<br>Super Bros War,<br>Starboard **(Standalone)**,<br>idTech4A++ **(Standalone)**,<br> _Native port_ | Yes for ECWolf |                                      |

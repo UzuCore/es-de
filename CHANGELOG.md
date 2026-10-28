@@ -1,5 +1,19 @@
 # ES-DE Frontend - Changelog
 
+## Version 4.0.0 / 4.0.0-xx (in development)
+
+**Release date:** TBD
+
+### Release overview
+
+### Detailed list of changes
+
+* (Android) Added Pixl8 standalone as an alternative emulator for the pico8 system
+
+### Bug fixes
+
+* Some of the text was overlapping in the Orphaned data cleanup utility for the Italian (it_IT) translations
+
 ## Version 3.5.0 / 3.5.0-65
 
 **Release date:** 2026-09-30
