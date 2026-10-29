@@ -468,6 +468,12 @@ A desktop application that plays background music while you browse your game lib
 
 https://github.com/cesar-rgon/es-de-music-launcher
 
+**ES-DE Translator** _(Windows only)_
+
+This is an automated translation tool that lets you batch-translate game descriptions and more using the Bing translation engine.
+
+https://github.com/sony766/ES-DE_Translator
+
 **CleanReturn for ES-DE** _(Windows only)_
 
 These scripts add more seamless game launching when using for instance Steam or Epic Games Launcher.
