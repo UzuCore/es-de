@@ -13,28 +13,28 @@
             {
                 "name": "WindowsPortable",
                 "filename": "ES-DE_3.5.0-x64_Portable.zip",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718057/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_3.5.0-x64_Portable.zip",
                 "md5": "c13a725b973c1b6b2234a0c414dc4d4e",
                 "message": ""
             },
             {
                 "name": "WindowsInstaller",
                 "filename": "ES-DE_3.5.0-x64.exe",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717909/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_3.5.0-x64.exe",
                 "md5": "2193de4c8cf94538735339091fb18506",
                 "message": ""
             },
             {
                 "name": "macOSApple",
                 "filename": "ES-DE_3.5.0-arm64.dmg",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717468/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_3.5.0-arm64.dmg",
                 "md5": "27eb426bd9dc868134cf8265c761f002",
                 "message": ""
             },
             {
                 "name": "macOSIntel",
                 "filename": "ES-DE_3.5.0-x64.dmg",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357717755/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_3.5.0-x64.dmg",
                 "md5": "37e82e7911ac1b38acdf6afb9647555a",
                 "message": ""
             },
