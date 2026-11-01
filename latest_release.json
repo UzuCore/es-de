@@ -41,21 +41,21 @@
             {
                 "name": "LinuxAppImage",
                 "filename": "ES-DE_x64.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718352/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_x64.AppImage",
                 "md5": "f1b13e453d62ca1842c1253e20e37a0a",
                 "message": ""
             },
             {
                 "name": "LinuxAArch64AppImage",
                 "filename": "ES-DE_aarch64.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718204/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_aarch64.AppImage",
                 "md5": "540f1aa13c34779a48cc66fc56df0966",
                 "message": ""
             },
             {
                 "name": "LinuxSteamDeckAppImage",
                 "filename": "ES-DE_x64_SteamDeck.AppImage",
-                "url": "https://gitlab.com/es-de/emulationstation-de/-/package_files/357718506/download",
+                "url": "https://packages.es-de.org/release/3.5.0/ES-DE_x64_SteamDeck.AppImage",
                 "md5": "df7f42c46a8109256cfbb5941783e896",
                 "message": ""
             }
