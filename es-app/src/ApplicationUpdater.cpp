@@ -37,8 +37,7 @@ ApplicationUpdater::ApplicationUpdater()
     , mCheckedForUpdate {false}
     , mNewVersion {false}
 {
-    mUrl = "https://gitlab.com/api/v4/projects/18817634/repository/files/latest_release.json/"
-           "raw?ref=master";
+    mUrl = "https://updates.es-de.org/latest_release.json";
 
 #if defined(_WIN64)
     if (Settings::getInstance()->getBool("PortableMode"))
