@@ -68,29 +68,29 @@ The Android port of ES-DE is a paid app, which you can get on [Patreon](https://
 
 Here are some highlights, displayed using the default Linear theme.
 
-![alt text](images/es-de_system_view.png "ES-DE System View")
+![alt text](https://cdn.es-de.org/docs/images/es-de_system_view.png "ES-DE System View")
 _The **System view**, which is the default starting point for the application, it's here that you browse through your game systems._
 
-![alt text](images/es-de_gamelist_view.png "ES-DE Gamelist View")
+![alt text](https://cdn.es-de.org/docs/images/es-de_gamelist_view.png "ES-DE Gamelist View")
 _The **Gamelist view**, it's here that you browse the actual games per system._
 
-![alt text](images/es-de_folder_support.png "ES-DE Folder Support")
+![alt text](https://cdn.es-de.org/docs/images/es-de_folder_support.png "ES-DE Folder Support")
 _Another example of the gamelist view, displaying advanced folder support. You can scrape folders for game info and game media, sort folders as you would files, mark them as favorites etc._
 
-![alt text](images/es-de_custom_collections.png "ES-DE Custom Collections")
+![alt text](https://cdn.es-de.org/docs/images/es-de_custom_collections.png "ES-DE Custom Collections")
 _Games can be grouped into your own custom collections, in this example they're defined as genres._
 
-![alt text](images/es-de_scraper_running.png "ES-DE Scraper Running")
+![alt text](https://cdn.es-de.org/docs/images/es-de_scraper_running.png "ES-DE Scraper Running")
 _This is a view of the built-in scraper which downloads game info and game media from either [screenscraper.fr](https://screenscraper.fr) or [thegamesdb.net](https://thegamesdb.net). It's possible to scrape a single game, or to run the multi-scraper which can scrape a complete game system or even your entire collection._
 
-![alt text](images/es-de_scraper_settings.png "ES-DE Scraper Settings")
+![alt text](https://cdn.es-de.org/docs/images/es-de_scraper_settings.png "ES-DE Scraper Settings")
 _There are many settings for the scraper including options to define which type of info and media to download. The above screenshot shows only a portion of these settings._
 
-![alt text](images/es-de_metadata_editor.png "ES-DE Metadata Editor")
+![alt text](https://cdn.es-de.org/docs/images/es-de_metadata_editor.png "ES-DE Metadata Editor")
 _In addition to the scraper there is a fully-featured metadata editor that can be used to modify information on a per-game basis._
 
-![alt text](images/es-de_screensaver.png "ES-DE Screensaver")
+![alt text](https://cdn.es-de.org/docs/images/es-de_screensaver.png "ES-DE Screensaver")
 _There are four built-in screensavers, including a slideshow and a video screensaver that display random games from your collection._
 
-![alt text](images/es-de_ui_theme_support.png "ES-DE Theme Support")
+![alt text](https://cdn.es-de.org/docs/images/es-de_ui_theme_support.png "ES-DE Theme Support")
 _ES-DE is fully themeable, in case you prefer another look than what the default theme Linear offers. The screenshot above shows the Slate theme that is bundled with the application for the desktop ports._
